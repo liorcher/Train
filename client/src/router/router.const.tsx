@@ -10,12 +10,12 @@ export const LOGIN_URL = "/login"
 
 const routes = [
   { path: LOGIN_URL, element: <Login />, id: "Login" },
-  //   { path: /unauthorized`, element: <UnauthorizedPage />, id: "Unauthorized" },
   {
     path: HOME_URL,
     element: <Home />,
     id: "Home",
   },
+  //   { path: /unauthorized`, element: <UnauthorizedPage />, id: "Unauthorized" },
   // {
   //   path: HOME_URL,
   //   element: protectedRoute(<Home />),

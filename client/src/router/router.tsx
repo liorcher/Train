@@ -5,6 +5,7 @@ import { getPagesRoutes } from "@/router/router.const"
 import { CircularProgress } from "@mui/material"
 import { AppLogo } from "@/assets"
 import Navbar from "@/components/Navbar"
+import { AuthProvider } from "@/contexts/AuthContext"
 
 function Router() {
   const routes = createBrowserRouter([
@@ -12,12 +13,10 @@ function Router() {
       path: "/",
       element: (
         <ErrorBoundary FallbackComponent={() => <img src={AppLogo} />}>
-          <Navbar />
-          {/* <AuthorizationProvider> */}
-          {/* <Protected> */}
-          {/* </Protected> */}
-          <Outlet />
-          {/* </AuthorizationProvider> */}
+          <AuthProvider>
+            <Navbar />
+            <Outlet />
+          </AuthProvider>
         </ErrorBoundary>
       ),
       children: getPagesRoutes(),

@@ -6,12 +6,13 @@ import TextField from "@mui/material/TextField"
 import Box from "@mui/material/Box"
 import { useNavigate } from "react-router-dom"
 import { AppLogo } from "@/assets"
-import { HOME_URL } from "@/router/router.const"
+import { HOME_URL, LOGIN_URL } from "@/router/router.const"
 import { IconButton } from "@mui/material"
+import { useAuth } from "@/contexts/AuthContext"
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
-  const condition = false
+  const { currentUser, logout } = useAuth()
 
   return (
     <AppBar position="fixed" sx={{ borderBottom: "0.1rem solid white" }}>
@@ -30,15 +31,22 @@ const Navbar: React.FC = () => {
 
         {/* Right Side: Conditional Rendering */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {condition ? (
-            <TextField
-              variant="outlined"
-              size="small"
-              placeholder="Text Input"
-            />
+          {currentUser ? (
+            <>
+              <TextField
+                variant="outlined"
+                size="small"
+                placeholder="Text Input"
+              />
+              <Button color="inherit" onClick={logout}>
+                SIGN OUT
+              </Button>
+            </>
           ) : (
             <>
-              <Button color="inherit">SIGN IN</Button>
+              <Button color="inherit" onClick={() => navigate(LOGIN_URL)}>
+                SIGN IN
+              </Button>
               <Button color="inherit">SIGN UP</Button>
             </>
           )}
