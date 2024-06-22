@@ -1,25 +1,26 @@
-import './App.css';
-import { theme } from './configs';
-import { ThemeProvider, styled } from '@mui/material';
-import { AppLogo } from './assets';
+import "./App.css"
+import { theme } from "./configs"
+import { ThemeProvider, styled } from "@mui/material"
+import Router from "@/router/router"
 
-const StyledApp = styled('div')(({ theme }) => ({
+const StyledApp = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
-  width: '100vw',
-  height: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+  width: "100vw",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontFamily: theme.typography.fontFamily,
+}))
 
-const App: React.FC = () => {
+function App() {
   return (
     <ThemeProvider theme={theme}>
-      <StyledApp className='app'>
-        <img src={AppLogo} />
+      <StyledApp className="app">
+        <Router />
       </StyledApp>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -3,32 +3,32 @@ import { createTheme } from '@mui/material';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#4B36C7',
-      contrastText: '#fffff',
+      main: "#000000",
+      contrastText: "#ffffff",
     },
     secondary: {
-      light: '#D9D9D9',
-      main: '#BFBFBF',
-      dark: '#BDBDBD',
+      light: "#D9D9D9",
+      main: "#BFBFBF",
+      dark: "#BDBDBD",
     },
     success: {
-      main: '#34AA16',
+      main: "#34AA16",
     },
     error: {
-      main: '#AA1616',
+      main: "#AA1616",
     },
     info: {
-      main: '#ffffff',
-      dark: '#000000',
+      main: "#ffffff",
+      dark: "#000000",
     },
     background: {
-      default: '#000000',
+      default: "#000000",
     },
   },
   typography: {
-    fontFamily: 'Inter',
+    fontFamily: "impact",
     button: {
-      textTransform: 'none',
+      textTransform: "none",
     },
     h1: {
       fontSize: 56,
@@ -47,4 +47,4 @@ export const theme = createTheme({
     },
   },
   spacing: 4,
-});
+})
