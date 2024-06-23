@@ -18,9 +18,23 @@ const Login: React.FC = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const { login } = useAuth()
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!email) {
+      setError("Email is required.")
+      return
+    }
+    if (!emailRegex.test(email)) {
+      setError("Invalid email format.")
+      return
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.")
+      return
+    }
+
     try {
       await login(email, password)
       navigate("/")
@@ -61,6 +75,7 @@ const Login: React.FC = () => {
               Email Address
             </FormLabel>
             <TextField
+              size="small"
               variant="outlined"
               required
               fullWidth
@@ -88,6 +103,7 @@ const Login: React.FC = () => {
               Password
             </FormLabel>
             <TextField
+              size="small"
               variant="outlined"
               required
               fullWidth

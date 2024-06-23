@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
 import {
   User,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -11,6 +12,7 @@ import { UserCredential } from "firebase/auth"
 interface AuthContextType {
   currentUser: User | null
   login: (email: string, password: string) => Promise<UserCredential>
+  signup: (email: string, password: string) => Promise<UserCredential>
   logout: () => Promise<void>
 }
 
@@ -41,6 +43,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return signInWithEmailAndPassword(auth, email, password)
   }
 
+  const signup = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+
   const logout = () => {
     return signOut(auth)
       .then(() => {
@@ -55,6 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     currentUser,
     login,
     logout,
+    signup,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

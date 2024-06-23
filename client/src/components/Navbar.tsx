@@ -6,7 +6,12 @@ import TextField from "@mui/material/TextField"
 import Box from "@mui/material/Box"
 import { useNavigate } from "react-router-dom"
 import { AppLogo } from "@/assets"
-import { HOME_URL, LOGIN_URL, WORKOUTS_URL } from "@/router/router.const"
+import {
+  HOME_URL,
+  LOGIN_URL,
+  SIGNUP_URL,
+  WORKOUTS_URL,
+} from "@/router/router.const"
 import { IconButton } from "@mui/material"
 import { useAuth } from "@/contexts/AuthContext"
 
@@ -49,7 +54,9 @@ const Navbar: React.FC = () => {
               <Button color="inherit" onClick={() => navigate(LOGIN_URL)}>
                 SIGN IN
               </Button>
-              <Button color="inherit">SIGN UP</Button>
+              <Button color="inherit" onClick={() => navigate(SIGNUP_URL)}>
+                SIGN UP
+              </Button>
             </>
           )}
         </Box>
