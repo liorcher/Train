@@ -2,14 +2,13 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 
-// TODO:
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyC71Nw78Nvrkktm5vHUhiGTYcdsuEJYxvo",
+  authDomain: "train-a4088.firebaseapp.com",
+  projectId: "train-a4088",
+  storageBucket: "train-a4088.appspot.com",
+  messagingSenderId: "160421425174",
+  appId: "1:160421425174:web:5b6ade565a1f6084304537",
 }
 
 const app = initializeApp(firebaseConfig)
