@@ -2,8 +2,11 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 
+  const apiUrl = import.meta.env.VITE_FIREBASE_API_KEY
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC71Nw78Nvrkktm5vHUhiGTYcdsuEJYxvo",
+  apiKey: apiUrl,
   authDomain: "train-a4088.firebaseapp.com",
   projectId: "train-a4088",
   storageBucket: "train-a4088.appspot.com",

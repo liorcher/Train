@@ -7,7 +7,6 @@ import {
 } from "firebase/auth"
 import { auth } from "@/configs/firebaseConfig"
 import { UserCredential } from "firebase/auth"
-import { log } from "console"
 
 interface AuthContextType {
   currentUser: User | null
