@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
   const { currentUser, logout } = useAuth()
 
   return (
-    <AppBar position="fixed" sx={{ borderBottom: "0.1rem solid white" }}>
+    <AppBar position="sticky" sx={{ borderBottom: "0.1rem solid white" }}>
       <Toolbar>
         {/* Left Side: Logo and Two Buttons */}
         <Box sx={{ display: "flex", alignItems: "center" }}>

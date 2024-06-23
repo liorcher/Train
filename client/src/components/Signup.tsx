@@ -68,178 +68,192 @@ const SignUp: React.FC = () => {
   return (
     <Box
       sx={{
-        // width: "100%",
-        // maxHeight: "100%",
-        padding: "1rem",
-        backgroundColor: theme.palette.secondary.dark,
-        borderRadius: "8px",
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
-        boxSizing: "border-box",
-        overflowY: "auto",
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: theme.palette.primary.main,
       }}
     >
-      <form onSubmit={handleSubmit}>
-        <Box    
+      <Box
+        sx={{
+          padding: "1rem",
+          backgroundColor: theme.palette.secondary.dark,
+          borderRadius: "8px",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          boxSizing: "border-box",
+          overflowY: "auto",
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <Box
             component="img"
             src={LogoCaption}
-            sx={{ width: "100%", maxWidth: "10vw", marginBottom: "1rem" }}
+            sx={{ width: "100%", maxWidth: "16vw", marginBottom: "1rem" }}
           />
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth margin="normal" required>
-              <FormLabel
-                sx={{
-                  color: theme.palette.primary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Name
-              </FormLabel>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                value={name}
-                placeholder="Your name"
-                onChange={(e) => setName(e.target.value)}
-                sx={{
-                  backgroundColor: theme.palette.primary.contrastText,
-                  borderRadius: "4px",
-                }}
-              />
-            </FormControl>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth margin="normal" required>
+                <FormLabel
+                  sx={{
+                    color: theme.palette.primary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Name
+                </FormLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                  value={name}
+                  placeholder="Your name"
+                  onChange={(e) => setName(e.target.value)}
+                  sx={{
+                    backgroundColor: theme.palette.primary.contrastText,
+                    borderRadius: "4px",
+                  }}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth margin="normal" required>
+                <FormLabel
+                  sx={{
+                    color: theme.palette.primary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Email Address
+                </FormLabel>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  placeholder="example@trainer.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                  sx={{
+                    backgroundColor: theme.palette.primary.contrastText,
+                    borderRadius: "4px",
+                  }}
+                />
+              </FormControl>
+            </Grid>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth margin="normal" required>
-              <FormLabel
-                sx={{
-                  color: theme.palette.primary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Email Address
-              </FormLabel>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                name="email"
-                autoComplete="email"
-                value={email}
-                placeholder="example@trainer.com"
-                onChange={(e) => setEmail(e.target.value)}
-                sx={{
-                  backgroundColor: theme.palette.primary.contrastText,
-                  borderRadius: "4px",
-                }}
-              />
-            </FormControl>
-          </Grid>
-        </Grid>
+          <FormControl fullWidth margin="normal" required>
+            <FormLabel
+              sx={{
+                color: theme.palette.primary.contrastText,
+                textAlign: "left",
+              }}
+            >
+              Phone Number
+            </FormLabel>
+            <TextField
+              size="small"
+              variant="outlined"
+              required
+              fullWidth
+              id="phone"
+              name="phone"
+              autoComplete="phone"
+              value={phone}
+              placeholder="1234567890"
+              onChange={(e) => setPhone(e.target.value)}
+              sx={{
+                backgroundColor: theme.palette.primary.contrastText,
+                borderRadius: "4px",
+              }}
+            />
+          </FormControl>
 
-        <FormControl fullWidth margin="normal" required>
-          <FormLabel
-            sx={{
-              color: theme.palette.primary.contrastText,
-              textAlign: "left",
-            }}
-          >
-            Phone Number
-          </FormLabel>
-          <TextField
-            variant="outlined"
-            required
+          <FormControl fullWidth margin="normal" required>
+            <FormLabel
+              sx={{
+                color: theme.palette.primary.contrastText,
+                textAlign: "left",
+              }}
+            >
+              Password
+            </FormLabel>
+            <TextField
+              size="small"
+              variant="outlined"
+              required
+              fullWidth
+              name="password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+              value={password}
+              placeholder="******"
+              onChange={(e) => setPassword(e.target.value)}
+              sx={{
+                backgroundColor: theme.palette.primary.contrastText,
+                borderRadius: "4px",
+              }}
+            />
+          </FormControl>
+
+          <FormControl fullWidth margin="normal" required>
+            <FormLabel
+              sx={{
+                color: theme.palette.primary.contrastText,
+                textAlign: "left",
+              }}
+            >
+              Confirm Password
+            </FormLabel>
+            <TextField
+              size="small"
+              variant="outlined"
+              required
+              fullWidth
+              name="confirmPassword"
+              type="password"
+              id="confirmPassword"
+              autoComplete="new-password"
+              value={confirmPassword}
+              placeholder="******"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              sx={{
+                backgroundColor: theme.palette.primary.contrastText,
+                borderRadius: "4px",
+              }}
+            />
+          </FormControl>
+
+          {error && (
+            <Typography color="error" sx={{ mb: 2 }}>
+              {error}
+            </Typography>
+          )}
+
+          <Button
+            type="submit"
             fullWidth
-            id="phone"
-            name="phone"
-            autoComplete="phone"
-            value={phone}
-            placeholder="1234567890"
-            onChange={(e) => setPhone(e.target.value)}
-            sx={{
-              backgroundColor: theme.palette.primary.contrastText,
-              borderRadius: "4px",
-            }}
-          />
-        </FormControl>
-
-        <FormControl fullWidth margin="normal" required>
-          <FormLabel
-            sx={{
-              color: theme.palette.primary.contrastText,
-              textAlign: "left",
-            }}
+            variant="contained"
+            color="info"
+            sx={{ mt: 3, mb: 2, borderRadius: "10px" }}
           >
-            Password
-          </FormLabel>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            name="password"
-            type="password"
-            id="password"
-            autoComplete="new-password"
-            value={password}
-            placeholder="******"
-            onChange={(e) => setPassword(e.target.value)}
-            sx={{
-              backgroundColor: theme.palette.primary.contrastText,
-              borderRadius: "4px",
-            }}
-          />
-        </FormControl>
-
-        <FormControl fullWidth margin="normal" required>
-          <FormLabel
-            sx={{
-              color: theme.palette.primary.contrastText,
-              textAlign: "left",
-            }}
-          >
-            Confirm Password
-          </FormLabel>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            name="confirmPassword"
-            type="password"
-            id="confirmPassword"
-            autoComplete="new-password"
-            value={confirmPassword}
-            placeholder="******"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            sx={{
-              backgroundColor: theme.palette.primary.contrastText,
-              borderRadius: "4px",
-            }}
-          />
-        </FormControl>
-
-        {error && (
-          <Typography color="error" sx={{ mb: 2 }}>
-            {error}
-          </Typography>
-        )}
-
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="info"
-          sx={{ mt: 3, mb: 2, borderRadius: "10px" }}
-        >
-          Sign Up
-        </Button>
-      </form>
+            Sign Up
+          </Button>
+        </form>
+      </Box>
     </Box>
   )
 }

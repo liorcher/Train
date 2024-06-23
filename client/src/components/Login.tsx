@@ -46,6 +46,7 @@ const Login: React.FC = () => {
   return (
     <Box
       sx={{
+        width: "100%",
         height: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -55,15 +56,16 @@ const Login: React.FC = () => {
     >
       <Box
         sx={{
-          maxWidth: "400px",
-          padding: "2rem",
+          padding: "1rem",
           backgroundColor: theme.palette.secondary.dark,
           borderRadius: "8px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          boxSizing: "border-box",
+          overflowY: "auto",
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box component="img" src={LogoCaption} sx={{ width: "10vw" }} />
+          <Box component="img" src={LogoCaption} sx={{ width: "16vw" }} />
 
           <FormControl fullWidth margin="normal">
             <FormLabel
