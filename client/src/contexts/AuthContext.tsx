@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react"
 import {
   User,
@@ -8,6 +7,7 @@ import {
 } from "firebase/auth"
 import { auth } from "@/configs/firebaseConfig"
 import { UserCredential } from "firebase/auth"
+import { log } from "console"
 
 interface AuthContextType {
   currentUser: User | null
@@ -44,6 +44,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = () => {
     return signOut(auth)
+      .then(() => {
+        setCurrentUser(null)
+      })
+      .catch((error) => {
+        console.error("Error signing out: ", error)
+      })
   }
 
   const value = {
