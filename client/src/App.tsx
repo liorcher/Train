@@ -1,6 +1,6 @@
 import "./App.css"
 import { theme } from "./configs"
-import { CssBaseline, Stack, ThemeProvider, styled } from "@mui/material"
+import { CssBaseline, Stack, ThemeProvider } from "@mui/material"
 import Router from "@/router/router"
 
 function App() {

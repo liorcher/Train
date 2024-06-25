@@ -12,18 +12,19 @@ import {
 import { useAuth } from "@/contexts/AuthContext"
 import LogoCaption from "@/assets/LogoCaption.png"
 import { theme } from "@/configs"
+import { HOME_URL } from "@/router/router.const"
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  // const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const { signup } = useAuth()
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  const phoneRegex = /^[0-9]{10}$/ // Adjust based on your phone number format requirements
+  // const phoneRegex = /^[0-9]{10}$/ // Adjust based on your phone number format requirements
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -40,14 +41,14 @@ const SignUp: React.FC = () => {
       setError("Invalid email format.")
       return
     }
-    if (!phone) {
-      setError("Phone number is required.")
-      return
-    }
-    if (!phoneRegex.test(phone)) {
-      setError("Invalid phone number format.")
-      return
-    }
+    // if (!phone) {
+    //   setError("Phone number is required.")
+    //   return
+    // }
+    // if (!phoneRegex.test(phone)) {
+    //   setError("Invalid phone number format.")
+    //   return
+    // }
     if (password.length < 6) {
       setError("Password must be at least 6 characters.")
       return
@@ -58,9 +59,10 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      await signup(email, password)
-      navigate("/")
+      await signup(email, password, name)
+      navigate(HOME_URL)
     } catch (err) {
+      console.error("Signup Error: ", err)
       setError("Failed to sign up. Please try again.")
     }
   }
@@ -154,7 +156,7 @@ const SignUp: React.FC = () => {
             </Grid>
           </Grid>
 
-          <FormControl fullWidth margin="normal" required>
+          {/* <FormControl fullWidth margin="normal" required>
             <FormLabel
               sx={{
                 color: theme.palette.primary.contrastText,
@@ -179,7 +181,7 @@ const SignUp: React.FC = () => {
                 borderRadius: "4px",
               }}
             />
-          </FormControl>
+          </FormControl> */}
 
           <FormControl fullWidth margin="normal" required>
             <FormLabel

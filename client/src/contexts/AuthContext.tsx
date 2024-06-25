@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth"
 import { auth } from "@/configs/firebaseConfig"
 import { UserCredential } from "firebase/auth"
@@ -12,7 +13,11 @@ import { UserCredential } from "firebase/auth"
 interface AuthContextType {
   currentUser: User | null
   login: (email: string, password: string) => Promise<UserCredential>
-  signup: (email: string, password: string) => Promise<UserCredential>
+  signup: (
+    email: string,
+    password: string,
+    displayName: string
+  ) => Promise<UserCredential>
   logout: () => Promise<void>
 }
 
@@ -40,11 +45,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [])
 
   const login = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
   }
 
-  const signup = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const signup = async (
+    email: string,
+    password: string,
+    displayName: string
+  ) => {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    if (userCredential.user) {
+      await updateProfile(userCredential.user, {
+        displayName: displayName,
+      })
+    }
   }
 
   const logout = () => {
