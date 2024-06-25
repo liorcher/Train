@@ -17,14 +17,12 @@ import { HOME_URL } from "@/router/router.const"
 const SignUp: React.FC = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  // const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const { signup } = useAuth()
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  // const phoneRegex = /^[0-9]{10}$/ // Adjust based on your phone number format requirements
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -41,14 +39,6 @@ const SignUp: React.FC = () => {
       setError("Invalid email format.")
       return
     }
-    // if (!phone) {
-    //   setError("Phone number is required.")
-    //   return
-    // }
-    // if (!phoneRegex.test(phone)) {
-    //   setError("Invalid phone number format.")
-    //   return
-    // }
     if (password.length < 6) {
       setError("Password must be at least 6 characters.")
       return
@@ -155,33 +145,6 @@ const SignUp: React.FC = () => {
               </FormControl>
             </Grid>
           </Grid>
-
-          {/* <FormControl fullWidth margin="normal" required>
-            <FormLabel
-              sx={{
-                color: theme.palette.primary.contrastText,
-                textAlign: "left",
-              }}
-            >
-              Phone Number
-            </FormLabel>
-            <TextField
-              size="small"
-              variant="outlined"
-              required
-              fullWidth
-              id="phone"
-              name="phone"
-              autoComplete="phone"
-              value={phone}
-              placeholder="1234567890"
-              onChange={(e) => setPhone(e.target.value)}
-              sx={{
-                backgroundColor: theme.palette.primary.contrastText,
-                borderRadius: "4px",
-              }}
-            />
-          </FormControl> */}
 
           <FormControl fullWidth margin="normal" required>
             <FormLabel
