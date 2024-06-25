@@ -1,21 +1,35 @@
 import React from "react"
-import AppBar from "@mui/material/AppBar"
-import Toolbar from "@mui/material/Toolbar"
-import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
-import Box from "@mui/material/Box"
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  IconButton,
+  Typography,
+  Avatar,
+} from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { AppLogo } from "@/assets"
-import { HOME_URL, LOGIN_URL, WORKOUTS_URL } from "@/router/router.const"
-import { IconButton } from "@mui/material"
+import {
+  HOME_URL,
+  LOGIN_URL,
+  SIGNUP_URL,
+  WORKOUTS_URL,
+} from "@/router/router.const"
 import { useAuth } from "@/contexts/AuthContext"
+import LogoutIcon from "@mui/icons-material/Logout"
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const { currentUser, logout } = useAuth()
 
+  const handleLogout = () => {
+    logout()
+    navigate(HOME_URL)
+  }
+
   return (
-    <AppBar position="fixed" sx={{ borderBottom: "0.1rem solid white" }}>
+    <AppBar position="sticky" sx={{ borderBottom: "0.1rem solid white" }}>
       <Toolbar>
         {/* Left Side: Logo and Two Buttons */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -35,21 +49,30 @@ const Navbar: React.FC = () => {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {currentUser ? (
             <>
-              <TextField
-                variant="outlined"
-                size="small"
-                placeholder="Text Input"
+              <Avatar
+                alt={currentUser.displayName || ""}
+                src=""
+                sx={{ marginRight: 1 }}
               />
-              <Button color="inherit" onClick={logout}>
-                SIGN OUT
-              </Button>
+              <Typography
+                variant="body1"
+                color="inherit"
+                sx={{ marginRight: 2 }}
+              >
+                Hello, {currentUser.displayName}
+              </Typography>
+              <IconButton color="inherit" onClick={handleLogout}>
+                <LogoutIcon />
+              </IconButton>
             </>
           ) : (
             <>
               <Button color="inherit" onClick={() => navigate(LOGIN_URL)}>
                 SIGN IN
               </Button>
-              <Button color="inherit">SIGN UP</Button>
+              <Button color="inherit" onClick={() => navigate(SIGNUP_URL)}>
+                SIGN UP
+              </Button>
             </>
           )}
         </Box>

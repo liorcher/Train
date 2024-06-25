@@ -18,9 +18,23 @@ const Login: React.FC = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const { login } = useAuth()
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!email) {
+      setError("Email is required.")
+      return
+    }
+    if (!emailRegex.test(email)) {
+      setError("Invalid email format.")
+      return
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.")
+      return
+    }
+
     try {
       await login(email, password)
       navigate("/")
@@ -32,6 +46,7 @@ const Login: React.FC = () => {
   return (
     <Box
       sx={{
+        width: "100%",
         height: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -41,15 +56,16 @@ const Login: React.FC = () => {
     >
       <Box
         sx={{
-          maxWidth: "400px",
-          padding: "2rem",
+          padding: "1rem",
           backgroundColor: theme.palette.secondary.dark,
           borderRadius: "8px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          boxSizing: "border-box",
+          overflowY: "auto",
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box component="img" src={LogoCaption} sx={{ width: "10vw" }} />
+          <Box component="img" src={LogoCaption} sx={{ width: "16vw" }} />
 
           <FormControl fullWidth margin="normal">
             <FormLabel
@@ -61,6 +77,7 @@ const Login: React.FC = () => {
               Email Address
             </FormLabel>
             <TextField
+              size="small"
               variant="outlined"
               required
               fullWidth
@@ -88,6 +105,7 @@ const Login: React.FC = () => {
               Password
             </FormLabel>
             <TextField
+              size="small"
               variant="outlined"
               required
               fullWidth
