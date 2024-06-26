@@ -14,7 +14,7 @@ export const SIGNUP_URL = "/signup"
 const routes = [
   { path: LOGIN_URL, element: <Login />, id: "Login" },
   { path: SIGNUP_URL, element: <Signup />, id: "Signup" },
-  { path: `/unauthorized`, element: <Unauthorized />, id: "Unauthorized" },
+  { path: UNAUTHORIZED_URL, element: <Unauthorized />, id: "Unauthorized" },
   {
     path: HOME_URL,
     element: <Home />,
