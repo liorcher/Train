@@ -35,10 +35,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user)
+      setLoading(false)
     })
 
     return unsubscribe
@@ -79,10 +81,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const value = {
     currentUser,
+    loading,
     login,
     logout,
     signup,
   }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  )
 }
