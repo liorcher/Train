@@ -3,7 +3,7 @@ import Login from "@components/Login"
 import Home from "@components/Home"
 import { protectedRoute } from "./ProtectedRoute"
 import Unauthorized from "@/components/Unauthorized"
-import WorkoutsPage from "@/components/Workouts/WorkoutsPage"
+import Workouts from "@/components/Workouts"
 import Signup from "@/components/Signup"
 
 export const HOME_URL = "/"
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: WORKOUTS_URL,
-    element: protectedRoute(<WorkoutsPage />),
+    element: protectedRoute(<Workouts />),
     id: "Workouts",
   },
 ]
