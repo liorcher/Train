@@ -16,6 +16,8 @@ const WorkoutPlan = ({ workouts, setWorkout }: Props) => {
   return (
     <Box
       sx={{
+        flexGrow: 1,
+        display: "flex",
         padding: "1rem",
         backgroundColor: theme.palette.secondary.dark,
         borderRadius: "8px",
@@ -23,17 +25,21 @@ const WorkoutPlan = ({ workouts, setWorkout }: Props) => {
         boxSizing: "border-box",
         overflowY: "auto",
         flexDirection: "column",
-        flexGrow: 1,
         height: "100%",
-        margin: "100em",
       }}
     >
       <Typography variant="h3" color="secondary" sx={{ mb: 2 }}>
         Workout Plan
       </Typography>
-      <Button onClick={() => setWorkout(workout1)}>workout1</Button>
-      <Button onClick={() => setWorkout(workout2)}>workout2</Button>
-      <Button onClick={() => setWorkout(workout3)}>workout3</Button>
+      <Button onClick={() => setWorkout(workout1)}>
+        workout1: {workout1.done.toString()}
+      </Button>
+      <Button onClick={() => setWorkout(workout2)}>
+        workout2: {workout2.done.toString()}
+      </Button>
+      <Button onClick={() => setWorkout(workout3)}>
+        workout3: {workout3.done.toString()}
+      </Button>
     </Box>
   )
 }

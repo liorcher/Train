@@ -3,6 +3,7 @@ export type Workout = {
   durationMin: number
   datetime: Date
   calories: number
+  done: boolean
 }
 
 export enum WorkoutType {

@@ -11,18 +11,21 @@ const WorkoutsPage: React.FC = () => {
       datetime: new Date("2021-10-10T10:00:00"),
       durationMin: 60,
       calories: 300,
+      done: true,
     },
     {
       type: WorkoutType.Cardio,
       datetime: new Date("2021-10-10T12:00:00"),
       durationMin: 30,
       calories: 200,
+      done: true,
     },
     {
       type: WorkoutType.Flexibility,
       datetime: new Date("2021-10-10T14:00:00"),
       durationMin: 45,
       calories: 150,
+      done: false,
     },
   ]
 
@@ -37,20 +40,22 @@ const WorkoutsPage: React.FC = () => {
         overflow: "auto",
         width: "100%",
         height: "100%",
+        padding: "1rem",
       }}
     >
       <Stack
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={20}
+        spacing={30}
         sx={{
           width: "100%",
           height: "100%",
+          padding: "1rem",
         }}
       >
         <WorkoutPlan workouts={workouts} setWorkout={setWorkout} />
-        <WorkoutActivity workout={workout} />
+        <WorkoutActivity workout={workout} setWorkout={setWorkout} />
       </Stack>
     </Box>
   )
