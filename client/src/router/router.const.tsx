@@ -3,7 +3,7 @@ import Login from "@components/Login"
 import Home from "@components/Home"
 import { protectedRoute } from "./ProtectedRoute"
 import Unauthorized from "@/components/Unauthorized"
-import Workouts from "@/components/Workouts"
+import WorkoutsPage from "@/components/Workouts/WorkoutsPage"
 import Signup from "@/components/Signup"
 
 export const HOME_URL = "/"
@@ -14,7 +14,7 @@ export const SIGNUP_URL = "/signup"
 const routes = [
   { path: LOGIN_URL, element: <Login />, id: "Login" },
   { path: SIGNUP_URL, element: <Signup />, id: "Signup" },
-  { path: `/unauthorized`, element: <Unauthorized />, id: "Unauthorized" },
+  { path: UNAUTHORIZED_URL, element: <Unauthorized />, id: "Unauthorized" },
   {
     path: HOME_URL,
     element: <Home />,
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: WORKOUTS_URL,
-    element: protectedRoute(<Workouts />),
+    element: protectedRoute(<WorkoutsPage />),
     id: "Workouts",
   },
 ]
