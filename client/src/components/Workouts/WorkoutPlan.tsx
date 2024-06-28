@@ -28,7 +28,7 @@ const WorkoutPlan = ({ workouts, setWorkout }: Props) => {
         height: "100%",
       }}
     >
-      <Typography variant="h3" color="secondary" sx={{ mb: 2 }}>
+      <Typography variant="h3" color="primary.contrastText" sx={{ mb: 2 }}>
         Workout Plan
       </Typography>
       <Button onClick={() => setWorkout(workout1)}>

@@ -1,3 +1,5 @@
+import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike"
+
 export type Workout = {
   type: WorkoutType
   durationMin: number
@@ -10,4 +12,5 @@ export enum WorkoutType {
   Strength = "Strength",
   Cardio = "Cardio",
   Flexibility = "Flexibility",
+  Cycling = "Cycling",
 }
