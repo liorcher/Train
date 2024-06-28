@@ -1,6 +1,6 @@
 import { Workout, WorkoutType } from "@/types/workout.type"
 import { Box, Button, Stack, Typography } from "@mui/material"
-import React, { useMemo } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { format } from "date-fns"
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike"
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter"
@@ -12,38 +12,21 @@ import { getPrettyDuration } from "./WorkoutActivity.utils"
 
 type Props = {
   workout: Workout
-  setWorkout: React.Dispatch<React.SetStateAction<Workout>>
+  setWorkout: Dispatch<SetStateAction<Workout>>
 }
 
 const WorkoutActivity = ({ workout, setWorkout }: Props) => {
-  const duration = useMemo(
-    () => getPrettyDuration(workout.durationMin),
-    [workout.durationMin]
-  )
+  const duration = getPrettyDuration(workout.durationMin)
 
-  const datetime = useMemo(
-    () => format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy"),
-    [workout.datetime]
-  )
+  const datetime = format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy")
 
-  const handleDone = () => {
-    setWorkout({ ...workout, done: true })
+  const workoutIconMap = {
+    [WorkoutType.Cycling]: <DirectionsBikeIcon {...Styles.workoutIcon} />,
+    [WorkoutType.Strength]: <FitnessCenterIcon {...Styles.workoutIcon} />,
+    [WorkoutType.Cardio]: <DirectionsRunIcon {...Styles.workoutIcon} />,
+    [WorkoutType.Flexibility]: <AccessibilityNewIcon {...Styles.workoutIcon} />,
   }
-
-  const workoutIcon = useMemo(() => {
-    switch (workout.type) {
-      case WorkoutType.Cycling:
-        return <DirectionsBikeIcon {...Styles.workoutIcon} />
-      case WorkoutType.Strength:
-        return <FitnessCenterIcon {...Styles.workoutIcon} />
-      case WorkoutType.Cardio:
-        return <DirectionsRunIcon {...Styles.workoutIcon} />
-      case WorkoutType.Flexibility:
-        return <AccessibilityNewIcon {...Styles.workoutIcon} />
-      default:
-        return null
-    }
-  }, [workout.type])
+  const workoutIcon = workoutIconMap[workout.type] || null
 
   const fieldValues = [
     { value: workout.type },
@@ -51,6 +34,10 @@ const WorkoutActivity = ({ workout, setWorkout }: Props) => {
     { label: "Duration", value: duration },
     { label: "Calories burnt", value: `${workout.calories} calories` },
   ]
+
+  const handleDone = () => {
+    setWorkout({ ...workout, done: true })
+  }
 
   return (
     workout && (
