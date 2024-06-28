@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material"
 import React, { useState } from "react"
-import WorkoutActivity from "./WorkoutActivity"
+import WorkoutActivity from "./WorkoutActivity/WorkoutActivity"
 import { Workout, WorkoutType } from "@/types/workout.type"
 import WorkoutPlan from "./WorkoutPlan"
 
