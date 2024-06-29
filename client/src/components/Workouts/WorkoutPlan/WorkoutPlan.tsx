@@ -16,10 +16,10 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
     <Box sx={Styles.outerBox}>
       <Box sx={Styles.titleBox}>
         <Typography {...Styles.title}>Your Weekly Workout Plan</Typography>
-        <Box sx={Styles.workoutIconBox}>
+        <Box sx={Styles.refreshIconBox}>
           <Tooltip title="Refresh workout plan">
             <IconButton onClick={fetchWorkouts}>
-              <Refresh {...Styles.refreshButton} />
+              <Refresh {...Styles.refreshIcon} />
             </IconButton>
           </Tooltip>
         </Box>

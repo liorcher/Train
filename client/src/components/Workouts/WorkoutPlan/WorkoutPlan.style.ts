@@ -19,10 +19,10 @@ const titleBox: SxProps = {
   alignItems: "center",
   mb: "1%",
   pb: 1,
-  borderBottom: `2px solid ${theme.palette.secondary.main}`,
+  borderBottom: `2px solid ${theme.palette.primary.contrastText}`,
 }
 
-const refreshButton: SxProps = {
+const refreshIcon: SxProps = {
   fontSize: "large" as const,
   style: {
     color: theme.palette.primary.contrastText,
@@ -35,7 +35,7 @@ const title: SxProps = {
   sx: { textAlign: "left" },
 }
 
-const workoutIconBox: SxProps = {
+const refreshIconBox: SxProps = {
   ml: "auto",
 }
 
@@ -60,7 +60,7 @@ const workoutPlanItemBox = (isDone: boolean): SxProps<Theme> => ({
   cursor: "pointer",
 })
 
-const field: SxProps = {
+const workoutPlanItemField: SxProps = {
   variant: "h4",
   color: "primary.contrastText",
   sx: { textAlign: "left", width: "100%", mb: 1 },
@@ -80,12 +80,12 @@ const workoutPlanItemIconBox: SxProps = {
 export default {
   outerBox,
   titleBox,
-  refreshButton,
+  refreshIcon,
   title,
-  workoutIconBox,
+  refreshIconBox,
   workoutList,
   workoutPlanItemBox,
-  field,
+  workoutPlanItemField,
   workoutIcon,
   workoutPlanItemIconBox,
 }

@@ -1,11 +1,8 @@
-import { Workout, WorkoutType } from "@/types/workout.type"
-import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew"
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike"
-import DirectionsRunIcon from "@material-ui/icons/DirectionsRun"
-import FitnessCenterIcon from "@material-ui/icons/FitnessCenter"
+import { Workout } from "@/types/workout.type"
 import { Box, Button, Stack, Typography } from "@mui/material"
 import { format } from "date-fns"
 import { Dispatch, SetStateAction } from "react"
+import WorkoutIcon from "../WorkoutIcon"
 import Styles from "./WorkoutActivity.style"
 import { getPrettyDuration } from "./WorkoutActivity.utils"
 import WorkoutActivityField from "./WorkoutActivityField"
@@ -21,14 +18,6 @@ const WorkoutActivity = ({ workout, setWorkout }: Props) => {
   const duration = getPrettyDuration(workout.durationMin)
   const datetime = format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy")
 
-  const workoutIconMap = {
-    [WorkoutType.Cycling]: <DirectionsBikeIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Strength]: <FitnessCenterIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Cardio]: <DirectionsRunIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Flexibility]: <AccessibilityNewIcon {...Styles.workoutIcon} />,
-  }
-  const workoutIcon = workoutIconMap[workout.type]
-
   const fieldValues = [
     { value: workout.type },
     { value: datetime },
@@ -43,9 +32,11 @@ const WorkoutActivity = ({ workout, setWorkout }: Props) => {
   return (
     workout && (
       <Box sx={Styles.outerBox}>
-        <Box sx={Styles.innerBox}>
+        <Box sx={Styles.titleBox}>
           <Typography {...Styles.title}>Workout Details</Typography>
-          <Box sx={Styles.workoutIconBox}>{workoutIcon}</Box>
+          <Box sx={Styles.workoutIconBox}>
+            <WorkoutIcon type={workout.type} />
+          </Box>
         </Box>
 
         <Stack spacing={8}>

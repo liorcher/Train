@@ -1,11 +1,8 @@
-import { Workout, WorkoutType } from "@/types/workout.type"
-import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew"
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike"
-import DirectionsRunIcon from "@material-ui/icons/DirectionsRun"
-import FitnessCenterIcon from "@material-ui/icons/FitnessCenter"
+import { Workout } from "@/types/workout.type"
 import { Box, Typography } from "@mui/material"
 import { format } from "date-fns"
 import { Dispatch, SetStateAction } from "react"
+import WorkoutIcon from "../WorkoutIcon"
 import Styles from "./WorkoutPlan.style"
 
 type Props = {
@@ -17,25 +14,19 @@ type Props = {
 const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
   const datetime = format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy")
 
-  const workoutIconMap = {
-    [WorkoutType.Cycling]: <DirectionsBikeIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Strength]: <FitnessCenterIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Cardio]: <DirectionsRunIcon {...Styles.workoutIcon} />,
-    [WorkoutType.Flexibility]: <AccessibilityNewIcon {...Styles.workoutIcon} />,
-  }
-  const workoutIcon = workoutIconMap[workout.type]
-
   return (
     <Box
       sx={Styles.workoutPlanItemBox(workout.isDone)}
       key={index}
       onClick={() => setWorkout(workout)}
     >
-      <Box sx={Styles.workoutPlanItemIconBox}>{workoutIcon}</Box>
+      <Box sx={Styles.workoutPlanItemIconBox}>
+        <WorkoutIcon type={workout.type} />
+      </Box>
 
       <Box>
-        <Typography {...Styles.field}>{datetime}</Typography>
-        <Typography {...Styles.field}>{workout.type}</Typography>
+        <Typography {...Styles.workoutPlanItemField}>{datetime}</Typography>
+        <Typography {...Styles.workoutPlanItemField}>{workout.type}</Typography>
       </Box>
     </Box>
   )

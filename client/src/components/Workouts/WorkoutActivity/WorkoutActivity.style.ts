@@ -16,19 +16,12 @@ const outerBox: SxProps = {
   margin: "0 auto",
 }
 
-const innerBox: SxProps = {
+const titleBox: SxProps = {
   display: "flex",
   alignItems: "center",
   mb: "5%",
   pb: 1,
-  borderBottom: `2px solid ${theme.palette.secondary.main}`,
-}
-
-const workoutIcon: SxProps = {
-  style: {
-    color: theme.palette.primary.contrastText,
-    fontSize: "3rem",
-  },
+  borderBottom: `2px solid ${theme.palette.primary.contrastText}`,
 }
 
 const title: SxProps = {
@@ -56,8 +49,7 @@ const workoutActivityField: SxProps = {
 
 export default {
   outerBox,
-  innerBox,
-  workoutIcon,
+  titleBox,
   title,
   workoutIconBox,
   doneButtonBox,
