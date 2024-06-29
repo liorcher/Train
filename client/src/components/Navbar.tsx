@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
             <Box component="img" src={AppLogo} sx={{ width: "6vw" }} />
           </IconButton>
           <Button color="inherit" onClick={() => navigate(WORKOUTS_URL)}>
-            WORKOUTES
+            WORKOUTS
           </Button>
           <Button color="inherit">MENU</Button>
         </Box>
