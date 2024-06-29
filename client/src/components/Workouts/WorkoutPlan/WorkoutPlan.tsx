@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader"
 import { Workout } from "@/types/workout.type"
 import { Refresh } from "@mui/icons-material"
 import { Box, IconButton, Tooltip, Typography } from "@mui/material"
@@ -6,7 +7,7 @@ import Styles from "./WorkoutPlan.style"
 import WorkoutPlanItem from "./WorkoutPlanItem"
 
 type Props = {
-  workouts: Workout[]
+  workouts: Workout[] | null
   setWorkout: Dispatch<SetStateAction<Workout | null>>
   fetchWorkouts: () => void
 }
@@ -25,16 +26,22 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
         </Box>
       </Box>
 
-      <Box sx={Styles.workoutList}>
-        {workouts.map((workout, index) => (
-          <WorkoutPlanItem
-            key={index}
-            workout={workout}
-            setWorkout={setWorkout}
-            index={index}
-          />
-        ))}
-      </Box>
+      {!workouts ? (
+        <Loader />
+      ) : workouts.length == 0 ? (
+        <Typography {...Styles.workoutPlanItemField}>Looks like no training this week...</Typography>
+      ) : (
+        <Box sx={Styles.workoutList}>
+          {workouts.map((workout, index) => (
+            <WorkoutPlanItem
+              key={index}
+              workout={workout}
+              setWorkout={setWorkout}
+              index={index}
+            />
+          ))}
+        </Box>
+      )}
     </Box>
   )
 }

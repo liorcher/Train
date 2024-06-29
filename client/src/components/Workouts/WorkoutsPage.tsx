@@ -7,7 +7,7 @@ import Styles from "./WorkoutsPage.style"
 import { workoutsMockData } from "./workoutsMockData"
 
 const WorkoutsPage: React.FC = () => {
-  const [workouts, setWorkouts] = useState<Workout[]>(workoutsMockData)
+  const [workouts, setWorkouts] = useState<Workout[] | null>(null)
   const [workout, setWorkout] = useState<Workout | null>(null)
 
   useEffect(() => {

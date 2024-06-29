@@ -13,7 +13,7 @@ type Props = {
 }
 
 const WorkoutActivity = ({ workout, setWorkout }: Props) => {
-  if (!workout) return null // or return a placeholder UI
+  if (!workout) return null
 
   const duration = getPrettyDuration(workout.durationMin)
   const datetime = format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy")
