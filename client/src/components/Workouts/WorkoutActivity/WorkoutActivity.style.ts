@@ -25,9 +25,9 @@ const innerBox: SxProps = {
 }
 
 const workoutIcon: SxProps = {
-  fontSize: "large" as const,
   style: {
     color: theme.palette.primary.contrastText,
+    fontSize: "3rem",
   },
 }
 
@@ -38,7 +38,7 @@ const title: SxProps = {
 }
 
 const workoutIconBox: SxProps = {
-  ml: 5,
+  ml: "auto",
 }
 
 const doneButton: SxProps = {
@@ -48,6 +48,12 @@ const doneButton: SxProps = {
 
 const doneButtonBox: SxProps = { mt: "auto", alignSelf: "flex-end" }
 
+const workoutActivityField: SxProps = {
+  variant: "h4",
+  color: "primary.contrastText",
+  sx: { textAlign: "left", width: "100%", mb: 1 },
+}
+
 export default {
   outerBox,
   innerBox,
@@ -56,4 +62,5 @@ export default {
   workoutIconBox,
   doneButtonBox,
   doneButton,
+  workoutActivityField,
 }

@@ -1,15 +1,11 @@
 import { Typography } from "@mui/material"
+import Styles from "./WorkoutActivity.style"
 
 type Props = { label?: string; value: string }
 
 const WorkoutActivityField = ({ label, value }: Props) => (
-  <Typography
-    variant="body1"
-    color="primary.contrastText"
-    sx={{ textAlign: "left", width: "100%", mb: 1 }}
-  >
-    {label && <strong>{label}: </strong>}
-    {value}
+  <Typography {...Styles.workoutActivityField}>
+    {label && <strong>{label}: </strong>} {value}
   </Typography>
 )
 

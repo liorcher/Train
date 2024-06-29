@@ -1,11 +1,9 @@
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike"
-
 export type Workout = {
   type: WorkoutType
   durationMin: number
   datetime: Date
   calories: number
-  done: boolean
+  isDone: boolean
 }
 
 export enum WorkoutType {
