@@ -1,7 +1,8 @@
+import { Workout } from "@/types/workout.type"
 import { Box, Stack } from "@mui/material"
+import { find, map } from "lodash"
 import React, { useEffect, useState } from "react"
 import WorkoutActivity from "./WorkoutActivity/WorkoutActivity"
-import { Workout } from "@/types/workout.type"
 import WorkoutPlan from "./WorkoutPlan/WorkoutPlan"
 import Styles from "./WorkoutsPage.style"
 import { workoutsMockData } from "./workoutsMockData"
@@ -11,15 +12,35 @@ const WorkoutsPage: React.FC = () => {
   const [workout, setWorkout] = useState<Workout | null>(null)
 
   useEffect(() => {
-    setWorkouts(workoutsMockData)
-    setWorkout(workoutsMockData[0])
+    fetchWorkouts()
   }, [])
 
   const fetchWorkouts = () => {
-    setWorkouts([])
+    // const serverWorkouts = api.get('/workouts')
+    const serverWorkouts = workoutsMockData
+
+    setWorkouts(null)
     setTimeout(() => {
-      setWorkouts(workoutsMockData)
+      setWorkouts(serverWorkouts)
+      const updatedWorkout =
+        find(serverWorkouts, { id: workout?.id }) ||
+        (serverWorkouts && serverWorkouts[0]) ||
+        null
+      setWorkout(updatedWorkout)
     }, 1000)
+  }
+
+  const updateWorkout = (updatedWorkout: Workout) => {
+    if (!workouts) return
+
+    // const updatedWorkouts = api.post('/workout/:id', { workout: updatedWorkout })
+    // fetchWorkouts()
+
+    const updatedWorkouts = map(workouts, (currentWorkout: Workout) =>
+      currentWorkout.id === updatedWorkout.id ? updatedWorkout : currentWorkout
+    )
+    setWorkouts(updatedWorkouts)
+    setWorkout(updatedWorkout)
   }
 
   return (
@@ -30,7 +51,7 @@ const WorkoutsPage: React.FC = () => {
           setWorkout={setWorkout}
           fetchWorkouts={fetchWorkouts}
         />
-        <WorkoutActivity workout={workout} setWorkout={setWorkout} />
+        <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />
       </Stack>
     </Box>
   )

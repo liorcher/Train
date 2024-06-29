@@ -1,7 +1,6 @@
 import { Workout } from "@/types/workout.type"
 import { Box, Button, Stack, Typography } from "@mui/material"
 import { format } from "date-fns"
-import { Dispatch, SetStateAction } from "react"
 import WorkoutIcon from "../WorkoutIcon"
 import Styles from "./WorkoutActivity.style"
 import { getPrettyDuration } from "./WorkoutActivity.utils"
@@ -9,10 +8,10 @@ import WorkoutActivityField from "./WorkoutActivityField"
 
 type Props = {
   workout: Workout | null
-  setWorkout: Dispatch<SetStateAction<Workout | null>>
+  updateWorkout: (workout: Workout) => void
 }
 
-const WorkoutActivity = ({ workout, setWorkout }: Props) => {
+const WorkoutActivity = ({ workout, updateWorkout }: Props) => {
   if (!workout) return null
 
   const duration = getPrettyDuration(workout.durationMin)
@@ -26,7 +25,7 @@ const WorkoutActivity = ({ workout, setWorkout }: Props) => {
   ]
 
   const handleDone = () => {
-    setWorkout({ ...workout, isDone: true })
+    updateWorkout({...workout, isDone: true})
   }
 
   return (
@@ -45,11 +44,13 @@ const WorkoutActivity = ({ workout, setWorkout }: Props) => {
           ))}
         </Stack>
 
-        <Box sx={Styles.doneButtonBox}>
-          <Button {...Styles.doneButton} onClick={() => handleDone}>
-            Done it!
-          </Button>
-        </Box>
+        {!workout.isDone && (
+          <Box sx={Styles.doneButtonBox}>
+            <Button {...Styles.doneButton} onClick={handleDone}>
+              Done it!
+            </Button>
+          </Box>
+        )}
       </Box>
     )
   )

@@ -29,7 +29,9 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
       {!workouts ? (
         <Loader />
       ) : workouts.length == 0 ? (
-        <Typography {...Styles.workoutPlanItemField}>Looks like no training this week...</Typography>
+        <Typography {...Styles.workoutPlanItemField}>
+          Looks like no training this week...
+        </Typography>
       ) : (
         <Box sx={Styles.workoutList}>
           {workouts.map((workout, index) => (
