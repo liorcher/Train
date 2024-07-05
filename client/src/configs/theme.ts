@@ -4,12 +4,12 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: '#4B36C7',
-      contrastText: '#fffff',
+      contrastText: '#ffffff',
     },
     secondary: {
       light: '#D9D9D9',
       main: '#BFBFBF',
-      dark: '#BDBDBD',
+      dark: '#5E5E5E',
     },
     success: {
       main: '#34AA16',
@@ -29,6 +29,7 @@ export const theme = createTheme({
     fontFamily: 'Inter',
     button: {
       textTransform: 'none',
+      fontFamily: 'Inter',
     },
     h1: {
       fontSize: 56,
@@ -44,6 +45,12 @@ export const theme = createTheme({
     },
     h5: {
       fontSize: 16,
+    },
+    h6: {
+      fontSize: 12,
+    },
+    body1: {
+      fontSize: 10,
     },
   },
   spacing: 4,
