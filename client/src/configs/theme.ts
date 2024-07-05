@@ -3,7 +3,8 @@ import { createTheme } from '@mui/material';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#4B36C7',
+      light: '#ffffff',
+      main: '#000000',
       contrastText: '#ffffff',
     },
     secondary: {
@@ -15,11 +16,11 @@ export const theme = createTheme({
       main: '#34AA16',
     },
     error: {
-      main: '#AA1616',
+      main: '#FF0000',
     },
     info: {
-      main: '#ffffff',
-      dark: '#000000',
+      main: '#4B36C7',
+      dark: '#ffffff',
     },
     background: {
       default: '#000000',
@@ -29,7 +30,6 @@ export const theme = createTheme({
     fontFamily: 'Inter',
     button: {
       textTransform: 'none',
-      fontFamily: 'Inter',
     },
     h1: {
       fontSize: 56,

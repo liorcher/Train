@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 
 export const PreferenceQuestionnaire: React.FC = () => {
   return (
-    <Grid container height={'100vh'} justifyContent={'space-evenly'} position={'relative'}>
+    <Grid container justifyContent={'space-evenly'}>
       <img />
       <FormWrapper direction={'column'}>
         <Form />

@@ -35,9 +35,7 @@ export const PreferencesListFieldForm: React.FC<Props> = (props) => {
               isSelected={isItemSelected(value)}
               onClick={onItemClick}
             >
-              <Typography variant='h6' color={'primary.main'}>
-                {value}
-              </Typography>
+              <Typography variant='h6'>{value}</Typography>
             </FormButton>
           </Grid>
         ))}

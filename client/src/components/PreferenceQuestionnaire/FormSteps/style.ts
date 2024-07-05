@@ -1,7 +1,7 @@
 import { Button, SxProps, TextField, Typography, styled } from '@mui/material';
 
 export const StepTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.info.main,
+  color: theme.palette.primary.contrastText,
 }));
 
 export const StepSubTitle = styled(Typography)(({ theme }) => ({
@@ -9,20 +9,21 @@ export const StepSubTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const FormButton = styled(Button)<{ isSelected: boolean }>(({ theme, isSelected }) => ({
-  color: theme.palette.primary.main,
-  borderColor: isSelected ? theme.palette.primary.main : 'unset',
-  backgroundColor: isSelected ? theme.palette.secondary.main : theme.palette.info.main,
+  color: theme.palette.info.main,
+  border: `1px solid ${isSelected ? theme.palette.info.main : 'unset'}`,
+  backgroundColor: isSelected ? theme.palette.secondary.main : theme.palette.primary.light,
   height: '30px',
   p: 2,
   width: '100%',
   '&:hover': {
-    backgroundColor: '#ffffff',
+    borderColor: theme.palette.info.main,
+    backgroundColor: theme.palette.primary.contrastText,
   },
 }));
 
 export const FormTextField = styled(TextField)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  backgroundColor: theme.palette.secondary.light,
+  color: theme.palette.info.main,
+  backgroundColor: theme.palette.primary.light,
   height: '30px',
   p: 2,
   borderRadius: '4px',
@@ -32,7 +33,7 @@ export default {
   textField: {
     '& .MuiInputBase-root': {
       height: '30px',
-      color: 'primary.main',
+      color: 'info.main',
       fontSize: '13px',
     },
   },

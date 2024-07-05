@@ -37,10 +37,10 @@ export const ActivityLevelForm: React.FC = () => {
                     isSelected={isActivityLevelSelected(value)}
                     onClick={onActivityLevelChange}
                   >
-                    <Typography variant='h6' color={'primary.main'} align='left'>
+                    <Typography variant='h6' align='left'>
                       {value}
                       <br />
-                      <Box color={'seconary.dark'} fontSize={10}>
+                      <Box color={'secondary.dark'} fontSize={10}>
                         {ActivityLevelDescription[value as ActivityLevel]}
                       </Box>
                     </Typography>
