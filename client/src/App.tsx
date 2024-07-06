@@ -1,9 +1,8 @@
-import Router from "@/router/router"
-import { CssBaseline, Stack, ThemeProvider } from "@mui/material"
-// import { PreferenceQuestionnaire } from './components';
+import Router from '@/router/router';
+import { CssBaseline, Stack, ThemeProvider } from '@mui/material';
 import { theme } from './configs';
 import globalStyles from './globalStyles';
-import "./App.css"
+import './App.css';
 
 function App() {
   return (
@@ -12,18 +11,17 @@ function App() {
       <CssBaseline>
         <Stack
           sx={{
-            height: "100vh",
-            width: "100vw",
-            display: "flex",
-            alignItems: "center",
+            height: '100vh',
+            width: '100vw',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          {/* <PreferenceQuestionnaire/> */}
           <Router />
         </Stack>
       </CssBaseline>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;
