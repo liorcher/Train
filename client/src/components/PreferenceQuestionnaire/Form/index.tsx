@@ -1,12 +1,14 @@
 import React from 'react';
 import { Divider, Grid, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { LogoCaption } from '../../../assets';
 import dictionary from '../../../dictionary';
 import { useMultiStepForm } from '../../../hooks';
 import { FormActionButton } from './style';
 import { PreferenceQuestionnaireFormFields } from '../types';
 import { getFormDefaultValues } from '../formFields';
+import { validationSchema } from '../validation';
 import {
   AboutYourselfForm,
   ActivityLevelForm,
@@ -31,9 +33,16 @@ export const Form: React.FC = () => {
     <WorkoutDurationForm />,
   ]);
   const form = useForm<PreferenceQuestionnaireFormFields>({
-    mode: 'onChange',
+    mode: 'onSubmit',
     defaultValues: getFormDefaultValues(),
+    resolver: yupResolver(validationSchema),
   });
+
+  const { handleSubmit } = form;
+
+  const onSubmit = () => {
+    // TODO: save preferences in server
+  };
 
   return (
     <FormProvider {...form}>
@@ -70,7 +79,9 @@ export const Form: React.FC = () => {
               {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
             </Grid>
             <Grid item>
-              <FormActionButton onClick={next}>{isLastStep ? doneBtn : nextBtn}</FormActionButton>
+              <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : next}>
+                {isLastStep ? doneBtn : nextBtn}
+              </FormActionButton>
             </Grid>
           </Grid>
         </Grid>
