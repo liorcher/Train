@@ -1,0 +1,20 @@
+{
+  "name": "trainserver",
+  "version": "1.0.0",
+  "description": "train project colman",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "train"
+  },
+  "author": "115",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-postgres": "^0.6.2",
+    "pg": "^8.12.0"
+  }
+}
