@@ -10,3 +10,7 @@
 
 # For redis local client:
 1. run `docker-compose up`
+
+# Usefull routes
+1. GET - http://localhost:3000/api/v1/workout/plan
+2. GET - http://localhost:3000/api/v1/nutrition/plan
