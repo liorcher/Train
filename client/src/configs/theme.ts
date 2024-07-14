@@ -3,32 +3,33 @@ import { alpha, createTheme } from "@mui/material"
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#000000",
-      contrastText: "#ffffff",
+      light: '#ffffff',
+      main: '#000000',
+      contrastText: '#ffffff',
     },
     secondary: {
-      light: "#D9D9D9",
-      main: "#BFBFBF",
-      dark: "#5E5E5E",
+      light: '#D9D9D9',
+      main: '#BFBFBF',
+      dark: '#5E5E5E',
     },
     success: {
-      main: "#34AA16",
+      main: '#34AA16',
     },
     error: {
-      main: "#FF0000",
+      main: '#FF0000',
     },
     info: {
-      main: "#4B36C7",
-      dark: "#000000",
+      main: '#4B36C7',
+      dark: '#ffffff',
     },
     background: {
-      default: "#000000",
+      default: '#000000',
     },
   },
   typography: {
-    fontFamily: "impact",
+    fontFamily: 'Inter',
     button: {
-      textTransform: "none",
+      textTransform: 'none',
     },
     h1: {
       fontSize: 56,
@@ -44,6 +45,12 @@ export const theme = createTheme({
     },
     h5: {
       fontSize: 16,
+    },
+    h6: {
+      fontSize: 12,
+    },
+    body1: {
+      fontSize: 10,
     },
   },
   spacing: 4,
