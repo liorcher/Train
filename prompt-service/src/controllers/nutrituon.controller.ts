@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getMealPlan } from "../dal/nutritionDal";
+import { getMealPlan } from "../dal/nutrition.dal";
 
 export const getNutritionMealPlan = async (req: Request, res: Response) => {
   try {

@@ -1,5 +1,5 @@
-import { sendChatGPTQuery } from "../services/chatgptService";
-import { mealQuery } from "./queries/nutritionQueries";
+import { sendChatGPTQuery } from "../services/chatgpt.service";
+import { mealQuery } from "./queries/nutrition.queries";
 
 export const getMealPlan = async () => {
   try {

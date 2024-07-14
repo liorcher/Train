@@ -4,9 +4,9 @@ const options: Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Express API with Swagger',
+      title: 'Prompt Service',
       version: '1.0.0',
-      description: 'A simple Express API application documented with Swagger',
+      description: 'Advanced service - chatGPT Prompt engineering',
     },
     servers: [
       {

@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
 const apiKey = process.env.OPENAI_API_KEY;
-const apiUrl = 'https://api.openai.com/v1/chat/completions';
+const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 if (!apiKey) {
-  throw new Error('OPENAI_API_KEY is not defined');
+  throw new Error("OPENAI_API_KEY is not defined");
 }
 
 interface ChatGPTRequest {
@@ -24,8 +24,8 @@ interface ChatGPTResponse {
 
 export const sendChatGPTQuery = async (prompt: string): Promise<string> => {
   const requestBody: ChatGPTRequest = {
-    model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content: prompt }],
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: prompt }],
     max_tokens: 100,
     temperature: 0.7,
   };
@@ -33,7 +33,7 @@ export const sendChatGPTQuery = async (prompt: string): Promise<string> => {
   try {
     const response = await axios.post<ChatGPTResponse>(apiUrl, requestBody, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
     });
