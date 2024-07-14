@@ -1,5 +1,5 @@
-const pool = require('./dal/data_access')
 const express = require('express');
+const routes = require('./routes/routes'); // Update the path to the routes file
 
 const app = express();
 app.use(express.json());
@@ -10,12 +10,4 @@ app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
 });
 
-app.get('/users', (request, response) => {
-    pool.query('SELECT * FROM "trAIn".users ORDER BY id ASC', (error, results) => {
-        if (error) {
-            console.log(error);
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
-});
+app.use('/', routes);
