@@ -2,9 +2,9 @@ import { RouteObject } from 'react-router-dom';
 import Login from '@components/Login';
 import { protectedRoute } from './ProtectedRoute';
 import Unauthorized from '@/components/Unauthorized';
-import Workouts from '@/components/Workouts';
 import Signup from '@/components/Signup';
 import { Home, PreferenceQuestionnaire } from '@/components';
+import WorkoutsPage from '@/components/Workouts/WorkoutsPage';
 
 export const HOME_URL = '/';
 export const LOGIN_URL = '/login';
@@ -24,12 +24,13 @@ const routes = [
   },
   {
     path: WORKOUTS_URL,
-    element: protectedRoute(<Workouts />),
+    element: protectedRoute(<WorkoutsPage />),
     id: 'Workouts',
   },
   {
     path: PREFERENCE_QUESTIONNAIRE_URL,
-    element: protectedRoute(<PreferenceQuestionnaire />),
+    // TODO: add protected rotue after the auth is fixed
+    element: <PreferenceQuestionnaire />,
     id: 'PreferenceQuestionnaire',
   },
 ];

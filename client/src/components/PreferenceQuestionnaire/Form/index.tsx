@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, Grid, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LogoCaption } from '../../../assets';
+import { AppLogo } from '../../../assets';
 import dictionary from '../../../dictionary';
 import { useMultiStepForm } from '../../../hooks';
 import { FormActionButton } from './style';
@@ -50,7 +50,7 @@ export const Form: React.FC = () => {
         <Grid container p={4} direction={'column'}>
           <Grid item container direction={'column'} alignItems={'center'}>
             <Grid item>
-              <img src={LogoCaption} width={100} height={'fit-content'} />
+              <img src={AppLogo} width={100} height={'fit-content'} />
             </Grid>
           </Grid>
           <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
