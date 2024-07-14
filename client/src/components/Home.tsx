@@ -1,8 +1,14 @@
-import LogoCaption from "@/assets/LogoCaption.png";
-import { Box } from "@mui/material";
+import React from 'react';
+import { Grid } from '@mui/material';
+import { AppLogo } from '@/assets';
+import { WithTrainersImages } from './HOC';
 
-function Home() {
-  return <Box component="img" src={LogoCaption} sx={{ width: "16vw" }} />;
-}
-
-export default Home;
+export const Home: React.FC = WithTrainersImages(() => {
+  return (
+    <Grid container height={'100%'} justifyContent={'center'} alignItems={'center'}>
+      <Grid item>
+        <img src={AppLogo} width={'600vw'} height={'250vh'} />
+      </Grid>
+    </Grid>
+  );
+});

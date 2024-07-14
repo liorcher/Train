@@ -1,10 +1,9 @@
 import { RouteObject } from 'react-router-dom';
 import Login from '@components/Login';
-import Home from '@components/Home';
 import { protectedRoute } from './ProtectedRoute';
 import Unauthorized from '@/components/Unauthorized';
 import Signup from '@/components/Signup';
-import { PreferenceQuestionnaire } from '@/components';
+import { Home, PreferenceQuestionnaire } from '@/components';
 import WorkoutsPage from '@/components/Workouts/WorkoutsPage';
 
 export const HOME_URL = '/';
@@ -26,11 +25,12 @@ const routes = [
   {
     path: WORKOUTS_URL,
     element: protectedRoute(<WorkoutsPage />),
-    id: "Workouts",
+    id: 'Workouts',
   },
   {
     path: PREFERENCE_QUESTIONNAIRE_URL,
-    element: protectedRoute(<PreferenceQuestionnaire />),
+    // TODO: add protected rotue after the auth is fixed
+    element: <PreferenceQuestionnaire />,
     id: 'PreferenceQuestionnaire',
   },
 ];
