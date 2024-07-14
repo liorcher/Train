@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, FormControl, FormLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, FormLabel, Grid, TextField, Typography } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext';
 import AppLogo from '@/assets/AppLogo.png';
 import { theme } from '@/configs';
@@ -58,8 +58,11 @@ const Login: React.FC = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box component='img' src={AppLogo} sx={{ width: '16vw' }} />
-
+          <Grid item container direction={'column'} alignItems={'center'}>
+            <Grid item>
+              <img src={AppLogo} width={100} height={'fit-content'} />
+            </Grid>
+          </Grid>
           <FormControl fullWidth margin='normal'>
             <FormLabel
               sx={{

@@ -71,11 +71,11 @@ const SignUp: React.FC = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box
-            component='img'
-            src={AppLogo}
-            sx={{ width: '100%', maxWidth: '16vw', marginBottom: '1rem' }}
-          />
+          <Grid item container direction={'column'} alignItems={'center'}>
+            <Grid item>
+              <img src={AppLogo} width={100} height={'fit-content'} />
+            </Grid>
+          </Grid>
 
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
