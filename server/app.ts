@@ -1,0 +1,20 @@
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
+import { authRouter } from './routes/auth_route';
+import { userRouter } from './routes/user_route';
+
+const app = express();
+app.use(express.json());
+
+export const initApp = async (): Promise<Express> => {
+    const promise = new Promise<Express>((resolve) => {
+        // app.use(cors);
+        app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(bodyParser.json());
+        app.use('/auth', authRouter);
+        app.use('/user', userRouter);
+        resolve(app);
+    });
+
+    return promise;
+};
