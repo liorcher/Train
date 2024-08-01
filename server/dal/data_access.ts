@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
 import appConfig from '../configs/appConfig';
-import { convertKeysToCamelCase } from '../utils/converstion_util';
+import { convertKeysToCamelCase } from '../utils/convertion_util';
 
 const {
     db: { user, host, name, port },
