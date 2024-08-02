@@ -11,6 +11,7 @@ import { User } from '@/models';
 interface AuthContextType {
   currentUser: User | null;
   token: string | null;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   signup: (email: string, password: string, name: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -107,5 +108,5 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signup,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

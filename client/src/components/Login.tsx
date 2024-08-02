@@ -4,13 +4,15 @@ import { Box, Button, FormControl, FormLabel, Grid, TextField, Typography } from
 import { useAuth } from '@/contexts/AuthContext';
 import AppLogo from '@/assets/AppLogo.png';
 import { theme } from '@/configs';
+import { HOME_URL } from '@/router/router.const';
+import Loader from './Loader';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,7 +32,7 @@ const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate(HOME_URL);
     } catch (err) {
       setError('Failed to log in. Please check your credentials.');
     }
@@ -134,6 +136,11 @@ const Login: React.FC = () => {
           </Button>
         </form>
       </Box>
+      {loading && (
+        <Box position={'absolute'}>
+          <Loader />
+        </Box>
+      )}
     </Box>
   );
 };
