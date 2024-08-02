@@ -5,7 +5,6 @@ import { userRouter } from './routes/user_route';
 import { cors } from './middlewares/cors_middleware';
 
 const app = express();
-app.use(express.json());
 
 export const initApp = async (): Promise<Express> => {
     const promise = new Promise<Express>((resolve) => {

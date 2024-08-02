@@ -8,6 +8,7 @@ import { User } from '../models/user';
 export const register = async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
+    const name = req.body.name;
 
     if (email === undefined || password === undefined) {
         return res.status(400).send('email and password are missing');
@@ -22,10 +23,10 @@ export const register = async (req: Request, res: Response) => {
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const results = await query('INSERT INTO "trAIn".users (email, password) VALUES ($1, $2) RETURNING *', [
-            email,
-            hashedPassword,
-        ]);
+        const results = await query(
+            'INSERT INTO "trAIn".users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
+            [email, hashedPassword, name]
+        );
         const newUser: User = results[0];
 
         //generate the tokens after register success

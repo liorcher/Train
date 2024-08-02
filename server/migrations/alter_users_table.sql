@@ -11,3 +11,8 @@ ALTER TABLE IF EXISTS "trAIn".users
 
 ALTER TABLE IF EXISTS "trAIn".users
     ADD COLUMN tokens text[];
+
+ALTER TABLE IF EXISTS "trAIn".users
+    DROP COLUMN first_name,
+    DROP COLUMN last_name,
+    ADD COLUMN name text;
