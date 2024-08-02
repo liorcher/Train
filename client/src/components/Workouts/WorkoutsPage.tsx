@@ -1,3 +1,4 @@
+import PromptApi from "@/api/promptApi"
 import { Workout } from "@/types/workout.type"
 import { Box, Stack } from "@mui/material"
 import { find, map } from "lodash"
@@ -5,7 +6,6 @@ import React, { useEffect, useState } from "react"
 import WorkoutActivity from "./WorkoutActivity/WorkoutActivity"
 import WorkoutPlan from "./WorkoutPlan/WorkoutPlan"
 import Styles from "./WorkoutsPage.style"
-import { workoutsMockData } from "./workoutsMockData"
 
 const WorkoutsPage: React.FC = () => {
   const [workouts, setWorkouts] = useState<Workout[] | null>(null)
@@ -15,19 +15,17 @@ const WorkoutsPage: React.FC = () => {
     fetchWorkouts()
   }, [])
 
-  const fetchWorkouts = () => {
-    // const serverWorkouts = api.get('/workouts')
-    const serverWorkouts = workoutsMockData
+  const fetchWorkouts = async () => {
+    const res = await PromptApi.get("/workout/plan")
+    const serverWorkouts = res.data
 
     setWorkouts(null)
-    setTimeout(() => {
-      setWorkouts(serverWorkouts)
-      const updatedWorkout =
-        find(serverWorkouts, { id: workout?.id }) ||
-        (serverWorkouts && serverWorkouts[0]) ||
-        null
-      setWorkout(updatedWorkout)
-    }, 1000)
+    setWorkouts(serverWorkouts)
+    const updatedWorkout =
+      find(serverWorkouts, { id: workout?.id }) ||
+      (serverWorkouts && serverWorkouts[0]) ||
+      null
+    setWorkout(updatedWorkout)
   }
 
   const updateWorkout = (updatedWorkout: Workout) => {
