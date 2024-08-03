@@ -7,12 +7,14 @@ interface Props {
   title: string;
   subTitle: string;
   fieldName: keyof typeof ListFieldOptionByType;
+  required: boolean;
+  error?: boolean;
   isItemSelected: (value: string) => boolean;
   onItemClick: (value: string) => void;
 }
 
 export const PreferencesListFieldForm: React.FC<Props> = (props) => {
-  const { title, subTitle, fieldName } = props;
+  const { title, subTitle, fieldName, error, required } = props;
 
   const isItemSelected = useCallback((item: string) => props.isItemSelected(item), [props]);
 
@@ -24,7 +26,9 @@ export const PreferencesListFieldForm: React.FC<Props> = (props) => {
   return (
     <Grid height={'100%'} container gap={'1rem .5rem'} direction={'column'} marginTop={2}>
       <StepTitle variant={'h5'}>{title}</StepTitle>
-      <StepSubTitle variant={'h6'}>{subTitle}</StepSubTitle>
+      <StepSubTitle required={required} error={error}>
+        {subTitle}
+      </StepSubTitle>
       <Grid item container direction={'row'} gap={'1rem .6rem'} maxHeight={'70%'} overflow={'auto'}>
         {Object.entries(ListFieldOptionByType[fieldName]).map(([key, value]) => (
           <Grid item key={key} xs={12}>

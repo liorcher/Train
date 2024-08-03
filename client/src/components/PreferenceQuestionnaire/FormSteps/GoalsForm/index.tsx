@@ -5,7 +5,10 @@ import { PreferenceQuestionnaireFieldsNames } from '../../formFields';
 import { PreferencesListFieldForm } from '../PreferencesListFieldForm';
 
 export const GoalsForm: React.FC = () => {
-  const { control } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<PreferenceQuestionnaireFormFields>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: PreferenceQuestionnaireFieldsNames.GOALS,
@@ -32,8 +35,10 @@ export const GoalsForm: React.FC = () => {
   return (
     <PreferencesListFieldForm
       title={'What are your goals?'}
-      subTitle={'Select up to 3 goals'}
+      subTitle={'Select at least 1, up to 3 goals'}
       fieldName={PreferenceQuestionnaireFieldsNames.GOALS}
+      error={!!errors[PreferenceQuestionnaireFieldsNames.GOALS]}
+      required
       isItemSelected={isGoalSelected}
       onItemClick={onGoalChange}
     />

@@ -1,15 +1,17 @@
 import { ReactElement, useState } from 'react';
 
-interface useMultiStepForm {
+interface UseMultiStepForm {
   currentStepIndex: number;
   step: ReactElement;
   steps: ReactElement[];
   next: VoidFunction;
   back: VoidFunction;
   goTo: (stepNumber: number) => void;
+  isFirstStep: boolean;
+  isLastStep: boolean;
 }
 
-export const useMultiStepForm = (steps: ReactElement[]) => {
+export const useMultiStepForm = (steps: ReactElement[]): UseMultiStepForm => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const next = () => {

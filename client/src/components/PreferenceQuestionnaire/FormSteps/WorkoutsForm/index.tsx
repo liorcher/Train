@@ -6,7 +6,10 @@ import { PreferencesListFieldForm } from '../PreferencesListFieldForm';
 import { WORKOUTS_PREFERENCES_STEPS_TITLE } from '../consts';
 
 export const WorkoutsForm: React.FC = () => {
-  const { control } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<PreferenceQuestionnaireFormFields>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: PreferenceQuestionnaireFieldsNames.WORKOUTS,
@@ -35,6 +38,8 @@ export const WorkoutsForm: React.FC = () => {
       title={WORKOUTS_PREFERENCES_STEPS_TITLE}
       subTitle={'What are your favorite workouts? Select up to 3 workouts.'}
       fieldName={PreferenceQuestionnaireFieldsNames.WORKOUTS}
+      required
+      error={!!errors[PreferenceQuestionnaireFieldsNames.WORKOUTS]}
       isItemSelected={isWorkoutSelected}
       onItemClick={onWorkoutChange}
     />

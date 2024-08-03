@@ -1,11 +1,12 @@
-import { Button, SxProps, TextField, Typography, styled } from '@mui/material';
+import { Button, FormLabel, SxProps, TextField, Typography, styled } from '@mui/material';
 
 export const StepTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
 }));
 
-export const StepSubTitle = styled(Typography)(({ theme }) => ({
+export const StepSubTitle = styled(FormLabel)(({ theme }) => ({
   color: theme.palette.secondary.main,
+  marginBottom: '5px',
 }));
 
 export const FormButton = styled(Button)<{ isSelected: boolean }>(({ theme, isSelected }) => ({
