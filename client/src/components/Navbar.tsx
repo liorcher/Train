@@ -10,8 +10,8 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate(HOME_URL);
   };
 
@@ -36,9 +36,9 @@ const Navbar: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {currentUser ? (
             <>
-              <Avatar alt={currentUser.displayName || ''} src='' sx={{ marginRight: 1 }} />
+              <Avatar alt={currentUser.name || ''} src='' sx={{ marginRight: 1 }} />
               <Typography variant='body1' color='inherit' sx={{ marginRight: 2 }}>
-                Hello, {currentUser.displayName}
+                Hello, {currentUser.name}
               </Typography>
               <IconButton color='inherit' onClick={handleLogout}>
                 <LogoutIcon />
