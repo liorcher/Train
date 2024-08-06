@@ -4,7 +4,7 @@ import { Box, Button, FormControl, FormLabel, TextField, Typography, Grid } from
 import { useAuth } from '@/contexts/AuthContext';
 import AppLogo from '@/assets/AppLogo.png';
 import { theme } from '@/configs';
-import { HOME_URL } from '@/router/router.const';
+import { PREFERENCE_QUESTIONNAIRE_URL } from '@/router/router.const';
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState('');
@@ -42,7 +42,7 @@ const SignUp: React.FC = () => {
 
     try {
       await signup(email, password, name);
-      navigate(HOME_URL);
+      navigate(PREFERENCE_QUESTIONNAIRE_URL);
     } catch (err) {
       console.error('Signup Error: ', err);
       setError('Failed to sign up. Please try again.');

@@ -3,12 +3,13 @@ import Login from '@components/Login';
 import { protectedRoute } from './ProtectedRoute';
 import Unauthorized from '@/components/Unauthorized';
 import Signup from '@/components/Signup';
-import { Home, PreferenceQuestionnaire } from '@/components';
+import { Home, PreferenceQuestionnaire, UserProgressPage } from '@/components';
 import WorkoutsPage from '@/components/Workouts/WorkoutsPage';
 
 export const HOME_URL = '/';
 export const LOGIN_URL = '/login';
 export const UNAUTHORIZED_URL = '/unauthorized';
+export const USER_PROGRESS_URL = '/home';
 export const WORKOUTS_URL = '/workouts';
 export const SIGNUP_URL = '/signup';
 export const PREFERENCE_QUESTIONNAIRE_URL = '/preference-questionnaire';
@@ -21,6 +22,11 @@ const routes = [
     path: HOME_URL,
     element: <Home />,
     id: 'Home',
+  },
+  {
+    path: USER_PROGRESS_URL,
+    element: protectedRoute(<UserProgressPage />),
+    id: 'UserProgress',
   },
   {
     path: WORKOUTS_URL,

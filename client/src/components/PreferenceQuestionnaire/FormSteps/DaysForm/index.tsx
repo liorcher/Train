@@ -6,7 +6,10 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { WORKOUTS_PREFERENCES_STEPS_TITLE } from '../consts';
 
 export const DaysForm: React.FC = () => {
-  const { control } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<PreferenceQuestionnaireFormFields>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: PreferenceQuestionnaireFieldsNames.DAYS,
@@ -33,6 +36,8 @@ export const DaysForm: React.FC = () => {
       title={WORKOUTS_PREFERENCES_STEPS_TITLE}
       subTitle={'What days are you available to workout?'}
       fieldName={PreferenceQuestionnaireFieldsNames.DAYS}
+      required
+      error={!!errors[PreferenceQuestionnaireFieldsNames.DAYS]}
       isItemSelected={isDaySelected}
       onItemClick={onDayChange}
     />

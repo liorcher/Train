@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, Dispatch, useContext, useEffect, useState } from 'react';
 import {
   getItemFromLocalStorage,
   removeItemFromLocalStorage,
@@ -9,7 +9,8 @@ import { LOCAL_STORAGE_ITEMS } from '@/consts';
 import { User } from '@/models';
 
 interface AuthContextType {
-  currentUser: User | null;
+  currentUser: User | null | undefined;
+  setCurrentUser: Dispatch<React.SetStateAction<User | null | undefined>>;
   token: string | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
@@ -29,7 +30,7 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { ACCESS_TOKEN, REFRESH_TOKEN } = LOCAL_STORAGE_ITEMS;
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
   const [token, setToken] = useState<string | null>(getItemFromLocalStorage(ACCESS_TOKEN));
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -101,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const value = {
     currentUser,
+    setCurrentUser,
     token,
     loading,
     login,

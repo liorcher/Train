@@ -4,7 +4,7 @@ import { Box, Button, FormControl, FormLabel, Grid, TextField, Typography } from
 import { useAuth } from '@/contexts/AuthContext';
 import AppLogo from '@/assets/AppLogo.png';
 import { theme } from '@/configs';
-import { HOME_URL } from '@/router/router.const';
+import { USER_PROGRESS_URL } from '@/router/router.const';
 import Loader from './Loader';
 
 const Login: React.FC = () => {
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
 
     try {
       await login(email, password);
-      navigate(HOME_URL);
+      navigate(USER_PROGRESS_URL);
     } catch (err) {
       setError('Failed to log in. Please check your credentials.');
     }

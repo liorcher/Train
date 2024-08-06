@@ -39,10 +39,14 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
     goals: yup
       .array()
       .of(yup.object().shape({ goal: yup.mixed<Goal>().oneOf(Object.values(Goal)).required() }))
+      .min(1)
+      .max(3)
       .required(missingGoals),
     days: yup
       .array()
       .of(yup.object().shape({ day: yup.mixed<Day>().oneOf(Object.values(Day)).required() }))
+      .min(1)
+      .max(7)
       .required(missingDays),
     workouts: yup
       .array()
@@ -51,6 +55,8 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
           .object()
           .shape({ workout: yup.mixed<Workout>().oneOf(Object.values(Workout)).required() })
       )
+      .min(1)
+      .max(3)
       .required(missingWorkouts),
     durationInMinutes: yup.number().moreThan(0).lessThan(60).required(missingDuration),
   });

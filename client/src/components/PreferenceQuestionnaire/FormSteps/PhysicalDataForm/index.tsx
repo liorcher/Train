@@ -6,7 +6,10 @@ import { PreferenceQuestionnaireFieldsNames } from '../../formFields';
 import { PreferenceFieldForm } from '../PreferenceFieldForm';
 
 export const PhysicalDataForm: React.FC = () => {
-  const { register } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<PreferenceQuestionnaireFormFields>();
 
   return (
     <PreferenceFieldForm
@@ -23,10 +26,12 @@ export const PhysicalDataForm: React.FC = () => {
                   sx={style.textField}
                   type={'number'}
                   InputProps={{ endAdornment: 'kg' }}
+                  error={!!errors[PreferenceQuestionnaireFieldsNames.WEIGHT]}
                 />
               </Grid>
             </Grid>
           ),
+          required: true,
         },
         {
           fieldTitle: 'What is your target weight?',
@@ -39,10 +44,12 @@ export const PhysicalDataForm: React.FC = () => {
                   sx={style.textField}
                   type={'number'}
                   InputProps={{ endAdornment: 'kg' }}
+                  error={!!errors[PreferenceQuestionnaireFieldsNames.TARGET_WEIGHT]}
                 />
               </Grid>
             </Grid>
           ),
+          required: true,
         },
         {
           fieldTitle: 'How tall are you?',
@@ -55,10 +62,12 @@ export const PhysicalDataForm: React.FC = () => {
                   sx={style.textField}
                   type={'number'}
                   InputProps={{ endAdornment: 'cm' }}
+                  error={!!errors[PreferenceQuestionnaireFieldsNames.HEIGHT]}
                 />
               </Grid>
             </Grid>
           ),
+          required: true,
         },
       ]}
     />

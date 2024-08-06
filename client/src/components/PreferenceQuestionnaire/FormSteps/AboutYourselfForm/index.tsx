@@ -7,6 +7,9 @@ import { PreferenceFieldForm } from '../PreferenceFieldForm';
 
 export const AboutYourselfForm: React.FC = () => {
   const { register, watch, setValue } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const {
+    formState: { errors },
+  } = useFormContext<PreferenceQuestionnaireFormFields>();
 
   const isMale = watch(PreferenceQuestionnaireFieldsNames.GENDER) === Gender.MALE;
 
@@ -35,6 +38,7 @@ export const AboutYourselfForm: React.FC = () => {
               </Grid>
             </Grid>
           ),
+          required: true,
         },
         {
           fieldTitle: 'How old are you?',
@@ -46,11 +50,12 @@ export const AboutYourselfForm: React.FC = () => {
                   variant={'outlined'}
                   sx={style.textField}
                   type={'number'}
-                  InputProps={{ endAdornment: 'kg' }}
+                  error={!!errors[PreferenceQuestionnaireFieldsNames.AGE]}
                 />
               </Grid>
             </Grid>
           ),
+          required: true,
         },
       ]}
     />

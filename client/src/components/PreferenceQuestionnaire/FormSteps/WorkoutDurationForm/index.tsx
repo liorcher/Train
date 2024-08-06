@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import style, { FormTextField } from '../style';
 import { useFormContext } from 'react-hook-form';
 import { PreferenceQuestionnaireFormFields } from '../../types';
@@ -29,21 +29,16 @@ export const WorkoutDurationForm: React.FC = () => {
                       sx={style.textField}
                       type={'number'}
                       InputProps={{ endAdornment: 'minutes', inputProps: { min: 0, max: 60 } }}
+                      error={!!errors[PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES]}
                     />
                   </Grid>
                 </Grid>
               ),
+              required: true,
             },
           ]}
         />
       </Grid>
-      {!!Object.keys(errors).length && (
-        <Grid item container>
-          <Typography variant='h6' fontWeight={600} color={'secondary'}>
-            {`Please fill the missing fields: ${Object.keys(errors).join(', ')}`}
-          </Typography>
-        </Grid>
-      )}
     </Grid>
   );
 };

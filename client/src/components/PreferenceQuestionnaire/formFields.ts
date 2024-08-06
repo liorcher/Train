@@ -1,3 +1,4 @@
+import { PreferencesMetaData } from '@/models';
 import {
   ActivityLevel,
   Day,
@@ -37,4 +38,13 @@ export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
   [PreferenceQuestionnaireFieldsNames.DAYS]: [],
   [PreferenceQuestionnaireFieldsNames.WORKOUTS]: [],
   [PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES]: 0,
+});
+
+export const convertFormValuesToApi = (
+  values: PreferenceQuestionnaireFormFields
+): PreferencesMetaData => ({
+  ...values,
+  goals: values.goals.map((goal) => goal['goal']),
+  days: values.days.map((day) => day['day']),
+  workouts: values.workouts.map((workout) => workout['workout']),
 });

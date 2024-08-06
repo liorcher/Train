@@ -49,6 +49,7 @@ export const ActivityLevelForm: React.FC = () => {
               ))}
             </Grid>
           ),
+          required: true,
         },
       ]}
     />
