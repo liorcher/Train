@@ -46,6 +46,7 @@ export const AboutYourselfForm: React.FC = () => {
             <Grid item container>
               <Grid item xs={5}>
                 <FormTextField
+                  fullWidth
                   {...register(PreferenceQuestionnaireFieldsNames.AGE)}
                   variant={'outlined'}
                   sx={style.textField}
