@@ -6,8 +6,11 @@ import WorkoutActivity from './WorkoutActivity/WorkoutActivity';
 import WorkoutPlan from './WorkoutPlan/WorkoutPlan';
 import Styles from './WorkoutsPage.style';
 import { workoutsMockData } from './workoutsMockData';
+// import { WorkoutApi } from '@/api';
+import { useAuth } from '@/contexts';
 
 const WorkoutsPage: React.FC = () => {
+  const { currentUser } = useAuth();
   const [workouts, setWorkouts] = useState<Workout[] | null>(null);
   const [workout, setWorkout] = useState<Workout | null>(null);
 
@@ -15,17 +18,26 @@ const WorkoutsPage: React.FC = () => {
     fetchWorkouts();
   }, []);
 
-  const fetchWorkouts = () => {
-    // const serverWorkouts = api.get('/workouts')
-    const serverWorkouts = workoutsMockData;
+  const fetchWorkouts = async () => {
+    try {
+      if (currentUser) {
+        const workouts = workoutsMockData;
+        // TODO: Uncomment the following line to fetch workouts from the server
+        // const workouts = await WorkoutApi.getWorkoutsByUserId(currentUser.id);
 
-    setWorkouts(null);
-    setTimeout(() => {
-      setWorkouts(serverWorkouts);
-      const updatedWorkout =
-        find(serverWorkouts, { id: workout?.id }) || (serverWorkouts && serverWorkouts[0]) || null;
-      setWorkout(updatedWorkout);
-    }, 1000);
+        setWorkouts(null);
+        setTimeout(() => {
+          setWorkouts(workouts);
+          const updatedWorkout =
+            find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
+          setWorkout(updatedWorkout);
+        }, 1000);
+      } else {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const updateWorkout = (updatedWorkout: Workout) => {
