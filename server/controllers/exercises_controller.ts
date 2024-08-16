@@ -1,9 +1,9 @@
 import type { Response, Request } from 'express';
-import { query } from '../dal/data_access';
+import {getExercisesByUser}  from '../dal/exercises_dal'
 
 const getUserExercises = async (req: Request, res: Response) => {
     try {
-        const results = await query('SELECT * FROM "trAIn".exercises WHERE user_id = $1', [req.user.userId]);
+        const results = await getExercisesByUser(req.user.userId);
         if (results.length) {
             res.status(200).json(results[0]);
         } else {
@@ -13,5 +13,9 @@ const getUserExercises = async (req: Request, res: Response) => {
         res.status(400).send('An error occurred while fetching exercises');
     }
 };
+
+const createUserWorkoutPlan = async (req: Request, res: Response) => {
+
+}
 
 export default { getUserExercises };
