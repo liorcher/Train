@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import { AppLogo } from '@/assets';
 import Navbar from '@/components/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { GlobalModalProvider } from '@/contexts';
 
 function Router() {
   const routes = createBrowserRouter([
@@ -14,8 +15,10 @@ function Router() {
       element: (
         <ErrorBoundary FallbackComponent={() => <img src={AppLogo} />}>
           <AuthProvider>
-            <Navbar />
-            <Outlet />
+            <GlobalModalProvider>
+              <Navbar />
+              <Outlet />
+            </GlobalModalProvider>
           </AuthProvider>
         </ErrorBoundary>
       ),

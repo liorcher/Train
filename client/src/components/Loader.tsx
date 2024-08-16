@@ -1,7 +1,11 @@
-import { Box, CircularProgress, SxProps } from '@mui/material';
 import React from 'react';
+import { Box, CircularProgress, SxProps } from '@mui/material';
 
-const Loader: React.FC = () => {
+interface Props {
+  size?: number;
+}
+
+const Loader: React.FC<Props> = ({ size }) => {
   const loaderBox: SxProps = {
     flexGrow: 1,
     display: 'flex',
@@ -12,7 +16,7 @@ const Loader: React.FC = () => {
 
   return (
     <Box sx={loaderBox}>
-      <CircularProgress color='error' />
+      <CircularProgress color='error' size={size} />
     </Box>
   );
 };

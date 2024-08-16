@@ -4,7 +4,8 @@ import { Box, Button, FormControl, FormLabel, TextField, Typography, Grid } from
 import { useAuth } from '@/contexts/AuthContext';
 import AppLogo from '@/assets/AppLogo.png';
 import { theme } from '@/configs';
-import { PREFERENCE_QUESTIONNAIRE_URL } from '@/router/router.const';
+import { USER_PROGRESS_URL } from '@/router/router.const';
+import Loader from './Loader';
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const SignUp: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup, loading } = useAuth();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +43,7 @@ const SignUp: React.FC = () => {
 
     try {
       await signup(email, password, name);
-      navigate(PREFERENCE_QUESTIONNAIRE_URL);
+      navigate(USER_PROGRESS_URL, { state: { firstTime: true } });
     } catch (err) {
       console.error('Signup Error: ', err);
       setError('Failed to sign up. Please try again.');
@@ -211,6 +212,11 @@ const SignUp: React.FC = () => {
           </Button>
         </form>
       </Box>
+      {loading && (
+        <Box position={'absolute'}>
+          <Loader />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Dialog, Grid, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AppLogo } from '../../../assets';
 import dictionary from '../../../dictionary';
 import { useLoading, useMultiStepForm } from '../../../hooks';
-import { FormActionButton } from './style';
+import { FormActionButton, ProgressBar } from './style';
 import { PreferenceQuestionnaireFormFields } from '../types';
 import {
   convertFormValuesToApi,
@@ -23,10 +23,9 @@ import {
   WorkoutsForm,
 } from '../FormSteps';
 import { PreferencesApi } from '@/api';
-import { useNavigate } from 'react-router-dom';
-import { USER_PROGRESS_URL } from '@/router/router.const';
 import Loader from '@/components/Loader';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGlobalModalContext } from '@/contexts';
 
 export const Form: React.FC = () => {
   const {
@@ -47,8 +46,8 @@ export const Form: React.FC = () => {
     resolver: yupResolver(validationSchema),
   });
   const { setCurrentUser } = useAuth();
-  const navigate = useNavigate();
   const { loading, startLoading, stopLoading } = useLoading();
+  const { hideModal } = useGlobalModalContext();
 
   const { handleSubmit, trigger } = form;
 
@@ -57,7 +56,7 @@ export const Form: React.FC = () => {
       startLoading();
       const user = await PreferencesApi.saveUserPreferences(convertFormValuesToApi(values));
       setCurrentUser(user);
-      navigate(USER_PROGRESS_URL);
+      hideModal();
     } catch (error) {
       console.error('An error occurred while saving user preferences', error);
     } finally {
@@ -105,52 +104,57 @@ export const Form: React.FC = () => {
   };
 
   return (
-    <FormProvider {...form}>
-      <form>
-        <Grid container p={4} direction={'column'}>
-          <Grid item container direction={'column'} alignItems={'center'}>
-            <Grid item>
-              <img src={AppLogo} width={100} height={'fit-content'} />
-            </Grid>
-          </Grid>
-          <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
-            <Typography variant='h6' color={'secondary.light'}>
-              {`Step ${currentStepIndex + 1} / ${steps.length}`}
-            </Typography>
-            <Divider
-              sx={{ height: '6px', backgroundColor: 'secondary.light' }}
-              orientation={'horizontal'}
-              variant={'fullWidth'}
-            />
+    <Dialog open onClose={hideModal} maxWidth={'sm'} fullWidth>
+      <FormProvider {...form}>
+        <form>
+          <Grid container height={'100%'} p={4} direction={'column'}>
             <Grid
               item
               container
-              gap={'1rem .5rem'}
-              direction={'column'}
-              sx={{ height: '300px' }}
-              p={2}
-              marginTop={2}
-            >
-              {step}
+              position={'absolute'}
+              alignItems={'center'}
+              justifyContent={'center'}
+            ></Grid>
+            <Grid item container direction={'column'} alignItems={'center'}>
+              <Grid item>
+                <img src={AppLogo} width={100} height={'fit-content'} />
+              </Grid>
+            </Grid>
+            <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
+              <Typography variant='h6' color={'secondary.light'}>
+                {`Step ${currentStepIndex + 1} / ${steps.length}`}
+              </Typography>
+              <ProgressBar
+                variant={'fullWidth'}
+                orientation={'horizontal'}
+                precentage={(currentStepIndex / steps.length) * 100}
+              />
+              <Grid
+                item
+                container
+                gap={'1rem .5rem'}
+                direction={'column'}
+                sx={{ height: '300px' }}
+                p={2}
+                marginTop={2}
+              >
+                {step}
+              </Grid>
+            </Grid>
+            <Grid item container alignSelf={'flex-end'} justifyContent={'space-between'}>
+              <Grid item>
+                {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
+              </Grid>
+              <Grid item>
+                <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}>
+                  {isLastStep ? doneBtn : nextBtn}
+                  {loading && <Loader size={25} />}
+                </FormActionButton>
+              </Grid>
             </Grid>
           </Grid>
-          <Grid item container alignSelf={'flex-end'} justifyContent={'space-between'}>
-            <Grid item>
-              {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
-            </Grid>
-            <Grid item>
-              <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}>
-                {isLastStep ? doneBtn : nextBtn}
-              </FormActionButton>
-            </Grid>
-          </Grid>
-        </Grid>
-      </form>
-      {loading && (
-        <Box position={'absolute'}>
-          <Loader />
-        </Box>
-      )}
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </Dialog>
   );
 };
