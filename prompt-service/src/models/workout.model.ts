@@ -1,5 +1,4 @@
-import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
-import { FunctionCall, Functions, openai } from "../services/chatgpt.service";
+import { FunctionCall, Functions } from "../services/chatgpt.service";
 
 export type Exercise = {
   name: string;

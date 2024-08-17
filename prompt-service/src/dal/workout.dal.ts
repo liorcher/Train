@@ -9,18 +9,26 @@ import {
   workoutFunctions,
   workoutFunctionsCalls,
 } from "../models/workout.model";
+import { userPreferences } from "../models/userPreferences.model";
+import { formatString } from "../utils/strings.util";
 
-export const getWorkoutPlan = async (userRequests: string) => {
+export const getWorkoutPlan = async (userRequests: userPreferences) => {
+  const variables =  {
+    "age": userRequests.age, 
+    "weight": userRequests.weight,
+    "gender": userRequests.gender,
+    "activity_level": userRequests.activity_level,
+    "target_weight": userRequests.target_weight,
+    "user_goals": userRequests.user_goals.join(', '),
+    "workout_duration_in_minutes": userRequests.workout_duration_in_minutes,
+  }
+
   try {
     const messages: Messages = [
       {
         role: "system",
-        content: workoutPromptIntructions,
-      },
-      {
-        role: "user",
-        content: userRequests,
-      },
+        content: formatString(workoutPromptIntructions, variables),
+      }
     ];
 
     const response = await sendChatGPTQuery({
