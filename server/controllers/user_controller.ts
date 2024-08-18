@@ -1,11 +1,11 @@
 import type { Response, Request } from 'express';
-import { query } from '../dal/data_access';
+import { getUser } from '../dal/users_dal';
 
 const getCurrentUser = async (req: Request, res: Response) => {
     try {
-        const results = await query('SELECT * FROM "trAIn".users WHERE user_id = $1', [req.user.userId]);
-        if (results.length) {
-            res.status(200).json(results[0]);
+        const result = getUser(req.user.userId);
+        if (result) {
+            res.status(200).json(result);
         } else {
             res.status(404).send('User not found');
         }
@@ -14,4 +14,5 @@ const getCurrentUser = async (req: Request, res: Response) => {
     }
 };
 
-export default { getCurrentUser };
+
+export default {getCurrentUser}
