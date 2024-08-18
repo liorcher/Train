@@ -12,7 +12,7 @@ export interface Workout {
 export interface Exercise {
   name: string;
   sets: number;
-  mainWorkoutMuscle: string;
+  mainWorkingMuscle: string;
   rest: string;
   description: string;
   link: string;

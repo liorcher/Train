@@ -1,52 +1,61 @@
-import { Workout, WorkoutType } from '@/types/workout.type';
+import { Workout } from '@/models';
 
 export const workoutsMockData: Workout[] = [
   {
     id: '1',
-    type: WorkoutType.Strength,
-    datetime: new Date('2024-08-10T10:00:00'),
-    durationMin: 60,
-    calories: 300,
-    isDone: true,
+    userId: '323100347',
+    title: 'Stength',
+    duration: '45 minutes',
+    exercies: [
+      {
+        name: 'Bench Press',
+        sets: 3,
+        mainWorkingMuscle: 'Chest',
+        rest: '90 seconds',
+        description:
+          'A compound exercise targeting the chest, triceps, and shoulders. Ensure to maintain a controlled motion and avoid bouncing the bar off the chest.',
+        link: 'https://www.youtube.com/watch?v=gRVjAtPip0Y ',
+      },
+      {
+        name: 'Incline Dumbbell Press',
+        sets: 3,
+        mainWorkingMuscle: 'Upper Chest',
+        rest: '90 seconds',
+        description:
+          'Focuses on the upper chest. Keep a controlled motion and avoid locking out the elbows.',
+        link: 'https://www.youtube.com/watch?v=8iPEnn-ltC8 ',
+      },
+    ],
+    date: '2024-08-18T10:00:00',
+    isDone: false,
+    caloriesBurned: 0,
   },
   {
     id: '2',
-    type: WorkoutType.Cardio,
-    datetime: new Date('2024-08-10T12:00:00'),
-    durationMin: 30,
-    calories: 200,
-    isDone: true,
-  },
-  {
-    id: '3',
-    type: WorkoutType.Flexibility,
-    datetime: new Date('2024-08-12T14:00:00'),
-    durationMin: 45,
-    calories: 150,
+    userId: '323100347',
+    title: 'Back and Biceps',
+    duration: '45 minutes',
+    date: '2024-08-20T10:00:00',
     isDone: false,
-  },
-  {
-    id: '4',
-    type: WorkoutType.Cycling,
-    datetime: new Date('2024-08-13T16:00:00'),
-    durationMin: 90,
-    calories: 400,
-    isDone: false,
-  },
-  {
-    id: '5',
-    type: WorkoutType.Strength,
-    datetime: new Date('2024-08-14T18:00:00'),
-    durationMin: 60,
-    calories: 300,
-    isDone: false,
-  },
-  {
-    id: '6',
-    type: WorkoutType.Cardio,
-    datetime: new Date('2024-08-15T20:00:00'),
-    durationMin: 30,
-    calories: 200,
-    isDone: false,
+    exercies: [
+      {
+        name: 'Deadlift',
+        sets: 3,
+        mainWorkingMuscle: 'Back',
+        rest: '90 seconds',
+        description:
+          'A compound exercise that targets the back, glutes, and hamstrings. Keep your back straight and lift with your legs.',
+        link: 'https://www.youtube.com/watch?v=ytGaGIn3SjE ',
+      },
+      {
+        name: 'Pull-Ups',
+        sets: 3,
+        mainWorkingMuscle: 'Upper Back',
+        rest: '90 seconds',
+        description:
+          'Targets the upper back and biceps. Avoid swinging and keep a controlled motion.',
+        link: 'https://www.youtube.com/watch?v=eGo4IYlbE5g ',
+      },
+    ],
   },
 ];

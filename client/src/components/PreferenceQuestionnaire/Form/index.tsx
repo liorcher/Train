@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AppLogo } from '../../../assets';
 import dictionary from '../../../dictionary';
 import { useLoading, useMultiStepForm } from '../../../hooks';
-import { FormActionButton, ProgressBar } from './style';
+import { ProgressBar } from './style';
 import { PreferenceQuestionnaireFormFields } from '../types';
 import {
   convertFormValuesToApi,
@@ -26,6 +26,7 @@ import { PreferencesApi } from '@/api';
 import Loader from '@/components/Loader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalModalContext } from '@/contexts';
+import { FormActionButton } from '@/components';
 
 export const Form: React.FC = () => {
   const {

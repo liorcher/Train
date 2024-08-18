@@ -1,11 +1,11 @@
 import Loader from '@/components/Loader';
-import { Workout } from '@/types/workout.type';
 import { CalendarToday, FormatListBulleted, Refresh } from '@mui/icons-material';
 import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Styles from './WorkoutPlan.style';
 import WorkoutPlanItem from './WorkoutPlanItem';
 import { WorkoutsCalendar } from '../WorkoutsCalendar';
+import { Workout } from '@/models';
 
 type Props = {
   workouts: Workout[] | null;

@@ -1,13 +1,13 @@
-import { Workout } from '@/types/workout.type';
 import { Box, Stack } from '@mui/material';
 import { find, map } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import WorkoutActivity from './WorkoutActivity/WorkoutActivity';
 import WorkoutPlan from './WorkoutPlan/WorkoutPlan';
 import Styles from './WorkoutsPage.style';
 import { workoutsMockData } from './workoutsMockData';
 // import { WorkoutApi } from '@/api';
 import { useAuth } from '@/contexts';
+import { Workout } from '@/models';
 
 const WorkoutsPage: React.FC = () => {
   const { currentUser } = useAuth();
@@ -16,9 +16,9 @@ const WorkoutsPage: React.FC = () => {
 
   useEffect(() => {
     fetchWorkouts();
-  }, []);
+  }, [currentUser]);
 
-  const fetchWorkouts = async () => {
+  const fetchWorkouts = useCallback(async () => {
     try {
       if (currentUser) {
         const workouts = workoutsMockData;
@@ -38,7 +38,7 @@ const WorkoutsPage: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [currentUser, workout]);
 
   const updateWorkout = (updatedWorkout: Workout) => {
     if (!workouts) return;
@@ -57,7 +57,7 @@ const WorkoutsPage: React.FC = () => {
     <Box sx={Styles.outerBox}>
       <Stack {...Styles.stack}>
         <WorkoutPlan workouts={workouts} setWorkout={setWorkout} fetchWorkouts={fetchWorkouts} />
-        <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />
+        {workout && <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />}
       </Stack>
     </Box>
   );
