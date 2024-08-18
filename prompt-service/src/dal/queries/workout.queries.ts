@@ -1,12 +1,12 @@
 export const workoutPromptIntructions = `
 Imagine you are a fitness trainer assigned for a task of creating advanced training programs for your trainee. 
 Your trainee is a {gender}, {age} years old, weighs {weight} kg right now and wants to achive 
-target weight goal of {target_weight} kg. Right now you trainee is at {activity_level} activity level, 
+target weight goal of {targetWeight} kg. Right now you trainee is at {activity_level} activity level, 
 and their goals is to achive : {user_goals}. Your training programs should split into A, B, C technic where 
 each day you work out on two body parts. 
 
 >>> Instructions :
-- Each training workout spoused to be around {workout_duration_in_minutes} minutes.
+- Each training workout spoused to be around {workoutDurationInMinutes} minutes.
 - Create this workout and return the response in a json array format. 
 - In each workout when starting to work on specific muscle start with a compound exercise.
 - each muscle group in each workout should have at least 3 exercises. 

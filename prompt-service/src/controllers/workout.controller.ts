@@ -15,10 +15,10 @@ import { userPreferences } from "../models/userPreferences.model";
  *    - `weight` (number, example: 70): The current weight of the user in kilograms.
  *    - `height` (number, example: 1.75): The height of the user in meters.
  *    - `gender` (string, example: 'male'): The gender of the user.
- *    - `activity_level` (string, example: 'very active'): The user's activity level.
- *    - `target_weight` (number, example: 65): The target weight of the user in kilograms.
+ *    - `activityLevel` (string, example: 'very active'): The user's activity level.
+ *    - `targetWeight` (number, example: 65): The target weight of the user in kilograms.
  *    - `user_goals` (string[], example: ['gain muscle', 'be more active', 'loose weight']): The user's fitness goals.
- *    - `workout_duration_in_minutes` (string, example: '90'): The duration of the workout in minutes.
+ *    - `workoutDurationInMinutes` (string, example: '90'): The duration of the workout in minutes.
  * 
  * @param res - The HTTP response object. Returns a JSON response containing an array of `Workout` objects:
  *    - `Workout[]`: An array of workout plans.
@@ -35,20 +35,20 @@ export const getNewWorkoutPlan = async (req: Request, res: Response) => {
     weight,
     height,
     gender,
-    activity_level,
-    target_weight,
-    user_goals,
-    workout_duration_in_minutes } = req.body
+    activityLevel,
+    targetWeight,
+    goals,
+    workoutDurationInMinutes } = req.body
 
   const preferences: userPreferences = {
     age,
     weight,
     height,
     gender,
-    activity_level,
-    target_weight,
-    user_goals,
-    workout_duration_in_minutes
+    activityLevel,
+    targetWeight,
+    goals,
+    workoutDurationInMinutes
   }
 
   try {
