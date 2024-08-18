@@ -1,47 +1,59 @@
-import axios from "axios";
+import OpenAI from "openai";
 
 const apiKey = process.env.OPENAI_API_KEY;
-const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 if (!apiKey) {
   throw new Error("OPENAI_API_KEY is not defined");
 }
 
-interface ChatGPTRequest {
-  model: string;
-  messages: { role: string; content: string }[];
-  max_tokens?: number;
-  temperature?: number;
-}
+export const openai = new OpenAI({
+  organization: "org-DgGuQGI2UtqOGDiKgpdESQiX",
+  project: "proj_phCb3niOaf2sozls0YAHwLyF",
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-interface ChatGPTResponse {
-  id: string;
-  object: string;
-  created: number;
-  model: string;
-  choices: { message: { role: string; content: string } }[];
-}
+export type Messages = Parameters<
+  typeof openai.chat.completions.create
+>[0]["messages"];
+export type Functions = Parameters<
+  typeof openai.chat.completions.create
+>[0]["functions"];
+export type FunctionCall = Parameters<
+  typeof openai.chat.completions.create
+>[0]["function_call"];
 
-export const sendChatGPTQuery = async (prompt: string): Promise<string> => {
-  const requestBody: ChatGPTRequest = {
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt }],
-    max_tokens: 100,
-    temperature: 0.7,
-  };
-
+export const sendChatGPTQuery = async ({
+  messages,
+  function_call,
+  functions,
+}: {
+  messages: Messages;
+  function_call: FunctionCall;
+  functions: Functions;
+}) => {
   try {
-    const response = await axios.post<ChatGPTResponse>(apiUrl, requestBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
+    return openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      function_call,
+      functions,
+      messages,
+      response_format: { type: "json_object" },
     });
+  } catch (gpt4PreviewError) {
+    console.error(
+      new Error("Continuing to gpt4 base, Error with gpt preview model")
+    );
 
-    const { data } = response;
-    const message = data.choices[0].message.content;
-    return message;
-  } catch (error: any) {
-    throw new Error(`Error querying ChatGPT API: ${error.message}`);
+    try {
+      return openai.chat.completions.create({
+        model: "gpt-4",
+        function_call,
+        functions,
+        messages,
+      });
+    } catch (gpt4err) {
+      console.error(new Error("Error with gpt-4 model"));
+      throw gpt4err;
+    }
   }
 };
