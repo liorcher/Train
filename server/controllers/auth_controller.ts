@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
 import type { Response, Request } from 'express';
 import { getTokenFromRequest } from '../utils/auth_util';
-import { query } from '../dal/data_access';
+import { insertUser, getUsersByEmail, getUser, setUserToken } from '../dal/users_dal';
 import { User } from '../models/user';
 
 export const register = async (req: Request, res: Response) => {
@@ -15,7 +15,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     try {
-        const users = await query('SELECT * FROM "trAIn".users WHERE email = $1', [email]);
+        const users = await getUsersByEmail(email);
 
         if (users.length) {
             return res.status(400).send('User already exists');
@@ -23,11 +23,7 @@ export const register = async (req: Request, res: Response) => {
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const results = await query(
-            'INSERT INTO "trAIn".users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
-            [email, hashedPassword, name]
-        );
-        const newUser: User = results[0];
+        const newUser = await insertUser(email, hashedPassword, name);
 
         //generate the tokens after register success
         const tokens = await generateTokens(newUser);
@@ -41,19 +37,18 @@ export const register = async (req: Request, res: Response) => {
 
 const updateUserRefreshTokens = async (userId: string, refreshToken: string): Promise<User | null> => {
     try {
-        const results = await query('SELECT * FROM "trAIn".users WHERE user_id = $1', [userId]);
-        const user: User = results[0];
+        const user = await getUser(userId);
 
         if (user == null) return null;
 
         if (!user.tokens.includes(refreshToken)) {
             user.tokens = [];
-            await query('UPDATE "trAIn".users SET tokens = $1 WHERE user_id = $2', [user.tokens, userId]);
+            await setUserToken(user.tokens, userId);
             return null;
         }
 
         user.tokens = user.tokens.filter((token) => token !== refreshToken);
-        await query('UPDATE "trAIn".users SET tokens = $1 WHERE user_id = $2', [user.tokens, userId]);
+        await setUserToken(user.tokens, userId);
         return user;
     } catch (error) {
         return null;
@@ -72,7 +67,8 @@ const generateTokens = async (user: User): Promise<{ accessToken: string; refres
     user.tokens = [...user.tokens, refreshToken];
 
     try {
-        await query('UPDATE "trAIn".users SET tokens = $1 WHERE user_id = $2', [user.tokens, user.userId]);
+        await setUserToken(user.tokens, user.userId);
+
         return { accessToken, refreshToken };
     } catch (error) {
         throw null;
@@ -87,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
 
     try {
         //Check if the user exists
-        const results = await query('SELECT * FROM "trAIn".users WHERE email = $1', [email]);
+        const results = getUsersByEmail(email);
         const user: User = results[0];
         // const user = await UserModel.findOne({ email });
         if (user === null) return res.status(404).send('User not found');

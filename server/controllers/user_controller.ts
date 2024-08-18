@@ -1,11 +1,12 @@
 import type { Response, Request } from 'express';
-import { query } from '../dal/data_access';
+import { getUser } from '../dal/users_dal';
+import { getGoalsByUser } from '../dal/goals_dal';
 
-const getCurrentUser = async (req: Request, res: Response) => {
+export const getCurrentUser = async (req: Request, res: Response) => {
     try {
-        const results = await query('SELECT * FROM "trAIn".users WHERE user_id = $1', [req.user.userId]);
-        if (results.length) {
-            res.status(200).json(results[0]);
+        const result = getUser(req.user.userId);
+        if (result) {
+            res.status(200).json(result);
         } else {
             res.status(404).send('User not found');
         }
@@ -14,4 +15,16 @@ const getCurrentUser = async (req: Request, res: Response) => {
     }
 };
 
-export default { getCurrentUser };
+
+
+export const createUserWorkoutPlan = async (req: Request, res: Response) => {
+    try {
+        const userId = req.user.userId
+        const user = getUser(userId);
+        const goals = getGoalsByUser(userId)
+        const preferences = {...user, ...goals}
+        //TODO: call gpt with preferences
+    } catch (error) {
+        res.status(400).send('An error occurred while create user workout plan');
+    }
+};
