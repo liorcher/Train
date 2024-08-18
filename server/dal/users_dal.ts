@@ -19,7 +19,6 @@ export const updatePreferencesByUser = async (preferences, userId: string) => {
 
 export const getUser = async (userId: string) => {
     const results = await query('SELECT * FROM "trAIn".users WHERE user_id = $1', [userId]);
-    
     const user: User = results[0];
 
     return user
