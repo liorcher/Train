@@ -6,11 +6,12 @@ const saveUserPreferences = async (req: Request, res: Response) => {
     try {
         const userId = req.user.userId;
         const preferences = req.body.preferences;
-        
-        await updatePreferencesByUser(preferences, userId)
+
+        await updatePreferencesByUser(preferences, userId);
         await saveGoals(preferences, userId);
 
-        return res.status(201);
+        const user = await getUser(userId);
+        return res.status(201).json(user);
     } catch (error) {
         res.status(400).send('An error occurred while saving user preferences');
     }

@@ -32,7 +32,7 @@ const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
             </IconButton>
           </Tooltip>
           <Typography {...Styles.workoutPlanItemField} variant='h5'>
-            {workout.duration}
+            {`${workout.duration} minutes`}
           </Typography>
         </Grid>
       </Grid>

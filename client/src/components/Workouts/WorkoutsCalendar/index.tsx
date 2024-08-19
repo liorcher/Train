@@ -11,17 +11,6 @@ interface Props {
 }
 
 export const WorkoutsCalendar: React.FC<Props> = ({ workouts, setWorkout }) => {
-  const getWorkoutEndDate = (workout: Workout) => {
-    // split string of number and units of duration
-    const [duration, unit] = workout.duration.split(' ');
-
-    if (unit.includes('min') || unit.includes('minute')) {
-      return dayjs(workout.date).add(Number(duration), 'minute').toDate();
-    } else if (unit.includes('hour') || unit.includes('hr')) {
-      return dayjs(workout.date).add(Number(duration), 'hour').toDate();
-    }
-  };
-
   return (
     <Calendar
       style={{
@@ -31,7 +20,7 @@ export const WorkoutsCalendar: React.FC<Props> = ({ workouts, setWorkout }) => {
         workouts?.map((workout) => ({
           ...workout,
           start: dayjs(workout.date).toDate(),
-          end: getWorkoutEndDate(workout),
+          end: dayjs(workout.date).add(workout.duration, 'minutes').toDate(),
         })) ?? []
       }
       onSelectEvent={(workout) => setWorkout(workout)}

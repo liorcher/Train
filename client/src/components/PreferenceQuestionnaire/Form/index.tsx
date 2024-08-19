@@ -28,7 +28,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalModalContext } from '@/contexts';
 import { FormActionButton } from '@/components';
 
-export const Form: React.FC = () => {
+interface Props {
+  onSaveSuccess: VoidFunction;
+}
+
+export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
   const {
     multiStepForm: { nextBtn, doneBtn, backBtn },
   } = dictionary;
@@ -58,6 +62,7 @@ export const Form: React.FC = () => {
       const user = await PreferencesApi.saveUserPreferences(convertFormValuesToApi(values));
       setCurrentUser(user);
       hideModal();
+      onSaveSuccess();
     } catch (error) {
       console.error('An error occurred while saving user preferences', error);
     } finally {
@@ -95,7 +100,7 @@ export const Form: React.FC = () => {
         isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUTS]);
         break;
       case 6:
-        isValid = await trigger([PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES]);
+        isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]);
         break;
     }
 

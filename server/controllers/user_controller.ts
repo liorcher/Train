@@ -3,7 +3,7 @@ import { getUser } from '../dal/users_dal';
 
 const getCurrentUser = async (req: Request, res: Response) => {
     try {
-        const result = getUser(req.user.userId);
+        const result = await getUser(req.user.userId);
         if (result) {
             res.status(200).json(result);
         } else {
@@ -14,5 +14,4 @@ const getCurrentUser = async (req: Request, res: Response) => {
     }
 };
 
-
-export default {getCurrentUser}
+export default { getCurrentUser };

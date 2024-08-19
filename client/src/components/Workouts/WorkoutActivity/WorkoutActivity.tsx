@@ -11,11 +11,11 @@ type Props = {
 };
 
 const getWorkoutSteps = (workout: Workout) => {
-  return workout.exercies.map((exercise, index) => (
+  return workout.exercises.map((exercise, index) => (
     <WorkoutExercise
       key={exercise.name}
       exerciseNumber={index + 1}
-      exercisesAmount={workout.exercies.length}
+      exercisesAmount={workout.exercises.length}
       exercise={exercise}
     />
   ));

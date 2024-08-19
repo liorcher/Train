@@ -2,8 +2,8 @@ export interface Workout {
   id: string;
   userId: string;
   title: string;
-  duration: string;
-  exercies: Exercise[];
+  duration: number;
+  exercises: Exercise[];
   date: string;
   isDone: boolean;
   caloriesBurned?: number;

@@ -4,14 +4,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import WorkoutActivity from './WorkoutActivity/WorkoutActivity';
 import WorkoutPlan from './WorkoutPlan/WorkoutPlan';
 import Styles from './WorkoutsPage.style';
-import { workoutsMockData } from './workoutsMockData';
-// import { WorkoutApi } from '@/api';
-import { useAuth } from '@/contexts';
+import { useAuth, usePersonalizedTrainingPlanContext } from '@/contexts';
 import { Workout } from '@/models';
+import { WorkoutApi } from '@/api';
 
 const WorkoutsPage: React.FC = () => {
   const { currentUser } = useAuth();
-  const [workouts, setWorkouts] = useState<Workout[] | null>(null);
+  const { workouts, updateWorkouts, setLoading } = usePersonalizedTrainingPlanContext();
   const [workout, setWorkout] = useState<Workout | null>(null);
 
   useEffect(() => {
@@ -20,23 +19,21 @@ const WorkoutsPage: React.FC = () => {
 
   const fetchWorkouts = useCallback(async () => {
     try {
+      setLoading(true);
       if (currentUser) {
-        const workouts = workoutsMockData;
-        // TODO: Uncomment the following line to fetch workouts from the server
-        // const workouts = await WorkoutApi.getWorkoutsByUserId(currentUser.id);
+        const workouts = await WorkoutApi.getUserWorkouts();
+        updateWorkouts(workouts);
 
-        setWorkouts(null);
-        setTimeout(() => {
-          setWorkouts(workouts);
-          const updatedWorkout =
-            find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
-          setWorkout(updatedWorkout);
-        }, 1000);
+        const updatedWorkout =
+          find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
+        setWorkout(updatedWorkout);
       } else {
         throw new Error('User not found');
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, [currentUser, workout]);
 
@@ -49,7 +46,7 @@ const WorkoutsPage: React.FC = () => {
     const updatedWorkouts = map(workouts, (currentWorkout: Workout) =>
       currentWorkout.id === updatedWorkout.id ? updatedWorkout : currentWorkout
     );
-    setWorkouts(updatedWorkouts);
+    updateWorkouts(updatedWorkouts);
     setWorkout(updatedWorkout);
   };
 

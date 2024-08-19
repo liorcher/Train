@@ -18,7 +18,7 @@ export enum PreferenceQuestionnaireFieldsNames {
   GOALS = 'goals',
   DAYS = 'days',
   WORKOUTS = 'workouts',
-  DURATION_IN_MINUTES = 'durationInMinutes',
+  WORKOUT_DURATION_IN_MINUTES = 'workoutDurationInMinutes',
 }
 
 export const ListFieldOptionByType = {
@@ -37,7 +37,7 @@ export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
   [PreferenceQuestionnaireFieldsNames.GOALS]: [],
   [PreferenceQuestionnaireFieldsNames.DAYS]: [],
   [PreferenceQuestionnaireFieldsNames.WORKOUTS]: [],
-  [PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES]: 0,
+  [PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]: 0,
 });
 
 export const convertFormValuesToApi = (

@@ -58,5 +58,5 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
       .min(1)
       .max(3)
       .required(missingWorkouts),
-    durationInMinutes: yup.number().moreThan(0).lessThan(60).required(missingDuration),
+    workoutDurationInMinutes: yup.number().moreThan(0).lessThan(60).required(missingDuration),
   });

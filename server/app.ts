@@ -15,7 +15,7 @@ export const initApp = async (): Promise<Express> => {
         app.use(bodyParser.json());
         app.use('/auth', authRouter);
         app.use('/user', userRouter);
-        app.use('/workouts', workoutsRouter);
+        app.use('/workout', workoutsRouter);
         app.use('/preferences', preferencesRouter);
         resolve(app);
     });
