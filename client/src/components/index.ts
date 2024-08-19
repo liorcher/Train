@@ -5,3 +5,4 @@ export * from './Navbar';
 export * from './PreferenceQuestionnaire';
 export * from './TrainersImages';
 export * from './UserProgressPage';
+export * from './style';

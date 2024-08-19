@@ -83,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
 
     try {
         //Check if the user exists
-        const results = getUsersByEmail(email);
+        const results = await getUsersByEmail(email);
         const user: User = results[0];
         // const user = await UserModel.findOne({ email });
         if (user === null) return res.status(404).send('User not found');

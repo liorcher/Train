@@ -7,7 +7,7 @@ export type PreferencesMetaData = {
   goals: string[];
   days: string[];
   workouts: string[];
-  durationInMinutes: number;
+  workoutDurationInMinutes: number;
 };
 
 export interface UserGoals {

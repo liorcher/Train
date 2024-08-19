@@ -53,6 +53,7 @@ const workoutPlanItemBox = (isDone: boolean): SxProps<Theme> => ({
   borderColor: theme.palette.primary.contrastText,
   borderTopColor: isDone ? theme.palette.success.main : theme.palette.error.main,
   margin: '1rem',
+  p: 2,
   boxSizing: 'border-box',
   borderRadius: '8px',
   cursor: 'pointer',

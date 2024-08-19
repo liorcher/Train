@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import dayjs from 'dayjs';
-import { Workout } from '@/types/workout.type';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './style.css';
+import { Workout } from '@/models';
 
 interface Props {
   workouts: Workout[] | null;
@@ -19,8 +19,8 @@ export const WorkoutsCalendar: React.FC<Props> = ({ workouts, setWorkout }) => {
       events={
         workouts?.map((workout) => ({
           ...workout,
-          start: workout.datetime,
-          end: dayjs(workout.datetime).add(workout.durationMin, 'minute').toDate(),
+          start: dayjs(workout.date).toDate(),
+          end: dayjs(workout.date).add(workout.duration, 'minutes').toDate(),
         })) ?? []
       }
       onSelectEvent={(workout) => setWorkout(workout)}

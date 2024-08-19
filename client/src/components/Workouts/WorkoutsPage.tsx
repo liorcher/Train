@@ -1,32 +1,41 @@
-import { Workout } from '@/types/workout.type';
 import { Box, Stack } from '@mui/material';
 import { find, map } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import WorkoutActivity from './WorkoutActivity/WorkoutActivity';
 import WorkoutPlan from './WorkoutPlan/WorkoutPlan';
 import Styles from './WorkoutsPage.style';
-import { workoutsMockData } from './workoutsMockData';
+import { useAuth, usePersonalizedTrainingPlanContext } from '@/contexts';
+import { Workout } from '@/models';
+import { WorkoutApi } from '@/api';
 
 const WorkoutsPage: React.FC = () => {
-  const [workouts, setWorkouts] = useState<Workout[] | null>(null);
+  const { currentUser } = useAuth();
+  const { workouts, updateWorkouts, setLoading } = usePersonalizedTrainingPlanContext();
   const [workout, setWorkout] = useState<Workout | null>(null);
 
   useEffect(() => {
     fetchWorkouts();
-  }, []);
+  }, [currentUser]);
 
-  const fetchWorkouts = () => {
-    // const serverWorkouts = api.get('/workouts')
-    const serverWorkouts = workoutsMockData;
+  const fetchWorkouts = useCallback(async () => {
+    try {
+      setLoading(true);
+      if (currentUser) {
+        const workouts = await WorkoutApi.getUserWorkouts();
+        updateWorkouts(workouts);
 
-    setWorkouts(null);
-    setTimeout(() => {
-      setWorkouts(serverWorkouts);
-      const updatedWorkout =
-        find(serverWorkouts, { id: workout?.id }) || (serverWorkouts && serverWorkouts[0]) || null;
-      setWorkout(updatedWorkout);
-    }, 1000);
-  };
+        const updatedWorkout =
+          find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
+        setWorkout(updatedWorkout);
+      } else {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentUser, workout]);
 
   const updateWorkout = (updatedWorkout: Workout) => {
     if (!workouts) return;
@@ -37,7 +46,7 @@ const WorkoutsPage: React.FC = () => {
     const updatedWorkouts = map(workouts, (currentWorkout: Workout) =>
       currentWorkout.id === updatedWorkout.id ? updatedWorkout : currentWorkout
     );
-    setWorkouts(updatedWorkouts);
+    updateWorkouts(updatedWorkouts);
     setWorkout(updatedWorkout);
   };
 
@@ -45,7 +54,7 @@ const WorkoutsPage: React.FC = () => {
     <Box sx={Styles.outerBox}>
       <Stack {...Styles.stack}>
         <WorkoutPlan workouts={workouts} setWorkout={setWorkout} fetchWorkouts={fetchWorkouts} />
-        <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />
+        {workout && <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />}
       </Stack>
     </Box>
   );

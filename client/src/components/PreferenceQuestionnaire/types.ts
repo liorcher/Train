@@ -8,7 +8,7 @@ export type PreferenceQuestionnaireFormFields = {
   goals: { goal: Goal }[];
   days: { day: Day }[];
   workouts: { workout: Workout }[];
-  durationInMinutes: number;
+  workoutDurationInMinutes: number;
 };
 
 export enum Gender {

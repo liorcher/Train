@@ -1,20 +1,22 @@
 import Loader from '@/components/Loader';
-import { Workout } from '@/types/workout.type';
 import { CalendarToday, FormatListBulleted, Refresh } from '@mui/icons-material';
 import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Styles from './WorkoutPlan.style';
 import WorkoutPlanItem from './WorkoutPlanItem';
 import { WorkoutsCalendar } from '../WorkoutsCalendar';
+import { Workout } from '@/models';
+import { usePersonalizedTrainingPlanContext } from '@/contexts';
 
 type Props = {
-  workouts: Workout[] | null;
+  workouts: Workout[];
   setWorkout: Dispatch<SetStateAction<Workout | null>>;
   fetchWorkouts: () => void;
 };
 
 const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
   const [isRegularView, setIsRegularView] = useState(true);
+  const { loading } = usePersonalizedTrainingPlanContext();
 
   return (
     <Box sx={Styles.outerBox}>
@@ -41,7 +43,7 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
               </Tooltip>
             </Box>
           </Box>
-          {!workouts ? (
+          {loading ? (
             <Loader />
           ) : workouts.length == 0 ? (
             <Typography {...Styles.workoutPlanItemField}>

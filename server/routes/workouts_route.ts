@@ -4,5 +4,5 @@ import { WorkoutsController } from '../controllers';
 
 export const workoutsRouter = express.Router();
 
-workoutsRouter.get('/workouts', checkAuth, WorkoutsController.getUserWorkouts);
+workoutsRouter.get('/currentUser', checkAuth, WorkoutsController.getUserWorkouts);
 workoutsRouter.post('/newWorkoutPlan', checkAuth, WorkoutsController.createUserWorkoutPlan);

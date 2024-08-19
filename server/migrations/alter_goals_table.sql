@@ -16,3 +16,6 @@ ALTER TABLE IF EXISTS "trAIn".goals
 
 ALTER TABLE IF EXISTS "trAIn".goals
     ALTER COLUMN id SET DEFAULT uuid_generate_v4();
+
+ALTER TABLE IF EXISTS "trAIn".goals
+    ALTER COLUMN is_deleted SET DEFAULT false;

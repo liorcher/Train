@@ -1,59 +1,65 @@
-import { Workout } from "@/types/workout.type"
-import { Box, Button, Stack, Typography } from "@mui/material"
-import { format } from "date-fns"
-import WorkoutIcon from "../WorkoutIcon"
-import Styles from "./WorkoutActivity.style"
-import { getPrettyDuration } from "./WorkoutActivity.utils"
-import WorkoutActivityField from "./WorkoutActivityField"
+import { Box, Grid, Typography } from '@mui/material';
+import { Workout } from '@/models';
+import { useMultiStepForm } from '@/hooks';
+import Styles from './WorkoutActivity.style';
+import { FormActionButton } from '@/components';
+import { WorkoutExercise } from './WorkoutExercise/WorkoutExercise';
 
 type Props = {
-  workout: Workout | null
-  updateWorkout: (workout: Workout) => void
-}
+  workout: Workout;
+  updateWorkout: (workout: Workout) => void;
+};
 
-const WorkoutActivity = ({ workout, updateWorkout }: Props) => {
-  if (!workout) return null
+const getWorkoutSteps = (workout: Workout) => {
+  return workout.exercises.map((exercise, index) => (
+    <WorkoutExercise
+      key={exercise.name}
+      exerciseNumber={index + 1}
+      exercisesAmount={workout.exercises.length}
+      exercise={exercise}
+    />
+  ));
+};
 
-  const duration = getPrettyDuration(workout.durationMin)
-  const datetime = format(workout.datetime, "EEEE, HH:mm, dd/MM/yyyy")
+const WorkoutActivity = (props: Props) => {
+  const { workout } = props;
+  const { step, isFirstStep, isLastStep, back, next } = useMultiStepForm(
+    getWorkoutSteps(workout) || []
+  );
 
-  const fieldValues = [
-    { value: workout.type },
-    { value: datetime },
-    { label: "Duration", value: duration },
-    { label: "Calories burnt", value: `${workout.calories} calories` },
-  ]
-
-  const handleDone = () => {
-    updateWorkout({...workout, isDone: true})
-  }
+  // TODO: add done button after adding server route
+  // const handleDone = () => {
+  //   updateWorkout({ ...workout, isDone: true });
+  // };
 
   return (
     workout && (
       <Box sx={Styles.outerBox}>
         <Box sx={Styles.titleBox}>
-          <Typography {...Styles.title}>Workout Details</Typography>
-          <Box sx={Styles.workoutIconBox}>
-            <WorkoutIcon type={workout.type} />
-          </Box>
+          <Typography {...Styles.title}>{workout.title}</Typography>
         </Box>
 
-        <Stack spacing={8}>
-          {fieldValues.map((field, index) => (
-            <WorkoutActivityField key={index} {...field} />
-          ))}
-        </Stack>
-
-        {!workout.isDone && (
-          <Box sx={Styles.doneButtonBox}>
-            <Button {...Styles.doneButton} onClick={handleDone}>
-              Done it!
-            </Button>
-          </Box>
-        )}
+        <Grid
+          container
+          alignItems={'center'}
+          justifyContent={'center'}
+          flexGrow={1}
+          p={2}
+          sx={{ backgroundColor: '#565151', borderRadius: 2 }}
+        >
+          {step}
+          <Grid item container justifyContent={'space-between'}>
+            <Grid item>
+              {!isFirstStep && <FormActionButton onClick={back}>{'previous'}</FormActionButton>}
+            </Grid>
+            <Grid item>
+              {!isLastStep && <FormActionButton onClick={next}>{'next'}</FormActionButton>}
+            </Grid>
+          </Grid>
+        </Grid>
       </Box>
     )
-  )
-}
+  );
+};
 
-export default WorkoutActivity
+export default WorkoutActivity;

@@ -1,51 +1,69 @@
-import { theme } from "@/configs"
-import { SxProps } from "@mui/material"
+import { theme } from '@/configs';
+import { SxProps } from '@mui/material';
 
 const outerBox: SxProps = {
   flexGrow: 1,
-  display: "flex",
-  padding: "1rem",
+  display: 'flex',
+  padding: '1rem',
   backgroundColor: theme.palette.secondary.dark,
-  borderRadius: "8px",
-  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
-  boxSizing: "border-box",
-  overflowY: "auto",
-  flexDirection: "column",
-  height: "100%",
-  maxWidth: "500px",
-  margin: "0 auto",
-}
+  borderRadius: '8px',
+  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+  boxSizing: 'border-box',
+  overflowY: 'auto',
+  flexDirection: 'column',
+  height: '100%',
+  maxWidth: '500px',
+  margin: '0 auto',
+};
 
 const titleBox: SxProps = {
-  display: "flex",
-  alignItems: "center",
-  mb: "5%",
+  display: 'flex',
+  alignItems: 'center',
+  mb: '5%',
   pb: 1,
   borderBottom: `2px solid ${theme.palette.primary.contrastText}`,
-}
+};
 
 const title: SxProps = {
-  variant: "h3",
-  color: "primary.contrastText",
-  sx: { textAlign: "left" },
-}
+  variant: 'h3',
+  color: 'primary.contrastText',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  sx: {
+    textAlign: 'left',
+    fontWeight: 'bold',
+  },
+};
 
 const workoutIconBox: SxProps = {
-  ml: "auto",
-}
+  ml: 'auto',
+};
 
 const doneButton: SxProps = {
-  variant: "contained",
-  color: "secondary",
-}
+  variant: 'contained',
+  color: 'secondary',
+};
 
-const doneButtonBox: SxProps = { mt: "auto", alignSelf: "flex-end" }
+const doneButtonBox: SxProps = { mt: 'auto', alignSelf: 'flex-end' };
 
 const workoutActivityField: SxProps = {
-  variant: "h4",
-  color: "primary.contrastText",
-  sx: { textAlign: "left", width: "100%", mb: 1 },
-}
+  variant: 'h5',
+  color: 'primary.contrastText',
+  sx: { textAlign: 'left', width: '100%', mb: 1 },
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+};
+
+const workoutActivityExerciseTitle: SxProps = {
+  variant: 'h4',
+  color: 'primary.contrastText',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  sx: { textAlign: 'left', width: '100%', mb: 1, fontWeight: 'bold' },
+};
 
 export default {
   outerBox,
@@ -55,4 +73,5 @@ export default {
   doneButtonBox,
   doneButton,
   workoutActivityField,
-}
+  workoutActivityExerciseTitle,
+};

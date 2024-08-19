@@ -24,12 +24,14 @@ export const WorkoutDurationForm: React.FC = () => {
                 <Grid container>
                   <Grid item xs={5}>
                     <FormTextField
-                      {...register(PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES)}
+                      {...register(PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES)}
                       variant={'outlined'}
                       sx={style.textField}
                       type={'number'}
                       InputProps={{ endAdornment: 'minutes', inputProps: { min: 0, max: 60 } }}
-                      error={!!errors[PreferenceQuestionnaireFieldsNames.DURATION_IN_MINUTES]}
+                      error={
+                        !!errors[PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]
+                      }
                     />
                   </Grid>
                 </Grid>
