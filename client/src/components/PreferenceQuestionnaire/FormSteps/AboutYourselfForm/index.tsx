@@ -20,7 +20,7 @@ export const AboutYourselfForm: React.FC = () => {
 
   return (
     <PreferenceFieldForm
-      title={'About Yourself'}
+      title={'Tell me about yourself'}
       fields={[
         {
           fieldTitle: 'Please select your gender',

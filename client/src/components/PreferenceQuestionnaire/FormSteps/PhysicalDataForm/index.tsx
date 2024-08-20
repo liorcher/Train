@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { PreferenceQuestionnaireFormFields } from '../../types';
-import style, { FormTextField } from '../style';
+import style, { FormTextField, StepSubTitle } from '../style';
 import { Grid } from '@mui/material';
 import { PreferenceQuestionnaireFieldsNames } from '../../formFields';
 import { PreferenceFieldForm } from '../PreferenceFieldForm';
@@ -13,13 +13,13 @@ export const PhysicalDataForm: React.FC = () => {
 
   return (
     <PreferenceFieldForm
-      title={'Your Physical Data'}
+      title={'Please fill your pysical data'}
       fields={[
         {
-          fieldTitle: 'What is your current weight?',
           field: (
-            <Grid container>
+            <Grid container justifyContent={'space-between'}>
               <Grid item xs={5}>
+                <StepSubTitle required>{'What is your current weight'}</StepSubTitle>
                 <FormTextField
                   {...register(PreferenceQuestionnaireFieldsNames.WEIGHT)}
                   variant={'outlined'}
@@ -29,15 +29,8 @@ export const PhysicalDataForm: React.FC = () => {
                   error={!!errors[PreferenceQuestionnaireFieldsNames.WEIGHT]}
                 />
               </Grid>
-            </Grid>
-          ),
-          required: true,
-        },
-        {
-          fieldTitle: 'What is your target weight?',
-          field: (
-            <Grid container>
               <Grid item xs={5}>
+                <StepSubTitle required>{'What is your target weight'}</StepSubTitle>
                 <FormTextField
                   {...register(PreferenceQuestionnaireFieldsNames.TARGET_WEIGHT)}
                   variant={'outlined'}

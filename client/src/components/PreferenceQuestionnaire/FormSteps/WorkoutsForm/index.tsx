@@ -3,13 +3,9 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { PreferenceQuestionnaireFormFields, Workout } from '../../types';
 import { PreferenceQuestionnaireFieldsNames } from '../../formFields';
 import { PreferencesListFieldForm } from '../PreferencesListFieldForm';
-import { WORKOUTS_PREFERENCES_STEPS_TITLE } from '../consts';
 
 export const WorkoutsForm: React.FC = () => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const { control } = useFormContext<PreferenceQuestionnaireFormFields>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: PreferenceQuestionnaireFieldsNames.WORKOUTS,
@@ -35,11 +31,8 @@ export const WorkoutsForm: React.FC = () => {
 
   return (
     <PreferencesListFieldForm
-      title={WORKOUTS_PREFERENCES_STEPS_TITLE}
-      subTitle={'What are your favorite workouts? Select up to 3 workouts.'}
+      title={'What are your favorite workouts? Select 1 up to 3'}
       fieldName={PreferenceQuestionnaireFieldsNames.WORKOUTS}
-      required
-      error={!!errors[PreferenceQuestionnaireFieldsNames.WORKOUTS]}
       isItemSelected={isWorkoutSelected}
       onItemClick={onWorkoutChange}
     />

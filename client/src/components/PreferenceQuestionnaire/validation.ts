@@ -28,10 +28,10 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
   .object<PreferenceQuestionnaireFormFields>()
   .shape({
     gender: yup.mixed<Gender>().oneOf(Object.values(Gender)).required(),
-    age: yup.number().moreThan(0).required(missingAge),
-    weight: yup.number().moreThan(0).required(missingWeight),
-    height: yup.number().moreThan(0).required(missingHeight),
-    targetWeight: yup.number().optional(),
+    age: yup.number().min(1).max(120).required(missingAge),
+    weight: yup.number().min(1).max(500).required(missingWeight),
+    height: yup.number().min(50).max(250).required(missingHeight),
+    targetWeight: yup.number().min(1).max(500),
     activityLevel: yup
       .mixed<ActivityLevel>()
       .oneOf(Object.values(ActivityLevel))
@@ -58,5 +58,5 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
       .min(1)
       .max(3)
       .required(missingWorkouts),
-    workoutDurationInMinutes: yup.number().moreThan(0).lessThan(60).required(missingDuration),
+    workoutDurationInMinutes: yup.number().min(30).max(180).required(missingDuration),
   });

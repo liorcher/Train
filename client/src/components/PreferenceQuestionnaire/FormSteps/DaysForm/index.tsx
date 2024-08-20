@@ -3,13 +3,9 @@ import { PreferencesListFieldForm } from '../PreferencesListFieldForm';
 import { Day, PreferenceQuestionnaireFormFields } from '../../types';
 import { PreferenceQuestionnaireFieldsNames } from '../../formFields';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { WORKOUTS_PREFERENCES_STEPS_TITLE } from '../consts';
 
 export const DaysForm: React.FC = () => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext<PreferenceQuestionnaireFormFields>();
+  const { control } = useFormContext<PreferenceQuestionnaireFormFields>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: PreferenceQuestionnaireFieldsNames.DAYS,
@@ -33,11 +29,8 @@ export const DaysForm: React.FC = () => {
 
   return (
     <PreferencesListFieldForm
-      title={WORKOUTS_PREFERENCES_STEPS_TITLE}
-      subTitle={'What days are you available to workout?'}
+      title={'Select 1 up to 3 of your prefered workout days?'}
       fieldName={PreferenceQuestionnaireFieldsNames.DAYS}
-      required
-      error={!!errors[PreferenceQuestionnaireFieldsNames.DAYS]}
       isItemSelected={isDaySelected}
       onItemClick={onDayChange}
     />

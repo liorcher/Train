@@ -1,12 +1,12 @@
 import React from 'react';
-import { Box, CircularProgress, SxProps, Typography } from '@mui/material';
+import { Box, CircularProgress, SxProps } from '@mui/material';
 
 interface Props {
   size?: number;
-  loadingText?: string;
+  LoadingText?: React.ReactElement;
 }
 
-const Loader: React.FC<Props> = ({ size, loadingText }) => {
+const Loader: React.FC<Props> = ({ size, LoadingText }) => {
   const loaderBox: SxProps = {
     flexGrow: 1,
     display: 'flex',
@@ -14,19 +14,11 @@ const Loader: React.FC<Props> = ({ size, loadingText }) => {
     alignItems: 'center',
     justifyContent: 'center',
     rowGap: '1rem',
-    clipPath: 'inset(0 2ch 0 0)',
-    animation: 'l 1s steps(4) infinite',
   };
 
   return (
     <Box sx={loaderBox}>
-      {loadingText && (
-        <Typography
-          variant={'h3'}
-          color={'secondary.light'}
-          fontWeight={700}
-        >{`${loadingText}...`}</Typography>
-      )}
+      {LoadingText && LoadingText}
       <CircularProgress color='error' size={size} />
     </Box>
   );
