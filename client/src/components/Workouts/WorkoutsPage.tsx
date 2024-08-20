@@ -40,9 +40,6 @@ const WorkoutsPage: React.FC = () => {
   const updateWorkout = (updatedWorkout: Workout) => {
     if (!workouts) return;
 
-    // const updatedWorkouts = api.post('/workout/:id', { workout: updatedWorkout })
-    // fetchWorkouts()
-
     const updatedWorkouts = map(workouts, (currentWorkout: Workout) =>
       currentWorkout.id === updatedWorkout.id ? updatedWorkout : currentWorkout
     );
