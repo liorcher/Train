@@ -27,7 +27,6 @@ const Navbar: React.FC = () => {
           <Button color='inherit' onClick={() => navigate(WORKOUTS_URL)}>
             WORKOUTS
           </Button>
-          <Button color='inherit'>MENU</Button>
         </Box>
 
         {/* Spacer to push content to the right */}

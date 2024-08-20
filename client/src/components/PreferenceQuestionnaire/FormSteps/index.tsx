@@ -5,3 +5,4 @@ export { GoalsForm } from './GoalsForm';
 export { DaysForm } from './DaysForm';
 export { WorkoutsForm } from './WorkoutsForm';
 export { WorkoutDurationForm } from './WorkoutDurationForm';
+export { SubmitForm } from './SubmitForm';

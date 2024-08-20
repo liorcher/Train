@@ -8,6 +8,7 @@ import { WithTrainersImages } from '../HOC';
 import { useGlobalModalContext, usePersonalizedTrainingPlanContext } from '@/contexts';
 import { Form } from '../PreferenceQuestionnaire/Form';
 import { WorkoutApi } from '@/api';
+import style from './style';
 
 export const UserProgressPage = WithTrainersImages(() => {
   const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
@@ -24,6 +25,7 @@ export const UserProgressPage = WithTrainersImages(() => {
       updateWorkouts(workouts);
       toast.success('your workout plan has been created successfully');
     } catch (error) {
+      toast.error('error occured while trying to create user plan');
       console.error('error occured while trying to create user plan', error);
     } finally {
       setIsGeneratingPlan(false);
@@ -39,7 +41,21 @@ export const UserProgressPage = WithTrainersImages(() => {
       sx={{ backgroundColor: 'secondary.dark' }}
       direction={'column'}
     >
-      <Loader loadingText={`Working On Your Workout Plan...`} />
+      <Loader
+        LoadingText={
+          <Typography
+            variant={'h3'}
+            color={'secondary.light'}
+            fontWeight={700}
+            textAlign={'center'}
+            sx={style.loadingText}
+          >
+            {`I'm setting up your custom training plan`}
+            <br />
+            {'Please wait a moment'}
+          </Typography>
+        }
+      />
     </Grid>
   ) : loading ? (
     <Loader />
@@ -59,7 +75,7 @@ export const UserProgressPage = WithTrainersImages(() => {
             <Grid item>
               <Typography variant={'h4'} color={'secondary.light'}>
                 {showIntroduction
-                  ? 'to start your journey, we need to know more about you, click here to fill your preferences >'
+                  ? 'To start our journey, I need to know more about you, click here to fill your preferences >'
                   : "Wanted to let you know that you didn't filled your preferences yet >"}
               </Typography>
             </Grid>

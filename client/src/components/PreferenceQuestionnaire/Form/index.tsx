@@ -19,6 +19,7 @@ import {
   DaysForm,
   GoalsForm,
   PhysicalDataForm,
+  SubmitForm,
   WorkoutDurationForm,
   WorkoutsForm,
 } from '../FormSteps';
@@ -44,6 +45,7 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
     <DaysForm />,
     <WorkoutsForm />,
     <WorkoutDurationForm />,
+    <SubmitForm />,
   ]);
   const form = useForm<PreferenceQuestionnaireFormFields>({
     mode: 'onSubmit',
