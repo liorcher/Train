@@ -27,6 +27,13 @@ export const ListFieldOptionByType = {
   [PreferenceQuestionnaireFieldsNames.WORKOUTS]: Workout,
 };
 
+export const availableWorkoutsByGoal = {
+  [Goal.LOSE_WEIGHT]: [Workout.WALK, Workout.RUN, Workout.CYCLING, Workout.SWIMMING],
+  [Goal.MAINTAIN_WEIGHT]: [Workout.WALK, Workout.RUN, Workout.CYCLING, Workout.SWIMMING],
+  [Goal.GAIN_MUSCLE]: [Workout.STRENGTH_WORKOUT],
+  [Goal.BUILD_MUSCLE]: [Workout.STRENGTH_WORKOUT],
+};
+
 export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
   [PreferenceQuestionnaireFieldsNames.GENDER]: Gender.MALE,
   [PreferenceQuestionnaireFieldsNames.AGE]: 0,

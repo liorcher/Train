@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StepSubTitle } from '../style';
 import { FormControl, Grid, Grow } from '@mui/material';
 import { TrainerChat } from '../TrainerChat';
+import { usePreferencesQuestionnaireContext } from '../../Form/PreferencesQuestionnaireContext';
 
 interface Props {
   title: string;
@@ -10,11 +11,18 @@ interface Props {
 
 export const PreferenceFieldForm: React.FC<Props> = ({ title, fields }) => {
   const [showMessage, setShowMessage] = useState(false);
+  const { currentStepIndex, lastLoadedStepIndex, incrementLastLoadedStepIndex } =
+    usePreferencesQuestionnaireContext();
 
   useEffect(() => {
+    if (currentStepIndex < lastLoadedStepIndex) {
+      setShowMessage(true);
+      return;
+    }
     // Show loading dots first, then reveal the message
     const timer = setTimeout(() => {
       setShowMessage(true);
+      incrementLastLoadedStepIndex();
     }, 1500); // Adjust delay as needed
 
     return () => clearTimeout(timer);

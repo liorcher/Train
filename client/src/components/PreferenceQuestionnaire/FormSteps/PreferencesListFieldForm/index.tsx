@@ -3,21 +3,31 @@ import { Grid, Grow, Typography } from '@mui/material';
 import { FormButton } from '../style';
 import { ListFieldOptionByType } from '../../formFields';
 import { TrainerChat } from '../TrainerChat';
+import { usePreferencesQuestionnaireContext } from '../../Form/PreferencesQuestionnaireContext';
 
 interface Props {
   title: string;
   fieldName: keyof typeof ListFieldOptionByType;
   isItemSelected: (value: string) => boolean;
   onItemClick: (value: string) => void;
+  options?: string[];
 }
 
 export const PreferencesListFieldForm: React.FC<Props> = (props) => {
-  const { title, fieldName } = props;
+  const { title, fieldName, options } = props;
   const [showMessage, setShowMessage] = useState(false);
+  const { currentStepIndex, lastLoadedStepIndex, incrementLastLoadedStepIndex } =
+    usePreferencesQuestionnaireContext();
 
   useEffect(() => {
+    if (currentStepIndex < lastLoadedStepIndex) {
+      setShowMessage(true);
+      return;
+    }
+
     const timer = setTimeout(() => {
       setShowMessage(true);
+      incrementLastLoadedStepIndex();
     }, 1500);
 
     return () => clearTimeout(timer);
@@ -42,7 +52,7 @@ export const PreferencesListFieldForm: React.FC<Props> = (props) => {
           maxHeight={'70%'}
           overflow={'auto'}
         >
-          {Object.entries(ListFieldOptionByType[fieldName]).map(([key, value]) => (
+          {Object.entries(options || ListFieldOptionByType[fieldName]).map(([key, value]) => (
             <Grid item key={key} xs={12}>
               <FormButton
                 sx={{ p: 5, justifyContent: 'center' }}
