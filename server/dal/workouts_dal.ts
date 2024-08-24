@@ -2,7 +2,11 @@ import { query } from './data_access';
 import { Workout } from '../models/workout';
 
 export const getWorkoutsByUser = async (userId: string) => {
-    const results: Workout[] = await query('SELECT * FROM "trAIn".workouts WHERE user_id = $1 AND NOT is_deleted', [
+    const results: Workout[] = await query(`
+        SELECT * 
+        FROM "trAIn".workouts 
+        WHERE user_id = $1 AND NOT is_deleted
+        ORDER BY date asc`, [
         userId,
     ]);
 
