@@ -28,6 +28,7 @@ import Loader from '@/components/Loader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalModalContext } from '@/contexts';
 import { FormActionButton } from '@/components';
+import { PreferencesQuestionnaireProvider } from './PreferencesQuestionnaireContext';
 
 interface Props {
   onSaveSuccess: VoidFunction;
@@ -37,6 +38,7 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
   const {
     multiStepForm: { nextBtn, doneBtn, backBtn },
   } = dictionary;
+
   const { currentStepIndex, isFirstStep, isLastStep, step, steps, next, back } = useMultiStepForm([
     <AboutYourselfForm />,
     <PhysicalDataForm />,
@@ -47,15 +49,16 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
     <WorkoutDurationForm />,
     <SubmitForm />,
   ]);
+
   const form = useForm<PreferenceQuestionnaireFormFields>({
     mode: 'onSubmit',
-    defaultValues: getFormDefaultValues(),
+    defaultValues: { ...getFormDefaultValues() },
     resolver: yupResolver(validationSchema),
   });
+
   const { setCurrentUser } = useAuth();
   const { loading, startLoading, stopLoading } = useLoading();
   const { hideModal } = useGlobalModalContext();
-
   const { handleSubmit, trigger } = form;
 
   const onSubmit = async (values: PreferenceQuestionnaireFormFields) => {
@@ -102,7 +105,10 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
         isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUTS]);
         break;
       case 6:
-        isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]);
+        isValid = await trigger([
+          PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES,
+          PreferenceQuestionnaireFieldsNames.WORKOUT_TIME,
+        ]);
         break;
     }
 
@@ -114,54 +120,56 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
   return (
     <Dialog open onClose={hideModal} maxWidth={'sm'} fullWidth>
       <FormProvider {...form}>
-        <form>
-          <Grid container height={'100%'} p={4} direction={'column'}>
-            <Grid
-              item
-              container
-              position={'absolute'}
-              alignItems={'center'}
-              justifyContent={'center'}
-            ></Grid>
-            <Grid item container direction={'column'} alignItems={'center'}>
-              <Grid item>
-                <img src={AppLogo} width={100} height={'fit-content'} />
-              </Grid>
-            </Grid>
-            <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
-              <Typography variant='h6' color={'secondary.light'}>
-                {`Step ${currentStepIndex + 1} / ${steps.length}`}
-              </Typography>
-              <ProgressBar
-                variant={'fullWidth'}
-                orientation={'horizontal'}
-                precentage={(currentStepIndex / steps.length) * 100}
-              />
+        <PreferencesQuestionnaireProvider currentStepIndex={currentStepIndex}>
+          <form>
+            <Grid container height={'100%'} p={4} direction={'column'}>
               <Grid
                 item
                 container
-                gap={'1rem .5rem'}
-                direction={'column'}
-                sx={{ height: '300px' }}
-                p={2}
-                marginTop={2}
-              >
-                {step}
+                position={'absolute'}
+                alignItems={'center'}
+                justifyContent={'center'}
+              ></Grid>
+              <Grid item container direction={'column'} alignItems={'center'}>
+                <Grid item>
+                  <img src={AppLogo} width={100} height={'fit-content'} />
+                </Grid>
+              </Grid>
+              <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
+                <Typography variant='h6' color={'info.main'}>
+                  {`Step ${currentStepIndex + 1} / ${steps.length}`}
+                </Typography>
+                <ProgressBar
+                  variant={'fullWidth'}
+                  orientation={'horizontal'}
+                  precentage={(currentStepIndex / steps.length) * 100}
+                />
+                <Grid
+                  item
+                  container
+                  gap={'1rem .5rem'}
+                  direction={'column'}
+                  sx={{ height: '300px' }}
+                  p={2}
+                  marginTop={2}
+                >
+                  {step}
+                </Grid>
+              </Grid>
+              <Grid item container alignSelf={'flex-end'} justifyContent={'space-between'}>
+                <Grid item>
+                  {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
+                </Grid>
+                <Grid item>
+                  <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}>
+                    {isLastStep ? doneBtn : nextBtn}
+                    {loading && <Loader size={25} />}
+                  </FormActionButton>
+                </Grid>
               </Grid>
             </Grid>
-            <Grid item container alignSelf={'flex-end'} justifyContent={'space-between'}>
-              <Grid item>
-                {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
-              </Grid>
-              <Grid item>
-                <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}>
-                  {isLastStep ? doneBtn : nextBtn}
-                  {loading && <Loader size={25} />}
-                </FormActionButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </form>
+          </form>
+        </PreferencesQuestionnaireProvider>
       </FormProvider>
     </Dialog>
   );

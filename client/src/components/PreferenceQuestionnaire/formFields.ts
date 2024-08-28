@@ -19,12 +19,22 @@ export enum PreferenceQuestionnaireFieldsNames {
   DAYS = 'days',
   WORKOUTS = 'workouts',
   WORKOUT_DURATION_IN_MINUTES = 'workoutDurationInMinutes',
+  WORKOUT_TIME = 'workoutTime',
 }
 
 export const ListFieldOptionByType = {
   [PreferenceQuestionnaireFieldsNames.GOALS]: Goal,
   [PreferenceQuestionnaireFieldsNames.DAYS]: Day,
   [PreferenceQuestionnaireFieldsNames.WORKOUTS]: Workout,
+};
+
+export const availableWorkoutsByGoal: Record<Goal, Workout[]> = {
+  [Goal.BUILD_MUSCLE]: [Workout.STRENGTH_WORKOUT],
+  [Goal.LOSE_WEIGHT]: [Workout.WALK, Workout.RUN, Workout.CYCLING, Workout.SWIMMING],
+  [Goal.MAINTAIN_WEIGHT]: [Workout.WALK, Workout.RUN, Workout.CYCLING, Workout.SWIMMING],
+  [Goal.TONE_BODY]: [Workout.YOGA],
+  [Goal.IMPROVE_FITNESS]: [Workout.WALK, Workout.RUN, Workout.CYCLING, Workout.SWIMMING],
+  [Goal.INCREASE_STRENGTH]: [Workout.STRENGTH_WORKOUT],
 };
 
 export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
@@ -38,6 +48,7 @@ export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
   [PreferenceQuestionnaireFieldsNames.DAYS]: [],
   [PreferenceQuestionnaireFieldsNames.WORKOUTS]: [],
   [PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]: 0,
+  [PreferenceQuestionnaireFieldsNames.WORKOUT_TIME]: '',
 });
 
 export const convertFormValuesToApi = (

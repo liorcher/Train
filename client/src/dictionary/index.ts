@@ -15,6 +15,7 @@ export default {
       missingDays: 'Days are required',
       missingWorkouts: 'Workouts are required',
       missingDuration: 'Duration is required',
+      missingWorkoutTime: 'Workout time is required',
     },
   },
 };

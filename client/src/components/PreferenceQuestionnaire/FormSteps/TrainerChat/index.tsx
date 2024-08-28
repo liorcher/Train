@@ -24,6 +24,7 @@ export const TrainerChat: React.FC<Props> = ({ title, showMessage }) => {
           <Typography
             variant='h5'
             fontWeight={500}
+            color={'info.main'}
             sx={{
               overflow: 'hidden',
               whiteSpace: 'nowrap',

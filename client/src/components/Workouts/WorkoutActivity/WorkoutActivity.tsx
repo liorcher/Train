@@ -27,11 +27,6 @@ const WorkoutActivity = (props: Props) => {
     getWorkoutSteps(workout) || []
   );
 
-  // TODO: add done button after adding server route
-  // const handleDone = () => {
-  //   updateWorkout({ ...workout, isDone: true });
-  // };
-
   return (
     workout && (
       <Box sx={Styles.outerBox}>

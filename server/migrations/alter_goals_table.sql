@@ -19,3 +19,6 @@ ALTER TABLE IF EXISTS "trAIn".goals
 
 ALTER TABLE IF EXISTS "trAIn".goals
     ALTER COLUMN is_deleted SET DEFAULT false;
+
+ALTER TABLE "trAIn".goals
+ADD COLUMN workout_time TIME;

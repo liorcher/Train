@@ -40,7 +40,7 @@ export const ActivityLevelForm: React.FC = () => {
                     <Typography variant='h6' align='left'>
                       {value}
                       <br />
-                      <Box color={'secondary.dark'} fontSize={10}>
+                      <Box color={'secondary.dark'} fontSize={12}>
                         {ActivityLevelDescription[value as ActivityLevel]}
                       </Box>
                     </Typography>
