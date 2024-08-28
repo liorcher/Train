@@ -11,6 +11,19 @@ interface Props {
 }
 
 export const WorkoutsCalendar: React.FC<Props> = ({ workouts, setWorkout }) => {
+  const eventPropGetter = (event: Workout) => {
+    const backgroundColor = event.isDone ? 'green' : 'red';
+
+    return {
+      style: {
+        backgroundColor,
+        color: 'white',
+        borderRadius: '5px',
+        border: 'none',
+      },
+    };
+  };
+
   return (
     <Calendar
       style={{
@@ -25,6 +38,7 @@ export const WorkoutsCalendar: React.FC<Props> = ({ workouts, setWorkout }) => {
       }
       onSelectEvent={(workout) => setWorkout(workout)}
       localizer={dayjsLocalizer(dayjs)}
+      eventPropGetter={eventPropGetter}
     />
   );
 };

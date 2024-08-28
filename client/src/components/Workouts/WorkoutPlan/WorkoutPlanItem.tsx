@@ -24,8 +24,8 @@ const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
       try {
         await WorkoutApi.updateWorkoutProgress({ ...workout, caloriesBurned });
         updateWorkouts(
-          workouts.map((workout) =>
-            workout.id === workout.id ? { ...workout, caloriesBurned } : workout
+          workouts.map((currWorkout) =>
+            currWorkout.id === workout.id ? { ...currWorkout, caloriesBurned } : currWorkout
           )
         );
         toast.success('Calories burned saved successfully');
@@ -41,7 +41,9 @@ const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
       if (workout.isDone !== isDone) {
         await WorkoutApi.updateWorkoutProgress({ ...workout, isDone });
         updateWorkouts(
-          workouts.map((workout) => (workout.id === workout.id ? { ...workout, isDone } : workout))
+          workouts.map((currWorkout) =>
+            currWorkout.id === workout.id ? { ...currWorkout, isDone } : currWorkout
+          )
         );
         toast.success('Workout progress saved successfully');
       }
@@ -101,7 +103,7 @@ const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
               }}
               type={'number'}
               InputProps={{ endAdornment: 'cal' }}
-              value={workout.caloriesBurned || 0}
+              value={caloriesBurned || 0}
               onChange={onCaloriesBurnedChange}
               onBlur={saveCaloriesBurned}
             />

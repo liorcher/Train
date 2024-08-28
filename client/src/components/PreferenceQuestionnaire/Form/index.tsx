@@ -38,6 +38,7 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
   const {
     multiStepForm: { nextBtn, doneBtn, backBtn },
   } = dictionary;
+
   const { currentStepIndex, isFirstStep, isLastStep, step, steps, next, back } = useMultiStepForm([
     <AboutYourselfForm />,
     <PhysicalDataForm />,
@@ -48,15 +49,16 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
     <WorkoutDurationForm />,
     <SubmitForm />,
   ]);
+
   const form = useForm<PreferenceQuestionnaireFormFields>({
     mode: 'onSubmit',
-    defaultValues: { ...getFormDefaultValues(), loadedSteps: {} },
+    defaultValues: { ...getFormDefaultValues() },
     resolver: yupResolver(validationSchema),
   });
+
   const { setCurrentUser } = useAuth();
   const { loading, startLoading, stopLoading } = useLoading();
   const { hideModal } = useGlobalModalContext();
-
   const { handleSubmit, trigger } = form;
 
   const onSubmit = async (values: PreferenceQuestionnaireFormFields) => {
@@ -103,7 +105,10 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
         isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUTS]);
         break;
       case 6:
-        isValid = await trigger([PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]);
+        isValid = await trigger([
+          PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES,
+          PreferenceQuestionnaireFieldsNames.WORKOUT_TIME,
+        ]);
         break;
     }
 
@@ -131,7 +136,7 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
                 </Grid>
               </Grid>
               <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
-                <Typography variant='h6' color={'secondary.light'}>
+                <Typography variant='h6' color={'info.main'}>
                   {`Step ${currentStepIndex + 1} / ${steps.length}`}
                 </Typography>
                 <ProgressBar

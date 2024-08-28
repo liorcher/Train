@@ -5,8 +5,9 @@ export const StepTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const StepSubTitle = styled(FormLabel)(({ theme }) => ({
-  color: theme.palette.secondary.main,
+  color: theme.palette.info.main,
   marginBottom: '5px',
+  fontSize: '13px',
 }));
 
 export const FormButton = styled(Button)<{ isSelected: boolean }>(({ theme, isSelected }) => ({

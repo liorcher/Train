@@ -8,7 +8,14 @@ export const workoutPlanSchema = Joi.object({
   activityLevel: Joi.string().valid('Beginner', 'Intermediate', 'Advanced'),
   targetWeight: Joi.number().min(1).max(500),
   goals: Joi.array().items(
-    Joi.string().valid('Lose weight', 'Maintain weight', 'Gain muscle', 'Build muscle')
+    Joi.string().valid(
+      'Build muscle',
+      'Lose weight',
+      'Maintain weight',
+      'Tone body',
+      'Improve fitness',
+      'Increase strength'
+    )
   ),
   workoutDurationInMinutes: Joi.number().min(30).max(180),
 }).unknown(true);

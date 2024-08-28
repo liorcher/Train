@@ -12,7 +12,7 @@ const outerBox: SxProps = {
   overflowY: 'auto',
   flexDirection: 'column',
   height: '100%',
-  maxWidth: '500px',
+  maxWidth: '550px',
   margin: '0 auto',
 };
 

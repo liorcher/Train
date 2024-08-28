@@ -9,6 +9,7 @@ export type PreferenceQuestionnaireFormFields = {
   days: { day: Day }[];
   workouts: { workout: Workout }[];
   workoutDurationInMinutes: number;
+  workoutTime: string;
 };
 
 export enum Gender {
@@ -23,10 +24,12 @@ export enum ActivityLevel {
 }
 
 export enum Goal {
+  BUILD_MUSCLE = 'Build muscle',
   LOSE_WEIGHT = 'Lose weight',
   MAINTAIN_WEIGHT = 'Maintain weight',
-  GAIN_MUSCLE = 'Gain muscle',
-  BUILD_MUSCLE = 'Build muscle',
+  TONE_BODY = 'Tone body',
+  IMPROVE_FITNESS = 'Improve fitness',
+  INCREASE_STRENGTH = 'Increase strength',
 }
 
 export enum Day {

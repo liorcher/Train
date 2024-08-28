@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import { Exercise } from '@/models';
@@ -12,10 +12,23 @@ interface Props {
 }
 
 export const WorkoutExercise: React.FC<Props> = ({ exerciseNumber, exercisesAmount, exercise }) => {
+  const [isVideoError, setIsVideoError] = useState(false);
+
+  const handleVideoError = useCallback(() => {
+    setIsVideoError(true);
+  }, []);
+
   return (
     <Grid item container direction={'row'} alignItems={'center'}>
-      <Grid item container direction={'row'} alignItems={'center'} {...ExerciseStyles.container}>
-        <Grid item xs={6}>
+      <Grid
+        item
+        container
+        direction={'row'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+        {...ExerciseStyles.container}
+      >
+        <Grid item xs={7}>
           <Tooltip title={exercise.name}>
             <Typography
               {...Styles.workoutActivityExerciseTitle}
@@ -33,8 +46,27 @@ export const WorkoutExercise: React.FC<Props> = ({ exerciseNumber, exercisesAmou
         </Grid>
       </Grid>
       <Grid item container direction={'row'} alignItems={'center'} p={2} rowGap={'1rem'}>
-        <Typography {...ExerciseStyles.exerciseDescription}>{exercise.description}</Typography>
-        <ReactPlayer width={'100%'} height={'230px'} url={exercise.link} />
+        <Typography
+          {...ExerciseStyles.exerciseDescription}
+        >{`Note: ${exercise.description}`}</Typography>
+        {!isVideoError ? (
+          <ReactPlayer
+            width={'100%'}
+            height={'230px'}
+            url={exercise.link}
+            onError={handleVideoError}
+          />
+        ) : (
+          <Typography
+            color={'primary.light'}
+            variant='h5'
+            textAlign={'center'}
+            width={'100%'}
+            height={'230px'}
+          >
+            {'No video available'}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
