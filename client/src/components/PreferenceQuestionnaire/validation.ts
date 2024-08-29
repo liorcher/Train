@@ -20,9 +20,12 @@ const {
       missingDays,
       missingWorkouts,
       missingDuration,
+      missingWorkoutTime,
     },
   },
 } = dictionary;
+
+const timeRegex = /^(?:[01]\d|2[0-3]):(?:[0-5]\d)$/;
 
 export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormFields> = yup
   .object<PreferenceQuestionnaireFormFields>()
@@ -59,4 +62,5 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
       .max(3)
       .required(missingWorkouts),
     workoutDurationInMinutes: yup.number().min(30).max(180).required(missingDuration),
+    workoutTime: yup.string().matches(timeRegex).required(missingWorkoutTime),
   });

@@ -1,5 +1,5 @@
 import type { Response, Request } from 'express';
-import { getWorkoutsByUser, saveWorkout } from '../dal/workouts_dal';
+import { getWorkoutsByUser, saveWorkout, updateWorkoutById } from '../dal/workouts_dal';
 import axios from 'axios';
 import { getUser } from '../dal/users_dal';
 import { getGoalsByUser } from '../dal/goals_dal';
@@ -45,4 +45,25 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
     }
 };
 
-export default { getUserWorkouts, createUserWorkoutPlan };
+const updateWorkoutProgress = async (req: Request, res: Response) => {
+    try {
+        const workoutId = req.body.id; 
+        const updatedData = req.body; 
+
+        const isDone = updatedData.isDone;
+        const caloriesBurned = updatedData.caloriesBurned;
+
+        const updatedWorkout = await updateWorkoutById(workoutId, isDone, caloriesBurned);
+  
+        if (!updatedWorkout) {
+          return res.status(404).json({ message: 'Workout not found' });
+        }
+  
+        return res.json(updatedWorkout); 
+      } catch (error) {
+        console.error('Error updating workout:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
+}
+
+export default { getUserWorkouts, createUserWorkoutPlan, updateWorkoutProgress };

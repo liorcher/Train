@@ -15,9 +15,10 @@ export const WorkoutDurationForm: React.FC = () => {
     <Grid container direction={'column'} spacing={2}>
       <Grid item>
         <PreferenceFieldForm
-          title={'How long do you want your workouts to be?'}
+          title={'Tell me about your workout times preferences'}
           fields={[
             {
+              fieldTitle: 'How long do you want your workouts to be?',
               field: (
                 <Grid container>
                   <Grid item xs={5}>
@@ -30,6 +31,23 @@ export const WorkoutDurationForm: React.FC = () => {
                       error={
                         !!errors[PreferenceQuestionnaireFieldsNames.WORKOUT_DURATION_IN_MINUTES]
                       }
+                    />
+                  </Grid>
+                </Grid>
+              ),
+              required: true,
+            },
+            {
+              fieldTitle: 'What time of day do you prefer to workout?',
+              field: (
+                <Grid container>
+                  <Grid item xs={5}>
+                    <FormTextField
+                      {...register(PreferenceQuestionnaireFieldsNames.WORKOUT_TIME)}
+                      variant={'outlined'}
+                      sx={style.textField}
+                      type={'time'}
+                      error={!!errors[PreferenceQuestionnaireFieldsNames.WORKOUT_TIME]}
                     />
                   </Grid>
                 </Grid>

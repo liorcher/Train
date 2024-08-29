@@ -21,6 +21,11 @@ class WorkoutApi {
 
     return parsedData;
   }
+
+  async updateWorkoutProgress(workout: Workout): Promise<Workout> {
+    const res = await Api.put(`${WORKOUT_PATH_URL}/${workout.id}`, workout);
+    return res.data;
+  }
 }
 
 export default new WorkoutApi();

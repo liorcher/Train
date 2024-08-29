@@ -60,7 +60,14 @@ export const UserProgressPage = WithTrainersImages(() => {
   ) : loading ? (
     <Loader />
   ) : (
-    <Grid container height={'100%'} p={'30px'} direction={'column'} rowGap={'2rem'}>
+    <Grid
+      container
+      height={'100%'}
+      p={'30px'}
+      direction={'column'}
+      alignItems={'center'}
+      rowGap={'2rem'}
+    >
       <Grid item>
         <Grow in timeout={3000}>
           <Typography variant={'h3'} color={'secondary.light'} fontWeight={700}>
@@ -71,7 +78,7 @@ export const UserProgressPage = WithTrainersImages(() => {
       </Grid>
       {!currentUser?.filledPreferences && (
         <Grow in timeout={6000}>
-          <Grid item container direction={'row'} alignItems={'center'}>
+          <Grid item container direction={'row'} alignItems={'center'} justifyContent={'center'}>
             <Grid item>
               <Typography variant={'h4'} color={'secondary.light'}>
                 {showIntroduction
