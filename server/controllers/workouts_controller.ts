@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getUser } from '../dal/users_dal';
 import { getGoalsByUser } from '../dal/goals_dal';
 import { Workout } from '../models/workout';
+import { scheduleWorkouts } from '../utils/workout_util';
 
 const getUserWorkouts = async (req: Request, res: Response) => {
     try {
@@ -20,6 +21,7 @@ const getUserWorkouts = async (req: Request, res: Response) => {
 
 const createUserWorkoutPlan = async (req: Request, res: Response) => {
     try {
+        const numberOfWorkoutAhead: number = Number(process.env.NUMBER_OF_WORKOUTS_AHEAD) || 30;
         const userId = req.user.userId;
 
         const user = await getUser(userId);
@@ -27,8 +29,10 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
 
         const preferences = { ...user, ...goals };
         const response = await axios.post('http://localhost:3000/api/v1/workout/plan', preferences);
+
+        const scheduledWorkouts = scheduleWorkouts(goals.days, response.data.json.workouts, numberOfWorkoutAhead)
         const workouts = await Promise.all(
-            response.data.json.workouts.map(async (workout: Workout) => {
+            scheduledWorkouts.map(async (workout: Workout) => {
                 workout.userId = userId;
                 return saveWorkout(workout);
             })

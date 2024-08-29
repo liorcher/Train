@@ -2,9 +2,14 @@ import { query as runQuery } from './data_access';
 import { Workout } from '../models/workout';
 
 export const getWorkoutsByUser = async (userId: string) => {
-    const results: Workout[] = await runQuery('SELECT * FROM "trAIn".workouts WHERE user_id = $1 AND NOT is_deleted', [
-        userId,
-    ]);
+    const results: Workout[] = await runQuery(
+        `
+        SELECT * 
+        FROM "trAIn".workouts 
+        WHERE user_id = $1 AND NOT is_deleted
+        ORDER BY date asc`,
+        [userId]
+    );
 
     return results;
 };
@@ -35,4 +40,4 @@ export const updateWorkoutById = async (workoutId: string, isDone: any, calories
     const results = await runQuery(sqlQuery, values);
 
     return results;
-}
+};
