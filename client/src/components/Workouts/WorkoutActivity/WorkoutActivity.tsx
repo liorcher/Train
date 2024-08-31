@@ -4,6 +4,7 @@ import { useMultiStepForm } from '@/hooks';
 import Styles from './WorkoutActivity.style';
 import { FormActionButton } from '@/components';
 import { WorkoutExercise } from './WorkoutExercise/WorkoutExercise';
+import { useEffect } from 'react';
 
 type Props = {
   workout: Workout;
@@ -23,9 +24,13 @@ const getWorkoutSteps = (workout: Workout) => {
 
 const WorkoutActivity = (props: Props) => {
   const { workout } = props;
-  const { step, isFirstStep, isLastStep, back, next } = useMultiStepForm(
+  const { step, isFirstStep, isLastStep, back, next, goTo } = useMultiStepForm(
     getWorkoutSteps(workout) || []
   );
+
+  useEffect(() => {
+    goTo(0);
+  }, [workout]);
 
   return (
     workout && (
