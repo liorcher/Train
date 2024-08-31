@@ -30,7 +30,12 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
         const preferences = { ...user, ...goals };
         const response = await axios.post('http://localhost:3000/api/v1/workout/plan', preferences);
 
-        const scheduledWorkouts = scheduleWorkouts(goals.days, response.data.json.workouts, numberOfWorkoutAhead)
+        const scheduledWorkouts = scheduleWorkouts(
+            goals.days,
+            response.data.json.workouts,
+            numberOfWorkoutAhead,
+            goals.workoutTime
+        );
         const workouts = await Promise.all(
             scheduledWorkouts.map(async (workout: Workout) => {
                 workout.userId = userId;
@@ -47,23 +52,23 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
 
 const updateWorkoutProgress = async (req: Request, res: Response) => {
     try {
-        const workoutId = req.body.id; 
-        const updatedData = req.body; 
+        const workoutId = req.body.id;
+        const updatedData = req.body;
 
         const isDone = updatedData.isDone;
         const caloriesBurned = updatedData.caloriesBurned;
 
         const updatedWorkout = await updateWorkoutById(workoutId, isDone, caloriesBurned);
-  
+
         if (!updatedWorkout) {
-          return res.status(404).json({ message: 'Workout not found' });
+            return res.status(404).json({ message: 'Workout not found' });
         }
-  
-        return res.json(updatedWorkout); 
-      } catch (error) {
+
+        return res.json(updatedWorkout);
+    } catch (error) {
         console.error('Error updating workout:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
-      }
-}
+    }
+};
 
 export default { getUserWorkouts, createUserWorkoutPlan, updateWorkoutProgress };
