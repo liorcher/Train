@@ -37,6 +37,26 @@ const WorkoutsPage: React.FC = () => {
     }
   }, [currentUser, workout]);
 
+  const refreshWorkouts = useCallback(async () => {
+    try {
+      setLoading(true);
+      if (currentUser) {
+        const workouts = await WorkoutApi.createWorkoutPlan();
+        updateWorkouts(workouts);
+
+        const updatedWorkout =
+          find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
+        setWorkout(updatedWorkout);
+      } else {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentUser, workout]);
+
   const updateWorkout = (updatedWorkout: Workout) => {
     if (!workouts) return;
 
@@ -50,7 +70,7 @@ const WorkoutsPage: React.FC = () => {
   return (
     <Box sx={Styles.outerBox}>
       <Stack {...Styles.stack}>
-        <WorkoutPlan workouts={workouts} setWorkout={setWorkout} fetchWorkouts={fetchWorkouts} />
+        <WorkoutPlan workouts={workouts} setWorkout={setWorkout} fetchWorkouts={refreshWorkouts} />
         {workout && <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />}
       </Stack>
     </Box>
