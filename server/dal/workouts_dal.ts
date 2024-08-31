@@ -26,6 +26,18 @@ export const saveWorkout = async (workout: Workout) => {
     return results;
 };
 
+export const deleteWorkoutsByUser = async (userId: string) => {
+    const results: Workout[] = await runQuery(
+        `
+        UPDATE "trAIn".workouts 
+        SET is_deleted = true
+        WHERE user_id = $1 AND NOT is_deleted`,
+        [userId]
+    );
+
+    return results;
+};
+
 export const updateWorkoutById = async (workoutId: string, isDone: any, caloriesBurned: any) => {
     const sqlQuery = `
         UPDATE "trAIn".workouts 
