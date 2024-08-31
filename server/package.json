@@ -8,7 +8,7 @@
         "dev": "ts-node-dev --env-file=.env --respawn --transpile-only ./server.ts",
         "test": "tsc && jest --detectOpenHandles --forceExit --coverage",
         "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage ./tests/auth.test.ts",
-        "prod": "cp .env.prod .env && tsc -p tsconfig.prod.json && node dist/src/server.js",
+        "prod": "cp .env.prod .env && tsc -p tsconfig.prod.json && node dist/server.js",
         "prodPM2": "cp .env.prod .env && tsc -p tsconfig.prod.json && pm2 restart ecosystem.config.js --env production"
     },
     "repository": {
