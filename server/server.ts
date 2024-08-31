@@ -9,10 +9,6 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 
 initApp().then((app) => {
-    app.listen(port, () => {
-        console.log('Server Listening on PORT:', port);
-    });
-
     if (process.env.NODE_ENV === 'production') {
         console.log('server is running in production mode');
         const certs = {
