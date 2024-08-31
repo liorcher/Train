@@ -3,14 +3,14 @@ import appConfig from '../configs/appConfig';
 import { convertKeysToCamelCase } from '../utils/convertion_util';
 
 const {
-    db: { user, host, name, port },
+    db: { user, host, name, port, password },
 } = appConfig;
 
 const pool = new Pool({
     user,
     host,
     database: name,
-    password: process.env.PG_PASSWORD,
+    password,
     port,
     ssl: {
         rejectUnauthorized: false,
