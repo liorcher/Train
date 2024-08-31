@@ -1,5 +1,5 @@
 import type { Response, Request } from 'express';
-import { getWorkoutsByUser, saveWorkout, updateWorkoutById } from '../dal/workouts_dal';
+import { getWorkoutsByUser, saveWorkout, updateWorkoutById, deleteWorkoutsByUser } from '../dal/workouts_dal';
 import axios from 'axios';
 import { getUser } from '../dal/users_dal';
 import { getGoalsByUser } from '../dal/goals_dal';
@@ -36,6 +36,9 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
             numberOfWorkoutAhead,
             goals.workoutTime
         );
+
+        await deleteWorkoutsByUser(userId);
+        
         const workouts = await Promise.all(
             scheduledWorkouts.map(async (workout: Workout) => {
                 workout.userId = userId;
