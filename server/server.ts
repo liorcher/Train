@@ -21,10 +21,10 @@ initApp().then((app) => {
 
         app.get('*', (req, res) => {
             if (
-                !req.path.startsWith('/auth') ||
-                !req.path.startsWith('/user') ||
-                !req.path.startsWith('/workout') ||
-                !req.path.startsWith('/preferences') ||
+                !req.path.startsWith('/auth') &&
+                !req.path.startsWith('/user') &&
+                !req.path.startsWith('/workout') &&
+                !req.path.startsWith('/preferences') &&
                 !req.path.startsWith('/test')
             ) {
                 const filePath = `../client-static/dist${req.path === '/' ? '/index.html' : req.path}`;
