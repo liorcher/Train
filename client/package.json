@@ -7,9 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prod": "serve -s dist --ssl-cert ./server.crt --ssl-key ./server.key -l 443",
-    "prodPM2": "pm2 restart ecosystem.config.js --env production"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
