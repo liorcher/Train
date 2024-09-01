@@ -3,6 +3,7 @@ import fs from 'fs';
 import https from 'https';
 import http from 'http';
 import dotenv from 'dotenv';
+import { checkDatabaseConnection } from './dal/data_access';
 
 dotenv.config();
 
@@ -20,4 +21,6 @@ initApp().then((app) => {
         console.log('server is running in development mode');
         http.createServer(app).listen(port);
     }
+
+    checkDatabaseConnection();
 });
