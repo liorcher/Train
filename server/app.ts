@@ -5,6 +5,7 @@ import { userRouter } from './routes/user_route';
 import { preferencesRouter } from './routes/preferences_route';
 import { workoutsRouter } from './routes/workouts_route';
 import { cors } from './middlewares/cors_middleware';
+import { testRouter } from './routes/test_route';
 
 const app = express();
 
@@ -13,6 +14,7 @@ export const initApp = async (): Promise<Express> => {
         app.use(cors);
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json());
+        app.use('/test', testRouter);
         app.use('/auth', authRouter);
         app.use('/user', userRouter);
         app.use('/workout', workoutsRouter);
