@@ -27,7 +27,7 @@ initApp().then((app) => {
                 !req.path.startsWith('/preferences') &&
                 !req.path.startsWith('/test')
             ) {
-                const filePath = `../client-static/dist${req.path === '/' ? '/index.html' : req.path}`;
+                const filePath = `./client-static/dist${req.path === '/' ? '/index.html' : req.path}`;
                 res.sendFile(path.resolve(filePath));
             }
         });
