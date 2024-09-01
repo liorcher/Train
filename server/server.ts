@@ -3,6 +3,7 @@ import fs from 'fs';
 import https from 'https';
 import http from 'http';
 import dotenv from 'dotenv';
+import path from 'path';
 import { checkDatabaseConnection } from './dal/data_access';
 
 dotenv.config();
@@ -17,6 +18,19 @@ initApp().then((app) => {
             cert: fs.readFileSync('./client-cert.pem'),
         };
         https.createServer(certs, app).listen(port);
+
+        app.get('*', (req, res) => {
+            if (
+                !req.path.startsWith('/auth') ||
+                !req.path.startsWith('/user') ||
+                !req.path.startsWith('/workout') ||
+                !req.path.startsWith('/preferences') ||
+                !req.path.startsWith('/test')
+            ) {
+                const filePath = `../client-static/dist${req.path === '/' ? '/index.html' : req.path}`;
+                res.sendFile(path.resolve(filePath));
+            }
+        });
     } else {
         console.log('server is running in development mode');
         http.createServer(app).listen(port);
