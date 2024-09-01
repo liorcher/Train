@@ -8,5 +8,5 @@
         "outDir": "dist"
     },
     "lib": ["ES2017"],
-    "exclude": ["src/tests"]
+    "exclude": ["tests"]
 }

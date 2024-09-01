@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "prod": "tsc -p tsconfig_prod.json && pm2 restart ecosystem.config.js --env production"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,6 @@
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }
