@@ -22,3 +22,7 @@ ALTER TABLE IF EXISTS "trAIn".goals
 
 ALTER TABLE "trAIn".goals
 ADD COLUMN workout_time TIME;
+
+ALTER TABLE IF EXISTS "trAIn".goals
+    ADD UNIQUE (user_id)
+    INCLUDE (user_id);

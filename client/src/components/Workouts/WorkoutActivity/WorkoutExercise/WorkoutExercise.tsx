@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import ReactPlayer from 'react-player';
-import { Grid, Tooltip, Typography } from '@mui/material';
+import { Grid, Link, Tooltip, Typography } from '@mui/material';
 import { Exercise } from '@/models';
 import Styles from '../WorkoutActivity.style';
 import ExerciseStyles from './WorkoutExercise.style';
+import { YoutubeApi } from '@/api';
 
 interface Props {
   exerciseNumber: number;
@@ -13,9 +14,23 @@ interface Props {
 
 export const WorkoutExercise: React.FC<Props> = ({ exerciseNumber, exercisesAmount, exercise }) => {
   const [isVideoError, setIsVideoError] = useState(false);
+  const [videoLink, setVideoLink] = useState('');
+  const [fallbackLink, setFallbackLink] = useState('');
+
+  const getYouTubeSearchLink = async (title: string) => {
+    try {
+      const { isSuccessful, link } = await YoutubeApi.fetchFirstYouTubeVideo(title);
+      isSuccessful ? setVideoLink(link) : setFallbackLink(link);
+    } catch (error) {
+      console.error('Failed to fetch video link', error);
+    }
+  };
 
   const handleVideoError = useCallback(() => {
-    setIsVideoError(true);
+    if (!videoLink) {
+      setIsVideoError(true);
+      getYouTubeSearchLink(exercise.name);
+    }
   }, []);
 
   return (
@@ -49,11 +64,11 @@ export const WorkoutExercise: React.FC<Props> = ({ exerciseNumber, exercisesAmou
         <Typography
           {...ExerciseStyles.exerciseDescription}
         >{`Note: ${exercise.description}`}</Typography>
-        {!isVideoError ? (
+        {!isVideoError || videoLink ? (
           <ReactPlayer
             width={'100%'}
             height={'230px'}
-            url={exercise.link}
+            url={!isVideoError ? exercise.link : videoLink}
             onError={handleVideoError}
           />
         ) : (
@@ -64,7 +79,18 @@ export const WorkoutExercise: React.FC<Props> = ({ exerciseNumber, exercisesAmou
             width={'100%'}
             height={'230px'}
           >
-            {'No video available'}
+            {fallbackLink ? (
+              <Link
+                color={'primary.light'}
+                href={fallbackLink}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {`Click here to search for ${exercise.name} on YouTube`}
+              </Link>
+            ) : (
+              'No video available'
+            )}
           </Typography>
         )}
       </Grid>

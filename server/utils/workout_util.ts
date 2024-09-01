@@ -1,21 +1,15 @@
-import { Workout } from "../models/workout";
+import { Workout } from '../models/workout';
 
-const daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-];
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export const scheduleWorkouts = (
     days: string[],
     workouts: Workout[],
-    numberOfWorkoutAhead: number): Workout[] => {
-
+    numberOfWorkoutAhead: number,
+    workoutTime: string
+): Workout[] => {
     const today = new Date().getDay();
+    const [hours, minutes, seconds] = workoutTime.split(':').map(Number);
 
     const sortedDays = days.slice().sort((a, b) => {
         const dayIndexA = (daysOfWeek.indexOf(a) - today + 7) % 7;
@@ -32,11 +26,16 @@ export const scheduleWorkouts = (
 
         const dayIndex = sortedDays.indexOf(currentDayName);
 
+        currentDay.setHours(hours, minutes, seconds);
+
         if (dayIndex !== -1) {
             const workoutIndex = ahedIndex % workouts.length;
-            workoutSchedule.push({ ...workouts[workoutIndex], date: currentDay.toDateString() });
+            workoutSchedule.push({
+                ...workouts[workoutIndex],
+                date: currentDay.toLocaleString('sv-SE', { hour12: false }),
+            });
         }
     }
 
     return workoutSchedule;
-}
+};
