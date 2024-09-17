@@ -1,6 +1,16 @@
 import type { Response, Request } from 'express';
 import { updatePreferencesByUser, getUser } from '../dal/users_dal';
-import { saveGoals } from '../dal/goals_dal';
+import { getGoalsByUser, saveGoals } from '../dal/goals_dal';
+
+const getUserPreferences = async (req: Request, res: Response) => {
+    try {
+        const userId = req.user.userId;
+        const user = await getGoalsByUser(userId);
+        return res.status(200).json(user);
+    } catch (error) {
+        res.status(400).send('An error occurred while fetching user preferences');
+    }
+};
 
 const saveUserPreferences = async (req: Request, res: Response) => {
     try {
@@ -17,4 +27,4 @@ const saveUserPreferences = async (req: Request, res: Response) => {
     }
 };
 
-export default { saveUserPreferences };
+export default { getUserPreferences, saveUserPreferences };

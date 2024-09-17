@@ -30,3 +30,6 @@ ALTER TABLE IF EXISTS "trAIn".users DROP CONSTRAINT IF EXISTS users_gender_check
 ALTER TABLE IF EXISTS "trAIn".users
     ADD CONSTRAINT users_gender_check CHECK (gender::text = ANY (ARRAY['Male'::character varying::text, 'Female'::character varying::text]))
     NOT VALID;
+
+ALTER TABLE IF EXISTS "trAIn".users
+    ADD COLUMN weights_progress numeric[] DEFAULT ARRAY[]::numeric[];
