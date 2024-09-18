@@ -1,13 +1,13 @@
 import Loader from '@/components/Loader';
 import { CalendarToday, FormatListBulleted, Refresh } from '@mui/icons-material';
 import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Styles from './WorkoutPlan.style';
 import WorkoutPlanItem from './WorkoutPlanItem';
 import { WorkoutsCalendar } from '../WorkoutsCalendar';
 import { Workout } from '@/models';
 import { usePersonalizedTrainingPlanContext } from '@/contexts';
-import dayjs from 'dayjs';
+import { getWeeklyWorkoutPlan } from '@/utils';
 
 type Props = {
   workouts: Workout[];
@@ -18,18 +18,6 @@ type Props = {
 const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
   const [isRegularView, setIsRegularView] = useState(true);
   const { loading } = usePersonalizedTrainingPlanContext();
-
-  const getWeeklyWorkoutPlan = useCallback(
-    () =>
-      workouts.filter((workout) => {
-        // check if workout's date is in this current week
-        const workoutDate = dayjs(workout.date);
-        const startOfWeek = dayjs().startOf('week');
-        const endOfWeek = dayjs().endOf('week');
-        return workoutDate.isAfter(startOfWeek) && workoutDate.isBefore(endOfWeek);
-      }),
-    [workouts]
-  );
 
   return (
     <Box sx={Styles.outerBox}>
@@ -64,7 +52,7 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
             </Typography>
           ) : (
             <Box sx={Styles.workoutList}>
-              {getWeeklyWorkoutPlan().map((workout, index) => (
+              {getWeeklyWorkoutPlan(workouts).map((workout, index) => (
                 <WorkoutPlanItem
                   key={index}
                   workout={workout}

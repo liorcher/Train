@@ -1,37 +1,24 @@
-import { WorkoutApi } from '@/api';
+import { useLocation } from 'react-router-dom';
+import { Button, Grid, Grow, Typography } from '@mui/material';
 import { useGlobalModalContext, usePersonalizedTrainingPlanContext } from '@/contexts';
 import { useAuth } from '@/contexts/AuthContext';
-import { Button, Grid, Grow, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { toast } from 'sonner';
-import { WithTrainersImages } from '../HOC';
 import Loader from '../Loader';
 import { Form } from '../PreferenceQuestionnaire/Form';
-import ProgressCharts from '../ProgressCharts/ProgressCharts';
+import { WithTrainersImages } from '../HOC';
 import style from './style';
+import { UserProgressContainer } from './charts';
 
 export const UserProgressPage = WithTrainersImages(() => {
-  const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading: loadingUser } = useAuth();
   const location = useLocation();
   const { showModal } = useGlobalModalContext();
-  const { updateWorkouts } = usePersonalizedTrainingPlanContext();
+  const {
+    isGeneratingPlan,
+    loading: loadingWorkouts,
+    generateTraningPlan,
+  } = usePersonalizedTrainingPlanContext();
+  const isLoading = loadingUser || loadingWorkouts;
   const showIntroduction = !!location?.state?.firstTime;
-
-  const handlePreferencesSave = async () => {
-    setIsGeneratingPlan(true);
-    try {
-      const workouts = await WorkoutApi.createWorkoutPlan();
-      updateWorkouts(workouts);
-      toast.success('your workout plan has been created successfully');
-    } catch (error) {
-      toast.error('error occured while trying to create user plan');
-      console.error('error occured while trying to create user plan', error);
-    } finally {
-      setIsGeneratingPlan(false);
-    }
-  };
 
   return isGeneratingPlan ? (
     <Grid
@@ -58,7 +45,7 @@ export const UserProgressPage = WithTrainersImages(() => {
         }
       />
     </Grid>
-  ) : loading ? (
+  ) : isLoading ? (
     <Loader />
   ) : (
     <Grid
@@ -67,8 +54,10 @@ export const UserProgressPage = WithTrainersImages(() => {
       direction={'column'}
       alignItems={'center'}
       justifyContent={'flex-start'}
-      rowGap={'2rem'}
+      rowGap={'1rem'}
       p={'30px'}
+      width={'fit-content'}
+      position={'relative'}
     >
       <Grid item>
         <Grow in timeout={3000}>
@@ -93,7 +82,7 @@ export const UserProgressPage = WithTrainersImages(() => {
                 onClick={() =>
                   showModal(Form, {
                     onSaveSuccess: () => {
-                      handlePreferencesSave();
+                      generateTraningPlan();
                     },
                   })
                 }
@@ -110,10 +99,8 @@ export const UserProgressPage = WithTrainersImages(() => {
             </Grid>
           </Grid>
         ) : (
-          <Grid item container direction={'row'} alignItems={'center'} justifyContent={'center'}>
-            <Grid item>
-              <ProgressCharts />
-            </Grid>
+          <Grid item>
+            <UserProgressContainer />
           </Grid>
         )}
       </Grow>

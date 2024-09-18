@@ -13,7 +13,7 @@ export const PhysicalDataForm: React.FC = () => {
 
   return (
     <PreferenceFieldForm
-      title={'Please fill your pysical data'}
+      title={'Please fill your physical data'}
       fields={[
         {
           field: (

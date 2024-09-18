@@ -1,35 +1,35 @@
+import { Gauge } from '@mui/x-charts/Gauge';
 import { Chart } from '@/types/chart.type';
 import { Grid, Typography } from '@mui/material';
-import { Gauge } from '@mui/x-charts/Gauge';
 import Styles from './ProgressCharts.style';
 
-const ProgressCharts: React.FC = () => {
-  const mockData = { caloriesBurned: 20, weightLoss: 10 };
-  const charts: Chart[] = [
-    { title: 'Burnt Calories', data: mockData.caloriesBurned },
-    { title: 'Weight Loss', data: mockData.weightLoss },
-  ];
+interface Props {
+  charts: Chart[];
+}
 
+const ProgressCharts: React.FC<Props> = ({ charts }) => {
   const gaugeSettings = (chart: Chart) => ({
     value: chart.data,
     cornerRadius: '50%',
     sx: Styles.gauge,
-    text: `${chart.data}%`,
+    text: `${chart.data}${chart.isPrecentage ? '%' : ''}`,
   });
 
   return (
-    <Grid container direction='row' sx={{ gap: 30, margin: '5vw' }}>
+    <Grid container direction='row' alignItems={'center'} wrap='nowrap' columnGap={'5rem'}>
       {charts.map((chart, index) => (
         <Grid
+          container
           item
           key={index}
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          justifyContent={'center'}
+          alignItems={'center'}
+          direction={'column'}
         >
-          <Typography sx={Styles.title}>{chart.title}</Typography>
           <Gauge {...gaugeSettings(chart)} />
+          <Typography variant='h5' sx={Styles.title}>
+            {chart.title}
+          </Typography>
         </Grid>
       ))}
     </Grid>

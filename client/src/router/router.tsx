@@ -6,7 +6,11 @@ import { CircularProgress } from '@mui/material';
 import { AppLogo } from '@/assets';
 import Navbar from '@/components/Navbar';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { GlobalModalProvider, PersonalizedTrainingPlanProvider } from '@/contexts';
+import {
+  GlobalModalProvider,
+  PersonalizedTrainingPlanProvider,
+  PreferencesProvider,
+} from '@/contexts';
 import { Toaster } from 'sonner';
 
 function Router() {
@@ -18,9 +22,11 @@ function Router() {
           <AuthProvider>
             <GlobalModalProvider>
               <PersonalizedTrainingPlanProvider>
-                <Navbar />
-                <Outlet />
-                <Toaster richColors />
+                <PreferencesProvider>
+                  <Navbar />
+                  <Outlet />
+                  <Toaster richColors />
+                </PreferencesProvider>
               </PersonalizedTrainingPlanProvider>
             </GlobalModalProvider>
           </AuthProvider>

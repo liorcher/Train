@@ -4,16 +4,19 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 type PreferencesQuestionnaireContext = {
   currentStepIndex: number;
   lastLoadedStepIndex: number;
+  filledPreferences: boolean;
   incrementLastLoadedStepIndex: VoidFunction;
 };
 
 type Props = {
   currentStepIndex: number;
+  filledPreferences: boolean;
 };
 
 const initalState: PreferencesQuestionnaireContext = {
   currentStepIndex: 0,
   lastLoadedStepIndex: 0,
+  filledPreferences: false,
   incrementLastLoadedStepIndex: () => {},
 };
 
@@ -22,6 +25,7 @@ export const usePreferencesQuestionnaireContext = () => useContext(PreferencesQu
 
 export const PreferencesQuestionnaireProvider: React.FC<PropsWithChildren<Props>> = ({
   currentStepIndex,
+  filledPreferences,
   children,
 }) => {
   const [lastLoadedStepIndex, setLastLoadedStepIndex] = useState<number>(0);
@@ -33,7 +37,12 @@ export const PreferencesQuestionnaireProvider: React.FC<PropsWithChildren<Props>
 
   return (
     <PreferencesQuestionnaireContext.Provider
-      value={{ currentStepIndex, lastLoadedStepIndex, incrementLastLoadedStepIndex }}
+      value={{
+        currentStepIndex,
+        lastLoadedStepIndex,
+        filledPreferences,
+        incrementLastLoadedStepIndex,
+      }}
     >
       {children}
     </PreferencesQuestionnaireContext.Provider>

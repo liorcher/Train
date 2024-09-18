@@ -14,28 +14,9 @@ const WorkoutsPage: React.FC = () => {
   const [workout, setWorkout] = useState<Workout | null>(null);
 
   useEffect(() => {
-    fetchWorkouts();
-  }, [currentUser]);
-
-  const fetchWorkouts = useCallback(async () => {
-    try {
-      setLoading(true);
-      if (currentUser) {
-        const workouts = await WorkoutApi.getUserWorkouts();
-        updateWorkouts(workouts);
-
-        const updatedWorkout =
-          find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
-        setWorkout(updatedWorkout);
-      } else {
-        throw new Error('User not found');
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentUser, workout]);
+    const updatedWorkout = find(workouts, { id: workout?.id }) || (workouts && workouts[0]) || null;
+    setWorkout(updatedWorkout);
+  }, []);
 
   const refreshWorkouts = useCallback(async () => {
     try {

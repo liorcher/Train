@@ -7,6 +7,7 @@ import { CheckCircle, RemoveCircle } from '@mui/icons-material';
 import { WorkoutApi } from '@/api';
 import { usePersonalizedTrainingPlanContext } from '@/contexts';
 import { toast } from 'sonner';
+import inputStyle from '../../style';
 
 type Props = {
   workout: Workout;
@@ -93,14 +94,7 @@ const WorkoutPlanItem = ({ workout, setWorkout, index }: Props) => {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              sx={{
-                '& .MuiInputBase-root': {
-                  border: '1px solid white',
-                  height: '30px',
-                  color: 'white',
-                  fontSize: '13px',
-                },
-              }}
+              sx={inputStyle.numericInput}
               type={'number'}
               InputProps={{ endAdornment: 'cal' }}
               value={caloriesBurned || 0}

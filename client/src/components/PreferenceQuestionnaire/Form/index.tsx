@@ -9,6 +9,7 @@ import { ProgressBar } from './style';
 import { PreferenceQuestionnaireFormFields } from '../types';
 import {
   convertFormValuesToApi,
+  convertPreferencesToFormFields,
   getFormDefaultValues,
   PreferenceQuestionnaireFieldsNames,
 } from '../formFields';
@@ -29,30 +30,42 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalModalContext } from '@/contexts';
 import { FormActionButton } from '@/components';
 import { PreferencesQuestionnaireProvider } from './PreferencesQuestionnaireContext';
+import { PreferencesMetaData } from '@/models';
+import { FormStepIcon } from './FormStepIcon';
+import { stepsIcons } from '../consts';
 
 interface Props {
+  preferences?: PreferencesMetaData;
+  filledPreferences?: boolean;
   onSaveSuccess: VoidFunction;
 }
 
-export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
+export const Form: React.FC<Props> = ({
+  onSaveSuccess,
+  filledPreferences = false,
+  preferences,
+}) => {
   const {
     multiStepForm: { nextBtn, doneBtn, backBtn },
   } = dictionary;
 
-  const { currentStepIndex, isFirstStep, isLastStep, step, steps, next, back } = useMultiStepForm([
-    <AboutYourselfForm />,
-    <PhysicalDataForm />,
-    <ActivityLevelForm />,
-    <GoalsForm />,
-    <DaysForm />,
-    <WorkoutsForm />,
-    <WorkoutDurationForm />,
-    <SubmitForm />,
-  ]);
+  const { currentStepIndex, isFirstStep, isLastStep, step, steps, next, back, goTo } =
+    useMultiStepForm([
+      <AboutYourselfForm />,
+      <PhysicalDataForm />,
+      <ActivityLevelForm />,
+      <GoalsForm />,
+      <DaysForm />,
+      <WorkoutsForm />,
+      <WorkoutDurationForm />,
+      <SubmitForm />,
+    ]);
 
   const form = useForm<PreferenceQuestionnaireFormFields>({
     mode: 'onSubmit',
-    defaultValues: { ...getFormDefaultValues() },
+    defaultValues: preferences
+      ? convertPreferencesToFormFields(preferences)
+      : getFormDefaultValues(),
     resolver: yupResolver(validationSchema),
   });
 
@@ -72,6 +85,14 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
       console.error('An error occurred while saving user preferences', error);
     } finally {
       stopLoading();
+    }
+  };
+
+  const handleGoToSubmit = async () => {
+    const isValid = await trigger();
+
+    if (isValid) {
+      goTo(steps.length - 1);
     }
   };
 
@@ -120,7 +141,10 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
   return (
     <Dialog open onClose={hideModal} maxWidth={'sm'} fullWidth>
       <FormProvider {...form}>
-        <PreferencesQuestionnaireProvider currentStepIndex={currentStepIndex}>
+        <PreferencesQuestionnaireProvider
+          filledPreferences={filledPreferences}
+          currentStepIndex={currentStepIndex}
+        >
           <form>
             <Grid container height={'100%'} p={4} direction={'column'}>
               <Grid
@@ -136,9 +160,31 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
                 </Grid>
               </Grid>
               <Grid item container direction={'column'} justifyContent={'flex-start'} marginTop={2}>
-                <Typography variant='h6' color={'info.main'}>
-                  {`Step ${currentStepIndex + 1} / ${steps.length}`}
-                </Typography>
+                <Grid container item justifyContent={'space-between'} alignItems={'center'}>
+                  <Typography variant='h6' fontWeight={'500'} color={'info.main'}>
+                    {`Step ${currentStepIndex + 1} / ${steps.length}`}
+                  </Typography>
+                  {stepsIcons.map((step, index) => (
+                    <FormStepIcon
+                      key={index}
+                      title={step.title}
+                      Icon={step.Icon}
+                      onClick={() => goTo(index)}
+                      isSelected={currentStepIndex === index}
+                    />
+                  ))}
+                  {filledPreferences && (
+                    <Typography
+                      onClick={handleGoToSubmit}
+                      variant='h6'
+                      color={'info.main'}
+                      fontWeight={'700'}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      {`skip to end >>`}
+                    </Typography>
+                  )}
+                </Grid>
                 <ProgressBar
                   variant={'fullWidth'}
                   orientation={'horizontal'}
@@ -161,7 +207,10 @@ export const Form: React.FC<Props> = ({ onSaveSuccess }) => {
                   {!isFirstStep && <FormActionButton onClick={back}>{backBtn}</FormActionButton>}
                 </Grid>
                 <Grid item>
-                  <FormActionButton onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}>
+                  <FormActionButton
+                    disabled={isLastStep ? !!Object.keys(form.formState.errors).length : false}
+                    onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}
+                  >
                     {isLastStep ? doneBtn : nextBtn}
                     {loading && <Loader size={25} />}
                   </FormActionButton>
