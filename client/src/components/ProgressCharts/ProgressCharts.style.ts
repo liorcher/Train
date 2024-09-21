@@ -9,17 +9,17 @@ const gauge: (theme: Theme) => {
   width: string;
   height: string;
 } = (theme: Theme) => ({
-  width: '20vw',
-  height: '45vh',
+  width: '15vw',
+  height: '18vh',
   [`& .${gaugeClasses.valueText}`]: {
-    fontSize: 40,
+    fontSize: 20,
     text: { fill: theme.palette.secondary.light },
   },
   [`& .${gaugeClasses.valueArc}`]: {
-    fill: theme.palette.error.main,
+    fill: theme.palette.info.main,
   },
   [`& .${gaugeClasses.referenceArc}`]: {
-    fill: theme.palette.secondary.dark,
+    fill: theme.palette.secondary.light,
   },
 });
 
@@ -27,7 +27,6 @@ const title: SxProps = {
   color: 'secondary.light',
   textAlign: 'center',
   fontWeight: 'bold',
-  fontSize: '30px',
 };
 
 export default {

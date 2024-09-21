@@ -1,5 +1,5 @@
 import type { Response, Request } from 'express';
-import { getUser } from '../dal/users_dal';
+import { getUser, updateUserWeightProgress } from '../dal/users_dal';
 
 const getCurrentUser = async (req: Request, res: Response) => {
     try {
@@ -14,4 +14,13 @@ const getCurrentUser = async (req: Request, res: Response) => {
     }
 };
 
-export default { getCurrentUser };
+const updateUserWeight = async (req: Request, res: Response) => {
+    try {
+        await updateUserWeightProgress(req.user.userId, req.body.weight);
+        res.status(200).send('Weight updated successfully');
+    } catch (error) {
+        res.status(400).send('An error occurred while updating weight');
+    }
+};
+
+export default { getCurrentUser, updateUserWeight };

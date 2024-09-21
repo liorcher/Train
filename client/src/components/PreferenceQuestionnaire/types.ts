@@ -2,7 +2,7 @@ export type PreferenceQuestionnaireFormFields = {
   gender: Gender;
   age: number;
   weight: number;
-  targetWeight?: number;
+  targetWeight: number;
   height: number;
   activityLevel: ActivityLevel;
   goals: { goal: Goal }[];

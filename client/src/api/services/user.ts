@@ -8,17 +8,8 @@ class UserApi {
     return res.data;
   }
 
-  async updateUserData(name?: string, phoneNumber?: string, imageUrl?: string) {
-    const res = await Api.put(
-      `${USER_PATH_URL}/userData`,
-      { name, phoneNumber, imageUrl },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
+  async updateUserWeight(weight: number) {
+    const res = await Api.put(`${USER_PATH_URL}/weight`, { weight });
     return res.data;
   }
 }

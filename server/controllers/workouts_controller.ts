@@ -40,11 +40,12 @@ const createUserWorkoutPlan = async (req: Request, res: Response) => {
         );
 
         await deleteWorkoutsByUser(userId);
-        
+
         const workouts = await Promise.all(
             scheduledWorkouts.map(async (workout: Workout) => {
                 workout.userId = userId;
-                return saveWorkout(workout);
+                const results = await saveWorkout(workout);
+                return results[0];
             })
         );
 

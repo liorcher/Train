@@ -51,6 +51,17 @@ export const getFormDefaultValues = (): PreferenceQuestionnaireFormFields => ({
   [PreferenceQuestionnaireFieldsNames.WORKOUT_TIME]: '',
 });
 
+export const convertPreferencesToFormFields = (
+  preferences: PreferencesMetaData
+): PreferenceQuestionnaireFormFields => ({
+  ...preferences,
+  gender: preferences.gender as Gender,
+  activityLevel: preferences.activityLevel as ActivityLevel,
+  goals: preferences.goals.map((goal) => ({ goal: goal as Goal })),
+  days: preferences.days.map((day) => ({ day: day as Day })),
+  workouts: preferences.workouts.map((workout) => ({ workout: workout as Workout })),
+});
+
 export const convertFormValuesToApi = (
   values: PreferenceQuestionnaireFormFields
 ): PreferencesMetaData => ({
