@@ -7,3 +7,14 @@ export const FormActionButton = styled(Button)(({ theme }) => ({
   height: 'fit-content',
   columnGap: '1rem',
 }));
+
+export default {
+  numericInput: {
+    '& .MuiInputBase-root': {
+      border: '1px solid white',
+      height: '30px',
+      color: 'white',
+      fontSize: '13px',
+    },
+  },
+};

@@ -11,11 +11,11 @@ interface Props {
 
 export const PreferenceFieldForm: React.FC<Props> = ({ title, fields }) => {
   const [showMessage, setShowMessage] = useState(false);
-  const { currentStepIndex, lastLoadedStepIndex, incrementLastLoadedStepIndex } =
+  const { currentStepIndex, lastLoadedStepIndex, filledPreferences, incrementLastLoadedStepIndex } =
     usePreferencesQuestionnaireContext();
 
   useEffect(() => {
-    if (currentStepIndex < lastLoadedStepIndex) {
+    if (filledPreferences || currentStepIndex < lastLoadedStepIndex) {
       setShowMessage(true);
       return;
     }
