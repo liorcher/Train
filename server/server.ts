@@ -8,7 +8,8 @@ import { checkDatabaseConnection } from './dal/data_access';
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT as string, 10) || 9000;
+const hostname = '0.0.0.0';
 
 initApp().then((app) => {
     if (process.env.NODE_ENV === 'production') {
@@ -17,23 +18,12 @@ initApp().then((app) => {
             key: fs.readFileSync('./client-key.pem'),
             cert: fs.readFileSync('./client-cert.pem'),
         };
-        https.createServer(certs, app).listen(port);
 
-        app.get('*', (req, res) => {
-            if (
-                !req.path.startsWith('/auth') &&
-                !req.path.startsWith('/user') &&
-                !req.path.startsWith('/workout') &&
-                !req.path.startsWith('/preferences') &&
-                !req.path.startsWith('/test')
-            ) {
-                const filePath = `./client-static/dist${req.path === '/' ? '/index.html' : req.path}`;
-                res.sendFile(path.resolve(filePath));
-            }
-        });
+        https.createServer(certs, app).listen(port, hostname);
     } else {
         console.log('server is running in development mode');
-        http.createServer(app).listen(port);
+
+        http.createServer(app).listen(port, hostname);
     }
 
     checkDatabaseConnection();
