@@ -130,6 +130,8 @@ out
 
 **/dist/**/*
 
+/server/public
+
 *.key
 *.pem
 *.crt

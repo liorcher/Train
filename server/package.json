@@ -9,7 +9,7 @@
         "test": "tsc && jest --detectOpenHandles --forceExit --coverage",
         "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage ./tests/auth.test.ts",
         "prod": "cp .env.prod .env && tsc -p tsconfig.prod.json && node dist/server.js",
-        "prodPM2": "cp -r ../client/dist ./client-static && cp .env.prod .env && tsc -p tsconfig.prod.json && pm2 restart ecosystem.config.js --env production"
+        "prodPM2": "cp -r ../client/dist ./public && cp .env.prod .env && tsc -p tsconfig.prod.json && pm2 restart ecosystem.config.js --env production"
     },
     "repository": {
         "type": "git",
@@ -25,6 +25,7 @@
         "express": "^4.19.2",
         "jsonwebtoken": "^9.0.2",
         "node-postgres": "^0.6.2",
+        "path": "^0.12.7",
         "pg": "^8.12.0",
         "pm2": "^5.4.2",
         "ts-node": "^10.9.2",
