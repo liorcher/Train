@@ -15,6 +15,7 @@ const {
       missingAge,
       missingWeight,
       missingHeight,
+      missingTargetWeight,
       missingActivityLevel,
       missingGoals,
       missingDays,
@@ -34,7 +35,7 @@ export const validationSchema: yup.ObjectSchema<PreferenceQuestionnaireFormField
     age: yup.number().min(1).max(120).required(missingAge),
     weight: yup.number().min(1).max(500).required(missingWeight),
     height: yup.number().min(50).max(250).required(missingHeight),
-    targetWeight: yup.number().min(1).max(500),
+    targetWeight: yup.number().min(1).max(500).required(missingTargetWeight),
     activityLevel: yup
       .mixed<ActivityLevel>()
       .oneOf(Object.values(ActivityLevel))

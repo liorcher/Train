@@ -10,6 +10,7 @@ export default {
       missingAge: 'Age is required',
       missingWeight: 'Weight is required',
       missingHeight: 'Height is required',
+      missingTargetWeight: 'TargetWeight is required',
       missingActivityLevel: 'Activity level is required',
       missingGoals: 'Goals are required',
       missingDays: 'Days are required',
