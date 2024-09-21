@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PreferencesApi } from '@/api';
 import { UserGoals } from '@/models';
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 type PreferencesContext = {
   preferences: UserGoals | null;
-  updatePreferences: (preferences: UserGoals) => void;
+  updatePreferences: (preferences: UserGoals | null) => void;
   fetchPreferences: () => Promise<void>;
 };
 
@@ -21,11 +21,9 @@ export const usePreferencesContext = () => useContext(PreferencesContext);
 export const PreferencesProvider: React.FC<PropsWithChildren<object>> = ({ children }) => {
   const [preferences, setPreferences] = useState<UserGoals | null>(null);
 
-  useEffect(() => {
-    !preferences && fetchPreferences();
-  }, []);
-
-  const updatePreferences = (preferences: UserGoals) => setPreferences(preferences);
+  const updatePreferences = (preferences: UserGoals | null) => {
+    setPreferences(preferences);
+  };
 
   const fetchPreferences = async () => {
     try {

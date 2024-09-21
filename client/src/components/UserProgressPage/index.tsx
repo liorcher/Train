@@ -1,12 +1,17 @@
 import { useLocation } from 'react-router-dom';
 import { Button, Grid, Grow, Typography } from '@mui/material';
-import { useGlobalModalContext, usePersonalizedTrainingPlanContext } from '@/contexts';
+import {
+  useGlobalModalContext,
+  usePersonalizedTrainingPlanContext,
+  usePreferencesContext,
+} from '@/contexts';
 import { useAuth } from '@/contexts/AuthContext';
 import Loader from '../Loader';
 import { Form } from '../PreferenceQuestionnaire/Form';
 import { WithTrainersImages } from '../HOC';
 import style from './style';
 import { UserProgressContainer } from './charts';
+import { useEffect } from 'react';
 
 export const UserProgressPage = WithTrainersImages(() => {
   const { currentUser, loading: loadingUser } = useAuth();
@@ -17,8 +22,13 @@ export const UserProgressPage = WithTrainersImages(() => {
     loading: loadingWorkouts,
     generateTraningPlan,
   } = usePersonalizedTrainingPlanContext();
+  const { preferences, fetchPreferences } = usePreferencesContext();
   const isLoading = loadingUser || loadingWorkouts;
   const showIntroduction = !!location?.state?.firstTime;
+
+  useEffect(() => {
+    !preferences && currentUser?.filledPreferences && fetchPreferences();
+  }, [currentUser]);
 
   return isGeneratingPlan ? (
     <Grid
@@ -82,6 +92,7 @@ export const UserProgressPage = WithTrainersImages(() => {
                 onClick={() =>
                   showModal(Form, {
                     onSaveSuccess: () => {
+                      fetchPreferences();
                       generateTraningPlan();
                     },
                   })

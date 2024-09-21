@@ -51,7 +51,11 @@ const WorkoutsPage: React.FC = () => {
   return (
     <Box sx={Styles.outerBox}>
       <Stack {...Styles.stack}>
-        <WorkoutPlan workouts={workouts} setWorkout={setWorkout} fetchWorkouts={refreshWorkouts} />
+        <WorkoutPlan
+          workouts={workouts}
+          setWorkout={setWorkout}
+          refreshWorkouts={refreshWorkouts}
+        />
         {workout && <WorkoutActivity workout={workout} updateWorkout={updateWorkout} />}
       </Stack>
     </Box>

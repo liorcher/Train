@@ -2,7 +2,7 @@ export type PreferencesMetaData = {
   gender: string;
   age: number;
   weight: number;
-  targetWeight?: number;
+  targetWeight: number;
   height: number;
   activityLevel: string;
   goals: string[];

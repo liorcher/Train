@@ -27,12 +27,18 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
   const { showModal } = useGlobalModalContext();
-  const { preferences, updatePreferences } = usePreferencesContext();
-  const { generateTraningPlan } = usePersonalizedTrainingPlanContext();
+  const { preferences, updatePreferences, fetchPreferences } = usePreferencesContext();
+  const { generateTraningPlan, updateWorkouts } = usePersonalizedTrainingPlanContext();
 
   const handleLogout = async () => {
-    await logout();
-    navigate(HOME_URL);
+    try {
+      await logout();
+      updatePreferences(null);
+      updateWorkouts([]);
+      navigate(HOME_URL);
+    } catch (error) {
+      console.error('Error logging out', error);
+    }
   };
 
   const openPreferencesModal = (goals: UserGoals) =>
@@ -42,6 +48,7 @@ const Navbar: React.FC = () => {
       preferences: getAllUserPreferences(currentUser, goals),
       onSaveSuccess: () => {
         navigate(USER_PROGRESS_URL);
+        fetchPreferences();
         generateTraningPlan();
       },
     });

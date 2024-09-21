@@ -12,10 +12,10 @@ import { getWeeklyWorkoutPlan } from '@/utils';
 type Props = {
   workouts: Workout[];
   setWorkout: Dispatch<SetStateAction<Workout | null>>;
-  fetchWorkouts: () => void;
+  refreshWorkouts: VoidFunction;
 };
 
-const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
+const WorkoutPlan = ({ workouts, setWorkout, refreshWorkouts }: Props) => {
   const [isRegularView, setIsRegularView] = useState(true);
   const { loading } = usePersonalizedTrainingPlanContext();
 
@@ -38,7 +38,7 @@ const WorkoutPlan = ({ workouts, setWorkout, fetchWorkouts }: Props) => {
             <Typography {...Styles.title}>Your Weekly Workout Plan</Typography>
             <Box sx={Styles.refreshIconBox}>
               <Tooltip title='Refresh workout plan'>
-                <IconButton onClick={fetchWorkouts}>
+                <IconButton onClick={refreshWorkouts}>
                   <Refresh {...Styles.refreshIcon} />
                 </IconButton>
               </Tooltip>
